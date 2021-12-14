@@ -1,10 +1,12 @@
 import Carousel from "../components/Carousel";
 import styled from 'styled-components';
+import Categories from "../components/Categories";
 
 const Home = () => {
     return (
         <Container>
             <Carousel /> 
+            <Categories />
         </Container>
     )
 }
