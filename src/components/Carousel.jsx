@@ -1,56 +1,52 @@
 import styled from "styled-components";
 import { ArrowRight, ArrowLeft } from "@mui/icons-material/";
+import { carouselItems } from "../dummyData.js";
+import { useState } from "react";
 
 const Carousel = () => {
+  const [slideIndex, setSlideIndex] = useState(0);
 
   const handleClick = (direction) => {
+    if (direction === "left") {
+      if (slideIndex > 0) {
+        setSlideIndex(slideIndex - 1)
+      } 
+      if (slideIndex === 0) {
+        setSlideIndex(2);
+      }
+    }
 
-  }
+    if (direction === "right") {
+      if (slideIndex === 2) {
+        setSlideIndex(0);
+      }
+      if (slideIndex < 2) {
+        setSlideIndex(slideIndex + 1);
+      }
+      
+    } 
+  };
 
   return (
     <Container>
       <Arrow direction="left" onClick={() => handleClick("left")}>
         <ArrowLeft />
       </Arrow>
-      <Slides>
-        <Slide>
-          <SlideImageContainer>
-            <SlideImage src="/images/slide-image-1.jpg" alt=""></SlideImage>
-          </SlideImageContainer>
-          <SlideInfoContainer>
-            <SlideInfoTitle>STEP UP YOUR DRIP</SlideInfoTitle>
-            <SlideInfoDescription>
-              You've never seen prices this low! Get 85% off all this drip
-            </SlideInfoDescription>
-            <SlideInfoButton>Shop Now</SlideInfoButton>
-          </SlideInfoContainer>
-        </Slide>
-        <Slide>
-          <SlideImageContainer>
-            <SlideImage src="/images/slide-image-1.jpg" alt=""></SlideImage>
-          </SlideImageContainer>
-          <SlideInfoContainer>
-            <SlideInfoTitle>STEP UP YOUR DRIP</SlideInfoTitle>
-            <SlideInfoDescription>
-              You've never seen prices this low! Get 85% off all this drip
-            </SlideInfoDescription>
-            <SlideInfoButton>Shop Now</SlideInfoButton>
-          </SlideInfoContainer>
-        </Slide>
-        <Slide>
-          <SlideImageContainer>
-            <SlideImage src="/images/slide-image-1.jpg" alt=""></SlideImage>
-          </SlideImageContainer>
-          <SlideInfoContainer>
-            <SlideInfoTitle>STEP UP YOUR DRIP</SlideInfoTitle>
-            <SlideInfoDescription>
-              You've never seen prices this low! Get 85% off all this drip
-            </SlideInfoDescription>
-            <SlideInfoButton>Shop Now</SlideInfoButton>
-          </SlideInfoContainer>
-        </Slide>
+      <Slides slideIndex={slideIndex}>
+        {carouselItems.map((item, key) => (
+          <Slide key={key}>
+            <SlideImageContainer>
+              <SlideImage src={item.img} alt=""></SlideImage>
+            </SlideImageContainer>
+            <SlideInfoContainer>
+              <SlideInfoTitle>{item.title}</SlideInfoTitle>
+              <SlideInfoDescription>{item.desc}</SlideInfoDescription>
+              <SlideInfoButton>Shop Now</SlideInfoButton>
+            </SlideInfoContainer>
+          </Slide>
+        ))}
       </Slides>
-      <Arrow direction="right">
+      <Arrow direction="right" onClick={() => handleClick("right")}>
         <ArrowRight />
       </Arrow>
     </Container>
@@ -63,7 +59,7 @@ const Container = styled.div`
   height: calc(100vh - 115px);
   width: 100%;
   position: relative;
-  overflow: hidden; 
+  overflow: hidden;
 `;
 
 const Arrow = styled.div`
@@ -80,31 +76,36 @@ const Arrow = styled.div`
   left: ${(props) => props.direction === "left" && "10px"};
   right: ${(props) => props.direction === "right" && "10px"};
   margin: auto;
-  z-index: 5; 
+  z-index: 100;
   cursor: pointer;
-  opacity: .7; 
+  opacity: 0.7;
 `;
 
 const Slides = styled.div`
   height: 100%;
-  display: flex; 
+  display: flex;
+  transform: translateX(${({slideIndex}) => slideIndex * -100}vw);
+  transition-property: transform;
+  transition-duration: .5s; 
+  transition-timing-function: ease-in-out;
 `;
 
 const Slide = styled.div`
   height: 100vh;
   width: 100vw;
   display: flex;
+  position: relative;
 `;
 
 const SlideImageContainer = styled.div`
   flex: 1;
   height: 100%;
-  width: 100vw; 
+  width: 100vw;
 `;
 
 const SlideImage = styled.img`
   height: 100%;
-  width: 100%; 
+  width: 100%;
   object-fit: cover;
 `;
 
@@ -116,12 +117,12 @@ const SlideInfoContainer = styled.div`
   justify-content: center;
   align-items: center;
   position: absolute;
-  left: 0; 
-  right: 0; 
-  top: 40%; 
-  margin-left: auto; 
+  left: 0;
+  right: 0;
+  top: 40%;
+  margin-left: auto;
   margin-right: auto;
-  color: white; 
+  color: white;
 `;
 
 const SlideInfoTitle = styled.h1`
@@ -138,7 +139,7 @@ const SlideInfoDescription = styled.span`
 const SlideInfoButton = styled.button`
   height: 50px;
   width: 200px;
-  background-color: white; 
+  background-color: white;
   font-size: 20px;
-  font-weight: 500; 
+  font-weight: 500;
 `;
