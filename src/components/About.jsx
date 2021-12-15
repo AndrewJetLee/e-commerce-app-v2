@@ -55,4 +55,5 @@ const AboutUs = styled.button`
     margin-top: 30px; 
     font-weight: 300; 
     color: rgb(51, 51, 51);
+    cursor: pointer; 
 `;
