@@ -20,7 +20,7 @@ export const carouselItems = [
   ];
 
 
-  export const CategoriesTopItems = [
+  export const CategoriesItems = [
     {
       id: 1,
       img: "/images/categories-new.jpg",

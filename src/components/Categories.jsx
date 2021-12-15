@@ -1,17 +1,14 @@
 import styled from 'styled-components';
 import CategoryItem from './CategoryItem'
-import { CategoriesTopItems } from '../dummyData'
+import { CategoriesItems } from '../dummyData'
 
 const Categories = () => {
     return (
         <Container>
             <Content>
-                <CategoriesTop>
-                    {CategoriesTopItems.map((item) => <CategoryItem item={item}/>)}
-                </CategoriesTop>
-                <CategoriesBottom>
-
-                </CategoriesBottom>
+                <Items>
+                    {CategoriesItems.map((item) => <CategoryItem item={item}/>)}
+                </Items>
             </Content>
         </Container>
     )
@@ -25,7 +22,7 @@ const Container = styled.div`
 const Content = styled.div`
 `
 
-const CategoriesTop = styled.div`
+const Items = styled.div`
     margin-top: 100px; 
     width: 100%; 
     display: flex; 
@@ -34,7 +31,3 @@ const CategoriesTop = styled.div`
     justify-content: center;
 `
 
-
-const CategoriesBottom = styled.div`
-    
-`
