@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Categories from "../components/Categories";
 import Products from "../components/Products";
 import About from "../components/About";
+import Footer from "../components/Footer";
 
 const Home = () => {
     return (
@@ -11,6 +12,7 @@ const Home = () => {
             <Categories />
             <Products />
             <About />
+            <Footer />
         </Container>
     )
 }
