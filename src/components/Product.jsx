@@ -33,7 +33,7 @@ const Container = styled.div`
 const Image = styled.img`
     width: 180px;
     height: 180px; 
-    object-fit: fill; 
+    object-fit: contain; 
 `
 const Info = styled.div`
     position: absolute; 
