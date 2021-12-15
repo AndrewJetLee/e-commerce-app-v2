@@ -1,16 +1,13 @@
 import styled from 'styled-components';
 import CategoryItem from './CategoryItem'
+import { CategoriesTopItems } from '../dummyData'
 
 const Categories = () => {
     return (
         <Container>
             <Content>
                 <CategoriesTop>
-                    <CategoryItem />
-                    <CategoryItem />
-                    <CategoryItem />
-                    <CategoryItem />
-                    
+                    {CategoriesTopItems.map((item) => <CategoryItem item={item}/>)}
                 </CategoriesTop>
                 <CategoriesBottom>
 
@@ -26,13 +23,15 @@ const Container = styled.div`
     
 `
 const Content = styled.div`
-    
 `
 
 const CategoriesTop = styled.div`
+    margin-top: 100px; 
     width: 100%; 
     display: flex; 
-    background-color: teal; 
+    background-color: white; 
+    flex-wrap: wrap; 
+    justify-content: center;
 `
 
 
