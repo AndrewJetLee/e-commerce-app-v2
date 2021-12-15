@@ -10,6 +10,7 @@ const Home = () => {
         <Container>
             <Carousel /> 
             <Categories />
+            <Title>Featured Products</Title>
             <Products />
             <About />
             <Footer />
@@ -21,4 +22,10 @@ export default Home
 
 const Container = styled.div`
 
+`
+
+const Title = styled.h1`
+    text-align: center; 
+    padding-top: 40px; 
+    padding-bottom: 25px; 
 `
