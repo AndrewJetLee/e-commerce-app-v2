@@ -19,3 +19,26 @@ export const carouselItems = [
     },
   ];
 
+
+  export const CategoriesItems = [
+    {
+      id: 1,
+      img: "/images/categories-new.jpg",
+      title: "WHAT'S NEW",
+    },
+    {
+      id: 2,
+      img: "/images/categories-streetwear.jpg",
+      title: "STREETWEAR",
+    },
+    {
+      id: 3,
+      img: "/images/categories-denim.jpg",
+      title: "DENIM",
+    },
+    {
+      id: 4,
+      img: "/images/categories-accessories.jpg",
+      title: "ACCESSORIES",
+    },
+  ];
