@@ -7,8 +7,8 @@ const Categories = () => {
     <Container>
       <Content>
         <Items>
-          {CategoriesItems.map((item) => (
-            <CategoryItem item={item} />
+          {CategoriesItems.map((item, key) => (
+            <CategoryItem item={item} key={key}/>
           ))}
         </Items>
       </Content>
