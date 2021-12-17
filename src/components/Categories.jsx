@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import CategoryItem from "./CategoryItem";
 import { CategoriesItems } from "../dummyData";
+import { mobile } from "../responsive";
 
 const Categories = () => {
   return (
@@ -8,7 +9,7 @@ const Categories = () => {
       <Content>
         <Items>
           {CategoriesItems.map((item, key) => (
-            <CategoryItem item={item} key={key}/>
+            <CategoryItem item={item} key={key} />
           ))}
         </Items>
       </Content>
@@ -28,4 +29,5 @@ const Items = styled.div`
   background-color: white;
   flex-wrap: wrap;
   justify-content: center;
+  ${mobile({ flexDirection: "column", marginTop: 0 })};
 `;

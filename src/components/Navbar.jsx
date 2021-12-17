@@ -76,7 +76,8 @@ const SearchBar = styled.div`
   margin-right: auto;
   ${mobile({ height: "24px",
               width: "24px",
-              marginLeft: "10px"})};
+              marginLeft: "10px",
+              })};
   .navbarSearchIcon {
     margin-left: 8px;
     font-size: 25px;
@@ -108,7 +109,7 @@ const Contact = styled.div`
     display: flex;
     align-items: center; 
     padding: 5px;
-    ${mobile({ fontSize: "12px", margin: "0 4px"})};
+    ${mobile({ fontSize: "12px", margin: "0 2px"})};
     .navbarContactIcon {
     margin-left: 6px;
     ${mobile({ display: "none"})};
