@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Product from "./Product";
 import { featuredProducts } from "../dummyData";
+import { mobile } from "../responsive";
 
 const Products = () => {
   return (
@@ -19,4 +20,5 @@ const Container = styled.div`
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 5px;
+  ${mobile({ display: "flex", flexDirection: "column" })};
 `;

@@ -7,6 +7,7 @@ import {
   Phone,
   Room,
 } from "@mui/icons-material/";
+import { mobile } from "../responsive";
 
 const Footer = () => {
   return (
@@ -15,16 +16,16 @@ const Footer = () => {
         <Logo>AJL.</Logo>
         <Socials>
           <SocialWrapper>
-            <Facebook className="socialIcon"/>
+            <Facebook className="socialIcon" />
           </SocialWrapper>
           <SocialWrapper>
-            <GitHub className="socialIcon"/>
+            <GitHub className="socialIcon" />
           </SocialWrapper>
           <SocialWrapper>
-            <LinkedIn className="socialIcon"/>
+            <LinkedIn className="socialIcon" />
           </SocialWrapper>
           <SocialWrapper>
-            <MailOutline className="socialIcon"/>
+            <MailOutline className="socialIcon" />
           </SocialWrapper>
         </Socials>
       </Left>
@@ -46,13 +47,14 @@ const Footer = () => {
       <Right>
         <Title>Contact</Title>
         <ContactItem>
-            <Room className="contactIcon"/> <span>Dallas Texas</span>
+          <Room className="contactIcon" /> <span>Dallas Texas</span>
         </ContactItem>
         <ContactItem>
-            <Phone className="contactIcon"/> <span>+1 671 646 7876</span>
+          <Phone className="contactIcon" /> <span>+1 671 646 7876</span>
         </ContactItem>
         <ContactItem>
-            <MailOutline className="contactIcon"/> <span>andrewjetlee@gmail.com</span>
+          <MailOutline className="contactIcon" />{" "}
+          <span>andrewjetlee@gmail.com</span>
         </ContactItem>
       </Right>
     </Container>
@@ -65,61 +67,62 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  background-color: black; 
-  color: white; 
-  padding: 40px; 
+  background-color: black;
+  color: white;
+  padding: 40px;
+  ${mobile({ flexDirection: "column" })};
 `;
 
 const Left = styled.div`
-    flex: 1;
+  flex: 1;
 `;
 
 const Logo = styled.h1`
-    font-size: 40px; 
-    margin-bottom: 10px; 
+  font-size: 40px;
+  margin-bottom: 10px;
 `;
 
 const Socials = styled.div`
-    display: flex;
+  display: flex;
 `;
 const SocialWrapper = styled.div`
-    .socialIcon {
-        margin-right: 8px; 
-        transition: all .167s ease; 
-        cursor: pointer; 
-        :hover {
-            transform: scale(1.1);
-        }
+  .socialIcon {
+    margin-right: 8px;
+    transition: all 0.167s ease;
+    cursor: pointer;
+    :hover {
+      transform: scale(1.1);
     }
+  }
 `;
 
 const Title = styled.h3`
-    margin-bottom: 20px; 
+  margin-bottom: 20px;
 `;
 
 const Center = styled.div`
-    flex: 1;
+  flex: 1;
 `;
 
 const Links = styled.ul`
-    display: grid;
-    grid-template-columns: 1fr 1fr; 
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 `;
 
 const Link = styled.li`
-    padding-bottom: 5px; 
-    cursor: pointer; 
+  padding-bottom: 5px;
+  cursor: pointer;
 `;
 
 const Right = styled.div`
-    flex: 1;
+  flex: 1;
 `;
 
 const ContactItem = styled.div`
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px; 
-    .contactIcon {
-        margin-right: 5px; 
-    }
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  .contactIcon {
+    margin-right: 5px;
+  }
 `;

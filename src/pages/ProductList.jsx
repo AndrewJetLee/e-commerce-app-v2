@@ -3,12 +3,13 @@ import Products from "../components/Products";
 import Footer from "../components/Footer";
 import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
+import { mobile } from "../responsive";
 
 const ProductList = () => {
   return (
     <Container>
-      <Announcement />
       <Navbar />
+      <Announcement />
       <Content>
         <Title>Men's Style</Title>
         <Top>
@@ -81,23 +82,27 @@ const Top = styled.div`
   width: 100%;
   justify-content: space-around;
   margin-bottom: 30px;
+  ${mobile({ flexDirection: "column", marginTop: 0 })};
 `;
 
 const Title = styled.h1`
   padding: 30px 20px;
+  ${mobile({ textAlign: "center"})};
 `;
 const FilterContainer = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  margin: 0 15px; 
+  margin: 0 15px;
   label {
     margin-right: 10px;
   }
+  ${mobile({ justifyContent: "center", margin: "0" })};
 `;
 
 const Filter = styled.div`
   margin: 20px;
+  ${mobile({ margin: "5px" })};
   select {
     text-align: center;
     border-color: #949393;
@@ -106,8 +111,8 @@ const Filter = styled.div`
 `;
 
 const SortContainer = styled(FilterContainer)`
-  display: flex;
   justify-content: flex-end;
+  ${mobile({ justifyContent: "center", marginTop: 0 })};
 `;
 
 const Sort = styled(Filter)``;
