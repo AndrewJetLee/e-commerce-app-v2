@@ -1,10 +1,14 @@
 import styled from "styled-components";
 import Products from "../components/Products";
 import Footer from "../components/Footer";
+import Announcement from "../components/Announcement";
+import Navbar from "../components/Navbar";
 
 const ProductList = () => {
   return (
     <Container>
+      <Announcement />
+      <Navbar />
       <Content>
         <Title>Men's Style</Title>
         <Top>
