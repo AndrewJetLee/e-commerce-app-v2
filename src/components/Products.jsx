@@ -5,8 +5,8 @@ import { featuredProducts } from "../dummyData";
 const Products = () => {
   return (
     <Container>
-      {featuredProducts.map((item) => (
-        <Product item={item} />
+      {featuredProducts.map((item, key) => (
+        <Product item={item} key={key}/>
       ))}
     </Container>
   );

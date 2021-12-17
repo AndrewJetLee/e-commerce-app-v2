@@ -65,7 +65,7 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  background-color: rgb(140, 46, 207); 
+  background-color: black; 
   color: white; 
   padding: 40px; 
 `;
