@@ -23,9 +23,9 @@ const Cart = () => {
         </Top>
         <Bottom>
           <Items>
-            <CartItem />
-            <CartItem />
-            <CartItem />
+            <CartItem itemPrice={73} itemCount={1}/>
+            <CartItem itemPrice={32} itemCount={4}/>
+            <CartItem itemPrice={15} itemCount={2}/>
           </Items>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
@@ -74,6 +74,7 @@ const Top = styled.div`
 
 const Title = styled.h1`
   text-align: center;
+  margin-bottom: 20px; 
 `;
 
 const Options = styled.div`
@@ -140,5 +141,6 @@ const CheckoutButton = styled(RightButton)`
     width: 100%; 
     margin-top: 40px; 
     height: 45px; 
+    
 
 `
