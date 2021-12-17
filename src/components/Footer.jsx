@@ -70,6 +70,8 @@ const Container = styled.div`
   background-color: black;
   color: white;
   padding: 40px;
+  position: relative;
+  bottom: 0; 
   ${mobile({ flexDirection: "column" })};
 `;
 
