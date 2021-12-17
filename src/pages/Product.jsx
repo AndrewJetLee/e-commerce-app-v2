@@ -5,6 +5,7 @@ import { Remove, Add } from "@mui/icons-material/";
 import Dropdown from "../components/Dropdown";
 import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer"
 
 let ColorChoices = ["Beige", "Black", "White"];
 let SizeChoices = ["XL", "S", "M", "L", "XL"];
@@ -91,6 +92,7 @@ const Product = () => {
           </Right>
         </Content>
       </Container>
+      <Footer/>
     </>
   );
 };
