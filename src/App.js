@@ -4,6 +4,7 @@ import ProductList from "./pages/ProductList";
 import Product from "./pages/Product";
 import Cart from "./pages/Cart";
 import Register from "./pages/Register";
+import Login from "./pages/Login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path="/product/:product_id" element={<Product />} />
           <Route path="/cart" element={<Cart />}/>
           <Route path="/register" element={< Register/>}/>
+          <Route path="/login" element={< Login/>}/>
         </Routes>
       </Router>
     </div>
