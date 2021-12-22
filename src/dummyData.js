@@ -19,7 +19,7 @@ export const carouselItems = [
   },
 ];
 
-let test = [];
+let test = [1, 2, 3];
 
 export const CategoriesItems = [
   {
