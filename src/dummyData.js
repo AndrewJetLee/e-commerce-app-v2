@@ -19,6 +19,8 @@ export const carouselItems = [
   },
 ];
 
+let test = [];
+
 export const CategoriesItems = [
   {
     id: 1,
