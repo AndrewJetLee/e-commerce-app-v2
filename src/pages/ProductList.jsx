@@ -4,8 +4,29 @@ import Footer from "../components/Footer";
 import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
+import Dropdown from "../components/Dropdown";
+import { useLocation } from "react-router-dom";
+import { useState } from "react";
 
 const ProductList = () => {
+  const location = useLocation();
+  const cat = location.pathname.split("/")[2];
+  const [filter, setFilter] = useState({});
+  const [sort, setSort] = useState("newest");
+
+  const handleFilter = (e) => {
+    const value = e.target.value; 
+    setFilter({
+      ...filter, 
+      [e.target.name]: value,
+    })
+  }
+
+  const handleSort = (e) => {
+    const value = e.target.value; 
+    setSort(value);
+  }
+
   return (
     <Container>
       <Navbar />
@@ -14,51 +35,45 @@ const ProductList = () => {
         <Title>Men's Style</Title>
         <Top>
           <FilterContainer>
-            <label for="category">Filter products: </label>
+            <label>Filter products: </label>
             <Filter>
-              <select name="category" id="category">
+              <select onChange={handleFilter} name="color" id="color">
                 <option hidden selected>
-                  Category
+                  Color
                 </option>
-                <option value="accessories">Accessories</option>
-                <option value="essentials">Essentials</option>
-                <option value="streetwear">Streetwear</option>
+                <option value="white">White</option>
+                <option value="black">Black</option>
+                <option value="cream">Cream</option>
+                <option value="green">Green</option>
               </select>
             </Filter>
             <Filter>
-              <select name="size" id="size">
+              <select onChange={handleFilter} name="size" id="size">
                 <option hidden selected>
                   Size
                 </option>
-                <option value="s">Small</option>
-                <option value="m">Medium</option>
-                <option value="l">Large</option>
-                <option value="xl">X-Large</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
               </select>
             </Filter>
           </FilterContainer>
           <SortContainer>
-            <label for="category">Sort products: </label>
+            <label>Sort products: </label>
             <Sort>
-              <select name="price" id="price">
-                <option hidden selected>
-                  Price
-                </option>
-                <option value="high-to-low">High to low</option>
-                <option value="low-to-high">Low to High</option>
-              </select>
-            </Sort>
-            <Sort>
-              <select name="time" id="time">
+              <select onChange={handleSort} name="sort" id="sort">
                 <option value="newest" selected>
                   Newest
                 </option>
                 <option value="oldest">Oldest</option>
+                <option value="asc">Price(asc)</option>
+                <option value="desc">Price(desc)</option>
               </select>
             </Sort>
           </SortContainer>
         </Top>
-        <Products />
+        <Products category={cat} filters={filter} sort={sort}/>
       </Content>
       <Footer />
     </Container>

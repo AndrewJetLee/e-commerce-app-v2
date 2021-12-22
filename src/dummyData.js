@@ -19,28 +19,30 @@ export const carouselItems = [
   },
 ];
 
-let test = [1, 2, 3];
-
 export const CategoriesItems = [
   {
     id: 1,
     img: "/images/categories-new.jpg",
     title: "WHAT'S NEW",
+    category: "/"
   },
   {
     id: 2,
     img: "/images/categories-streetwear.jpg",
-    title: "STREETWEAR",
+    title: "MEN'S COLLECTION",
+    category: "mens"
   },
   {
     id: 3,
     img: "/images/categories-denim.jpg",
-    title: "DENIM",
+    title: "WOMEN'S COLLECTION",
+    category: "womens"
   },
   {
     id: 4,
     img: "/images/categories-accessories.jpg",
     title: "ACCESSORIES",
+    category: "accessory"
   },
 ];
 

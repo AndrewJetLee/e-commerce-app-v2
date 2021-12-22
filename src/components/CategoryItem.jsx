@@ -1,9 +1,12 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import { useNavigate } from "react-router-dom";
 
 const CategoryItem = ({ item }) => {
+  const navigate = useNavigate();
+
   return (
-    <Container>
+    <Container onClick={() => navigate(`/products/${item.category}`)}>
       <img className="itemImg" src={item.img} alt="" />
       <ItemInfo>
         <h3 className="itemTitle">{item.title}</h3>
@@ -20,11 +23,12 @@ const Container = styled.div`
   flex: 1;
   background-color: white;
   position: relative;
+  cursor: pointer; 
   .itemImg {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    ${mobile({ height: "50vh"})};
+    ${mobile({ height: "50vh" })};
   }
 `;
 
@@ -34,9 +38,9 @@ const ItemInfo = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  color: white; 
+  color: white;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   justify-content: flex-end;
   .itemTitle {
     margin: 16px 12px;
