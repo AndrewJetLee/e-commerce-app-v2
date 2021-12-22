@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { ShoppingCartOutlined, SearchOutlined} from '@mui/icons-material/';
+import { useNavigate } from "react-router-dom";
 
 const Product = ({item}) => {
+    const navigate = useNavigate();
     return (
         <Container>
             <Image src={item.image}/>
@@ -9,7 +11,8 @@ const Product = ({item}) => {
                 <button className="cartButton">
                     <ShoppingCartOutlined className="icon cartIcon"/>
                 </button>
-                <button className="searchButton">
+                
+                <button className="searchButton" onClick={() => navigate(`/product/${item._id}`)}>
                     <SearchOutlined className="icon searchIcon"/>
                 </button>
             </Info>

@@ -6,15 +6,23 @@ import Dropdown from "../components/Dropdown";
 import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer"
+import { useLocation } from "react-router-dom";
+
 
 let ColorChoices = ["Beige", "Black", "White"];
 let SizeChoices = ["XL", "S", "M", "L", "XL"];
 
 const Product = () => {
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+  
+  const [product, setProduct] = useState({});
   const [rating, setRating] = useState(2);
   const [color, setColor] = useState("Beige");
   const [size, setSize] = useState("S");
   const [count, setCount] = useState(1);
+
+  
 
   const handleChangeDropdown = (event, label) => {
     if (label === "color") setColor(event.target.value);

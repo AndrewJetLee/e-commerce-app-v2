@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Product from "./Product";
-import { featuredProducts } from "../dummyData";
 import { mobile } from "../responsive";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -8,6 +7,7 @@ import axios from "axios";
 const Products = ({ category, filters, sort }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+
   useEffect(() => {
     const getProducts = async (req, res) => {
       try {
@@ -25,18 +25,45 @@ const Products = ({ category, filters, sort }) => {
   }, [category]);
 
   useEffect(() => {
-    setFilteredProducts(
-      products.filter((item) =>
-        Object.entries(filters).every(([key, value]) =>
-          item[key].includes(value)
+    category &&
+      setFilteredProducts(
+        products.filter((item) =>
+          Object.entries(filters).every(([key, value]) =>
+            item[key].includes(value)
+          )
         )
-      )
-    );
+      );
   }, [products, category, filters]);
+
+  useEffect(() => {
+    if (sort === "newest") {
+      setFilteredProducts((prev) => {
+        return [...prev].sort((a, b) => {
+          return Date.parse(a.createdAt) - Date.parse(b.createdAt);
+        });
+      });
+    } else if (sort === "desc") {
+      setFilteredProducts((prev) =>
+        [...prev].sort((a, b) => b.price - a.price)
+      );
+    } else if (sort === "asc") {
+      setFilteredProducts((prev) =>
+        [...prev].sort((a, b) => a.price - b.price)
+      );
+    } else {
+      setFilteredProducts((prev) => {
+        return [...prev].sort((a, b) => {
+          return Date.parse(b.createdAt) - Date.parse(a.createdAt);
+        });
+      });
+    }
+  }, [sort]);
 
   return (
     <Container>
-      {filteredProducts.map((item, key) => (
+      {category ? filteredProducts.map((item, key) => (
+        <Product item={item} key={key} />
+      )) : products.slice(0, 8).map((item, key) => (
         <Product item={item} key={key} />
       ))}
     </Container>

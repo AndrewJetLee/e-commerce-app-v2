@@ -4,7 +4,6 @@ import Footer from "../components/Footer";
 import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
-import Dropdown from "../components/Dropdown";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 
@@ -32,7 +31,7 @@ const ProductList = () => {
       <Navbar />
       <Announcement />
       <Content>
-        <Title>Men's Style</Title>
+        <Title>{cat}</Title>
         <Top>
           <FilterContainer>
             <label>Filter products: </label>
@@ -102,6 +101,7 @@ const Top = styled.div`
 
 const Title = styled.h1`
   padding: 30px 20px;
+  text-transform: uppercase; 
   ${mobile({ textAlign: "center"})};
 `;
 const FilterContainer = styled.div`
