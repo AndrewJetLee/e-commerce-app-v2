@@ -8,8 +8,13 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer"
 import { useLocation } from "react-router-dom";
 import { publicRequest } from "../requestMethods";
+import { addProduct } from "../redux/cartSlice";
+import { useDispatch } from "react-redux";
 
 const Product = () => {
+  
+  const dispatch = useDispatch();
+
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   
@@ -54,7 +59,15 @@ const Product = () => {
   };
 
   const handleClickAddToCart = () => {
-    //update cart
+    let payload = {
+      ...product,
+      price: product.price * count,
+      quantity: count,
+      color,
+      size,
+    };
+    dispatch(addProduct(payload));
+
   }
 
   return (

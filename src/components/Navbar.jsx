@@ -2,8 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { ShoppingCartOutlined, Search, ChatOutlined } from "@mui/icons-material/";
 import { mobile } from "../responsive";
+import { useSelector } from 'react-redux'
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate(); 
+  const cartQuantity = useSelector((state) => state.cart.quantity);
   return (
     <Container>
       <Content>
@@ -20,12 +24,11 @@ const Navbar = () => {
           <Contact>CONTACT <ChatOutlined className="navbarContactIcon"/></Contact>
           <Register>REGISTER</Register>
           <SignIn>SIGN IN</SignIn>
-
           <VerticalSeparator></VerticalSeparator>
-          <Cart>
+          <Cart onClick={() => navigate("/cart")}>
             CART
             <ShoppingCartOutlined className="navbarCartIcon" />
-            <span>3</span>
+            {cartQuantity > 0 ? <span>{cartQuantity}</span> : null}
           </Cart>
         </Right>
       </Content>

@@ -3,19 +3,21 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { ThemeProvider } from "styled-components";
+import store from "./redux/store";
+import { Provider } from "react-redux";
 
 const theme = {
   colors: {
     darkGrey: "rgba(0, 0, 0, 0.8)",
-    lightGrey: "rgba(0, 0, 0, 0.06)"
+    lightGrey: "rgba(0, 0, 0, 0.06)",
   },
 };
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <ThemeProvider theme={theme}>
       <App />
     </ThemeProvider>
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById("root")
 );
