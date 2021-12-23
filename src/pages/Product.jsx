@@ -1,28 +1,43 @@
 import styled from "styled-components";
 import { Box, Rating } from "@mui/material/";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Remove, Add } from "@mui/icons-material/";
 import Dropdown from "../components/Dropdown";
 import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer"
 import { useLocation } from "react-router-dom";
-
-
-let ColorChoices = ["Beige", "Black", "White"];
-let SizeChoices = ["XL", "S", "M", "L", "XL"];
+import { publicRequest } from "../requestMethods";
 
 const Product = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   
   const [product, setProduct] = useState({});
-  const [rating, setRating] = useState(2);
-  const [color, setColor] = useState("Beige");
-  const [size, setSize] = useState("S");
+  const [rating, setRating] = useState(0);
+  const [color, setColor] = useState("");
+  const [size, setSize] = useState("");
   const [count, setCount] = useState(1);
 
   
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await publicRequest.get(`/products/find/${id}`);
+        setProduct(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getProduct();
+  }, [id])
+
+  
+  useEffect(() => {
+    product.color && setColor(product.color[0]);
+    product.size && setSize(product.size[0]);
+  }, [product])
 
   const handleChangeDropdown = (event, label) => {
     if (label === "color") setColor(event.target.value);
@@ -34,9 +49,13 @@ const Product = () => {
       count < 10 && setCount(count + 1);
     }
     if (action === "remove") {
-      count > 0 && setCount(count - 1);
+      count > 1 && setCount(count - 1);
     }
   };
+
+  const handleClickAddToCart = () => {
+    //update cart
+  }
 
   return (
     <>
@@ -45,13 +64,13 @@ const Product = () => {
       <Container>
         <Content>
           <Left>
-            <ProductImage src="https://cdn.shopify.com/s/files/1/2712/5012/products/essentials-sixth-hoodie-beige-urban-clothing-shop-659_480x480.jpg?v=1635315778"></ProductImage>
+            <ProductImage src={product.image}></ProductImage>
           </Left>
 
           <Right>
             <Info>
-              <Title>ESSENTIALS HOODIE</Title>
-              <Price>$120.00</Price>
+              <Title>{product.title}</Title>
+              <Price>${product.price}</Price>
               <Box>
                 <Rating
                   name="productRating"
@@ -69,7 +88,7 @@ const Product = () => {
                     value={color}
                     handleChangeDropdown={handleChangeDropdown}
                     label={"color"}
-                    choices={ColorChoices}
+                    choices={product.color}
                   />
                 </Color>
                 <Size>
@@ -78,12 +97,12 @@ const Product = () => {
                     value={size}
                     handleChangeDropdown={handleChangeDropdown}
                     label={"size"}
-                    choices={SizeChoices}
+                    choices={product.size}
                   />
                 </Size>
               </Top>
               <Bottom>
-                <AddToCart>ADD TO CART</AddToCart>
+                <AddToCart onClick={handleClickAddToCart}>ADD TO CART</AddToCart>
                 <Quantity>
                   <Remove
                     className="removeIcon icon"
