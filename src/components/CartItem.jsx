@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { useState } from "react";
 import { Remove, Add } from "@mui/icons-material/";
 
-const CartItem = ({itemPrice, itemCount}) => {
-  const [count, setCount] = useState(itemCount);
-  const [price, setPrice] = useState(itemPrice);
+const CartItem = ({item}) => {
+  const [count, setCount] = useState(item.quantity);
+  const [price, setPrice] = useState(item.price);
 
   const handleClickCounter = (action) => {
     if (action === "add") {
@@ -19,18 +19,18 @@ const CartItem = ({itemPrice, itemCount}) => {
   return (
     <Wrapper>
       <Left>
-        <Image src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png"></Image>
+        <Image src={item.image}></Image>
       </Left>
       <Center>
         <ProductName>
-          <strong>Product:</strong> DRIP SHOES
+          <strong>Product:</strong> {item.title}
         </ProductName>
         <ProductId>
-          <strong>ID:</strong> 98712980371
+          <strong>ID:</strong> {item._id}
         </ProductId>
-        <ProductColor>Black</ProductColor>
+        <ProductColor>{item.color}</ProductColor>
         <ProductSize>
-          <strong>Size:</strong> 37.5
+          <strong>Size:</strong> {item.size}
         </ProductSize>
       </Center>
       <Right>

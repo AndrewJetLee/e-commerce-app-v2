@@ -3,8 +3,13 @@ import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import CartItem from "../components/CartItem";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
+  const cart = useSelector((state) => state.cart);
+  const navigate = useNavigate();
+  console.log(cart);
   return (
     <Container>
       <Navbar />
@@ -13,7 +18,7 @@ const Cart = () => {
         <Top>
           <Title>YOUR CART</Title>
           <Options>
-            <LeftButton>Continue Shopping</LeftButton>
+            <LeftButton onClick={() => navigate("/products/mens")}>Continue Shopping</LeftButton>
             <CenterLinks>
               <CenterLink>Shopping Bag</CenterLink>
               <CenterLink>Your Wishlist</CenterLink>
@@ -23,15 +28,14 @@ const Cart = () => {
         </Top>
         <Bottom>
           <Items>
-            <CartItem itemPrice={73} itemCount={1}/>
-            <CartItem itemPrice={32} itemCount={4}/>
-            <CartItem itemPrice={15} itemCount={2}/>
+            {cart.products.map((item) => <CartItem item={item}/>)}
+            
           </Items>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>$80</SummaryItemPrice>
+              <SummaryItemPrice>${cart.total}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimate Shipping</SummaryItemText>
@@ -43,7 +47,7 @@ const Cart = () => {
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>$80.0</SummaryItemPrice>
+              <SummaryItemPrice>${cart.total}</SummaryItemPrice>
             </SummaryItem>
             <CheckoutButton>
                 CHECKOUT NOW

@@ -61,7 +61,7 @@ const Product = () => {
   const handleClickAddToCart = () => {
     let payload = {
       ...product,
-      price: product.price * count,
+      price: product.price,
       quantity: count,
       color,
       size,
