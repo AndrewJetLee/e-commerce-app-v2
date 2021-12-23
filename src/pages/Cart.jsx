@@ -5,11 +5,37 @@ import Footer from "../components/Footer";
 import CartItem from "../components/CartItem";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import StripeCheckout from "react-stripe-checkout";
+import { useState, useEffect } from "react";
+import { userRequest } from "../requestMethods";
+
+const KEY = process.env.REACT_APP_STRIPE;
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
-  console.log(cart);
+  const [stripeToken, setStripeToken] = useState(null);
+
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
+
+  const makeStripeRequest = async () => {
+    try {
+      const res = await userRequest.post("/checkout/payment", {
+        tokenId: stripeToken.id,
+        amount: cart.total * 100,
+      });
+      navigate("/success");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    stripeToken && makeStripeRequest();
+  }, [stripeToken]);
+
   return (
     <Container>
       <Navbar />
@@ -18,18 +44,32 @@ const Cart = () => {
         <Top>
           <Title>YOUR CART</Title>
           <Options>
-            <LeftButton onClick={() => navigate("/products/mens")}>Continue Shopping</LeftButton>
+            <LeftButton onClick={() => navigate("/products/mens")}>
+              Continue Shopping
+            </LeftButton>
             <CenterLinks>
               <CenterLink>Shopping Bag</CenterLink>
               <CenterLink>Your Wishlist</CenterLink>
             </CenterLinks>
-            <RightButton>Checkout Now</RightButton>
+            <StripeCheckout
+              name="Shop"
+              image="https://w7.pngwing.com/pngs/621/196/png-transparent-e-commerce-logo-logo-e-commerce-electronic-business-ecommerce-angle-text-service.png"
+              billingAddress
+              shippingAddress
+              description={`You total is $${cart.total}`}
+              amount={cart.total * 100}
+              token={onToken}
+              stripeKey={KEY}
+            >
+              <RightButton>Checkout Now</RightButton>
+            </StripeCheckout>
           </Options>
         </Top>
         <Bottom>
           <Items>
-            {cart.products.map((item) => <CartItem item={item}/>)}
-            
+            {cart.products.map((item) => (
+              <CartItem item={item} />
+            ))}
           </Items>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
@@ -49,9 +89,18 @@ const Cart = () => {
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>${cart.total}</SummaryItemPrice>
             </SummaryItem>
-            <CheckoutButton>
-                CHECKOUT NOW
-            </CheckoutButton>
+            <StripeCheckout
+              name="Shop"
+              image="https://w7.pngwing.com/pngs/621/196/png-transparent-e-commerce-logo-logo-e-commerce-electronic-business-ecommerce-angle-text-service.png"
+              billingAddress
+              shippingAddress
+              description={`You total is $${cart.total}`}
+              amount={cart.total * 100}
+              token={onToken}
+              stripeKey={KEY}
+            >
+              <CheckoutButton>CHECKOUT NOW</CheckoutButton>
+            </StripeCheckout>
           </Summary>
         </Bottom>
       </Content>
@@ -78,7 +127,7 @@ const Top = styled.div`
 
 const Title = styled.h1`
   text-align: center;
-  margin-bottom: 20px; 
+  margin-bottom: 20px;
 `;
 
 const Options = styled.div`
@@ -104,7 +153,7 @@ const RightButton = styled.button`
 
 const Bottom = styled.div`
   display: flex;
-  margin-top: 20px; 
+  margin-top: 20px;
 `;
 
 const Items = styled.div`
@@ -113,38 +162,34 @@ const Items = styled.div`
 
 const Summary = styled.div`
   flex: 1;
-  max-width: 390px; 
-  height: 45vh; 
-  border: solid 1px lightgray; 
-  padding: 20px; 
+  max-width: 390px;
+  height: 45vh;
+  border: solid 1px lightgray;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   padding-bottom: 30px;
 `;
 
 const SummaryTitle = styled.h2`
-    font-weight: 400;
-    font-size: 32px;
-    width: 100%;   
-`
+  font-weight: 400;
+  font-size: 32px;
+  width: 100%;
+`;
 
 const SummaryItem = styled.div`
-    margin-top: 30px; 
-    width: 100%; 
-    display: flex;
-    justify-content: space-between;
-    font-size: ${({type}) => type === "total" && "24px"};
-`
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: ${({ type }) => type === "total" && "24px"};
+`;
 
-const SummaryItemText = styled.span`
-    
-`
-const SummaryItemPrice = styled(SummaryItemText)``
+const SummaryItemText = styled.span``;
+const SummaryItemPrice = styled(SummaryItemText)``;
 
 const CheckoutButton = styled(RightButton)`
-    width: 100%; 
-    margin-top: 40px; 
-    height: 45px; 
-    
-
-`
+  width: 100%;
+  margin-top: 40px;
+  height: 45px;
+`;
