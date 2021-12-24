@@ -3,8 +3,10 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { ThemeProvider } from "styled-components";
-import store from "./redux/store";
+import { store, persistor } from "./redux/store";
 import { Provider } from "react-redux";
+import { PersistGate } from 'redux-persist/es/integration/react'
+
 
 const theme = {
   colors: {
@@ -15,9 +17,11 @@ const theme = {
 
 ReactDOM.render(
   <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <PersistGate loading={null} persistor={persistor}>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </PersistGate>
   </Provider>,
   document.getElementById("root")
 );
