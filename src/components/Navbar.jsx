@@ -1,16 +1,25 @@
 import styled from "styled-components";
-import {
-  ShoppingCartOutlined,
-  Search,
-  ChatOutlined,
-} from "@mui/icons-material/";
+import { ShoppingCartOutlined, Search } from "@mui/icons-material/";
 import { mobile } from "../responsive";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const cartQuantity = useSelector((state) => state.cart.quantity);
+  const [query, setQuery] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert("you have searched for - " + query);
+  };
+
+  const handleKeypress = (e) => {
+    if (e.keyCode === 13) {
+      handleSubmit();
+    }
+  };
   return (
     <Container>
       <Content>
@@ -19,8 +28,15 @@ const Navbar = () => {
         </Left>
         <Center>
           <SearchBar>
-            <Search className="navbarSearchIcon" />
-            <input type="text" placeholder="Search products and more" />
+            <button onClick={handleSubmit}>
+              <Search className="navbarSearchIcon" />
+            </button>
+            <input
+              onChange={(e) => setQuery(e.target.value)}
+              type="text"
+              placeholder="Search for products and more"
+              onKeyPress={handleKeypress}
+            />
           </SearchBar>
         </Center>
         <Right>
@@ -67,7 +83,7 @@ const Logo = styled.h2`
   cursor: pointer;
   ${mobile({ fontSize: "24px" })};
 `;
-const SearchBar = styled.div`
+const SearchBar = styled.form`
   display: flex;
   background-color: ${({ theme }) => theme.colors.lightGrey};
   height: 50px;
@@ -83,12 +99,7 @@ const SearchBar = styled.div`
     height: "32px",
     marginLeft: "10px",
   })};
-  .navbarSearchIcon {
-    margin-left: 8px;
-    font-size: 25px;
-    cursor: pointer;
-    ${mobile({ fontSize: "18px" })};
-  }
+  
   input {
     width: 100%;
     border: none;
@@ -99,6 +110,16 @@ const SearchBar = styled.div`
       color: ${({ theme }) => theme.colors.darkGrey};
     }
   }
+  button {
+   background-color: transparent; 
+   .navbarSearchIcon {
+    margin-top: 4px; 
+    margin-left: 8px;
+    font-size: 25px;
+    cursor: pointer;
+    ${mobile({ fontSize: "18px" })};
+  }
+  }
 `;
 
 const Right = styled.div`
@@ -106,21 +127,6 @@ const Right = styled.div`
   align-items: center;
   justify-content: flex-end;
   flex: 1;
-  ${mobile({ justifyContent: "center" })};
-`;
-
-const Contact = styled.div`
-  font-weight: 500;
-  color: ${({ theme }) => theme.colors.darkGrey};
-  margin: 0 15px;
-  display: flex;
-  align-items: center;
-  padding: 5px;
-  ${mobile({ fontSize: "12px", margin: "0 2px" })};
-  .navbarContactIcon {
-    margin-left: 6px;
-    ${mobile({ display: "none" })};
-  }
 `;
 
 const Register = styled.button`

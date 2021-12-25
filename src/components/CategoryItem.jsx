@@ -6,7 +6,10 @@ const CategoryItem = ({ item }) => {
   const navigate = useNavigate();
 
   return (
-    <Container onClick={() => navigate(`/products/${item.category}`)}>
+    <Container
+      item={item}
+      onClick={() => navigate(`/products/${item.category}`)}
+    >
       <img className="itemImg" src={item.img} alt="" />
       <ItemInfo>
         <h3 className="itemTitle">{item.title}</h3>
@@ -23,12 +26,14 @@ const Container = styled.div`
   flex: 1;
   background-color: white;
   position: relative;
-  cursor: pointer; 
+  cursor: pointer;
   .itemImg {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    ${mobile({ height: "50vh" })};
+    ${mobile({ height: "40vh",
+                objectPosition: "0px 10px"
+  })};
   }
 `;
 
