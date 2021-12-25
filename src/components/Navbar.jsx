@@ -1,12 +1,15 @@
-import React from "react";
 import styled from "styled-components";
-import { ShoppingCartOutlined, Search, ChatOutlined } from "@mui/icons-material/";
+import {
+  ShoppingCartOutlined,
+  Search,
+  ChatOutlined,
+} from "@mui/icons-material/";
 import { mobile } from "../responsive";
-import { useSelector } from 'react-redux'
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const cartQuantity = useSelector((state) => state.cart.quantity);
   return (
     <Container>
@@ -21,7 +24,6 @@ const Navbar = () => {
           </SearchBar>
         </Center>
         <Right>
-          <Contact>CONTACT <ChatOutlined className="navbarContactIcon"/></Contact>
           <Register>REGISTER</Register>
           <SignIn>SIGN IN</SignIn>
           <VerticalSeparator></VerticalSeparator>
@@ -40,7 +42,7 @@ export default Navbar;
 
 const Container = styled.div`
   height: 80px;
-  ${mobile({ height: "50px"})};
+  ${mobile({ height: "50px" })};
 `;
 
 const Content = styled.div`
@@ -48,7 +50,7 @@ const Content = styled.div`
   justify-content: space-between;
   height: 100%;
   padding: 0 40px;
-  ${mobile({ padding: "10px 0"})};
+  ${mobile({ padding: "10px 0" })};
 `;
 const Left = styled.div`
   display: flex;
@@ -63,7 +65,7 @@ const Center = styled.div`
 const Logo = styled.h2`
   font-size: 36px;
   cursor: pointer;
-  ${mobile({ fontSize: "24px"})};
+  ${mobile({ fontSize: "24px" })};
 `;
 const SearchBar = styled.div`
   display: flex;
@@ -71,26 +73,28 @@ const SearchBar = styled.div`
   height: 50px;
   margin-left: 20px;
   align-items: center;
-  justify-content: center; 
+  justify-content: center;
   padding: 4px;
   border-radius: 25px;
   color: ${({ theme }) => theme.colors.darkGrey};
   width: 100%;
   margin-right: auto;
-  ${mobile({ height: "24px",
-              width: "24px",
-              marginLeft: "10px",
-              })};
+  ${mobile({
+    height: "32px",
+    marginLeft: "10px",
+  })};
   .navbarSearchIcon {
     margin-left: 8px;
     font-size: 25px;
-    ${mobile({ fontSize: "18px"})};
+    cursor: pointer;
+    ${mobile({ fontSize: "18px" })};
   }
   input {
     width: 100%;
     border: none;
     padding: 4px;
     font-size: 16px;
+    ${mobile({ fontSize: "13px" })};
     ::placeholder {
       color: ${({ theme }) => theme.colors.darkGrey};
     }
@@ -102,20 +106,20 @@ const Right = styled.div`
   align-items: center;
   justify-content: flex-end;
   flex: 1;
-  ${mobile({ justifyContent: "center"})};
+  ${mobile({ justifyContent: "center" })};
 `;
 
 const Contact = styled.div`
-    font-weight: 500; 
-    color: ${({ theme }) => theme.colors.darkGrey};
-    margin: 0 15px; 
-    display: flex;
-    align-items: center; 
-    padding: 5px;
-    ${mobile({ fontSize: "12px", margin: "0 2px"})};
-    .navbarContactIcon {
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.darkGrey};
+  margin: 0 15px;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  ${mobile({ fontSize: "12px", margin: "0 2px" })};
+  .navbarContactIcon {
     margin-left: 6px;
-    ${mobile({ display: "none"})};
+    ${mobile({ display: "none" })};
   }
 `;
 
@@ -124,13 +128,13 @@ const Register = styled.button`
   font-weight: 500;
   margin-right: 15px;
   padding: 5px;
-  ${mobile({ fontSize: "12px", margin: "0 4px"})};
+  ${mobile({ fontSize: "12px", margin: "0 4px" })};
   color: ${({ theme }) => theme.colors.darkGrey};
   cursor: pointer;
 `;
 
 const SignIn = styled(Register)`
-   ${mobile({ fontSize: "12px", margin: "0 4px"})};
+  ${mobile({ fontSize: "12px", margin: "0 4px" })};
 `;
 
 const Cart = styled(Register)`
@@ -138,7 +142,7 @@ const Cart = styled(Register)`
   align-items: center;
   margin-left: 15px;
   position: relative;
-  ${mobile({ fontSize: "12px", margin: "0 4px"})};
+  ${mobile({ fontSize: "12px", margin: "0 4px" })};
   .navbarCartIcon {
     margin-left: 4px;
   }
