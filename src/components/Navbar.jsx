@@ -12,7 +12,7 @@ const Navbar = () => {
     <Container>
       <Content>
         <Left>
-          <Logo>AJL.</Logo>
+          <Logo onClick={() => navigate("/")}>AJL.</Logo>
         </Left>
         <Center>
           <SearchBar>

@@ -23,8 +23,8 @@ export const CategoriesItems = [
   {
     id: 1,
     img: "/images/categories-new.jpg",
-    title: "WHAT'S POPULAR",
-    category: "popular"
+    title: "NEW ARRIVALS",
+    category: "new"
   },
   {
     id: 2,
@@ -42,7 +42,7 @@ export const CategoriesItems = [
     id: 4,
     img: "/images/categories-accessories.jpg",
     title: "ACCESSORIES",
-    category: "accessory"
+    category: "accessories"
   },
 ];
 

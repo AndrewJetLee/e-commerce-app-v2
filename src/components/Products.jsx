@@ -3,10 +3,16 @@ import Product from "./Product";
 import { mobile } from "../responsive";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 const Products = ({ category, filters, sort }) => {
+
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  
+  const location = useLocation();
+  const path = location.pathname;
+  console.log(path);
 
   useEffect(() => {
     const getProducts = async (req, res) => {
