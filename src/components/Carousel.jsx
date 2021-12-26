@@ -2,8 +2,10 @@ import styled from "styled-components";
 import { ArrowRight, ArrowLeft } from "@mui/icons-material/";
 import { carouselItems } from "../dummyData.js";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"
 
 const Carousel = () => {
+  const navigate = useNavigate();
   const [slideIndex, setSlideIndex] = useState(0);
 
   const handleClick = (direction) => {
@@ -27,6 +29,18 @@ const Carousel = () => {
     } 
   };
 
+  const handleClickShop = (id) => {
+    if (id === 1) {
+      navigate("/products/streetwear")
+    }
+    if (id === 2) {
+      navigate("/products/womens")
+    }
+    if (id === 3) {
+      navigate("/products/accessories")
+    }
+  }
+
   return (
     <Container>
       <Arrow direction="left" onClick={() => handleClick("left")}>
@@ -41,7 +55,7 @@ const Carousel = () => {
             <SlideInfoContainer>
               <SlideInfoTitle>{item.title}</SlideInfoTitle>
               <SlideInfoDescription>{item.desc}</SlideInfoDescription>
-              <SlideInfoButton>Shop Now</SlideInfoButton>
+              <SlideInfoButton onClick={() => handleClickShop(item.id)}>Shop Now</SlideInfoButton>
             </SlideInfoContainer>
           </Slide>
         ))}
@@ -142,4 +156,5 @@ const SlideInfoButton = styled.button`
   background-color: white;
   font-size: 20px;
   font-weight: 500;
+  cursor: pointer; 
 `;

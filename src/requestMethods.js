@@ -1,9 +1,12 @@
 import axios from "axios";
-// import the token from login 
-// set that to the userRequest 
 
 const BASE_URL = "http://localhost:4000/api/";
-const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYmZiOTA1NzM2NjkzODQ5Y2RkYThiMiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MDIxNDMzOCwiZXhwIjoxNjQwNDczNTM4fQ.qfQI3zF5xKawSwRb2niDW9pv_RVmbxg335lUJ1zbzZg";
+
+// Redux persist stores User and Cart states in local storage as strings
+// Access the token from local storage
+const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
+const currentUser = user && JSON.parse(user).currentUser;
+const TOKEN = currentUser?.accessToken;
 
 export const publicRequest = axios.create({
     baseURL: BASE_URL,

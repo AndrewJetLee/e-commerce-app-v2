@@ -40,8 +40,8 @@ const Navbar = () => {
           </SearchBar>
         </Center>
         <Right>
-          <Register>REGISTER</Register>
-          <SignIn>SIGN IN</SignIn>
+          <Register onClick={() => navigate("/register")}>REGISTER</Register>
+          <SignIn onClick={() => navigate("/login")}>SIGN IN</SignIn>
           <VerticalSeparator></VerticalSeparator>
           <Cart onClick={() => navigate("/cart")}>
             CART

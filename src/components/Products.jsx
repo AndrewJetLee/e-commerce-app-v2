@@ -12,7 +12,6 @@ const Products = ({ category, filters, sort }) => {
   
   const location = useLocation();
   const path = location.pathname;
-  console.log(path);
 
   useEffect(() => {
     const getProducts = async (req, res) => {
