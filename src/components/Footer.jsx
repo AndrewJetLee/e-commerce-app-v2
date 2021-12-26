@@ -35,7 +35,7 @@ const Footer = () => {
           <Link>Home</Link>
           <Link>Cart</Link>
           <Link>Streetwear</Link>
-          <Link>Denim</Link>
+          <Link>Mens</Link>
           <Link>Accessories</Link>
           <Link>My Account</Link>
           <Link>Order Tracking</Link>
