@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import Announcement from "../components/Announcement";
 import Input from "../components/Input";
 import Footer from "../components/Footer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../redux/apiCalls";
 
