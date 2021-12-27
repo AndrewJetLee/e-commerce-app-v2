@@ -10,6 +10,7 @@ import { useLocation } from "react-router-dom";
 import { publicRequest } from "../requestMethods";
 import { addProduct } from "../redux/cartSlice";
 import { useDispatch } from "react-redux";
+import { mobile } from "../responsive";
 
 const Product = () => {
   
@@ -140,32 +141,49 @@ const Product = () => {
 export default Product;
 
 const Container = styled.div`
+  min-height: 60vh; 
+  max-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between; 
+  margin-bottom: 50px; 
 `;
 
 const Content = styled.div`
-  width: 90%;
+  width: 80%;
   display: flex;
+  justify-content: center; 
+  margin-left: 150px; 
+  ${mobile({ flexDirection: "column",
+              width: "100vw",
+              marginLeft: "0",
+
+  })};
 `;
 
 const Left = styled.div`
   flex: 1;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
 `;
 
 const ProductImage = styled.img`
-  height: 100%;
-  width: 100%;
+  height: 400px;
+  width: 400px;
   min-width: 400px;
   object-fit: cover;
 `;
 
 const Right = styled.div`
   flex: 1;
-  margin-left: 20px;
-  margin-top: 50px;
+  display: flex;
+  justify-content: center; 
+  flex-direction: column; 
+  margin-left: 50px; 
+  line-height: 1.5;
 `;
 
 const Title = styled.h1``;
