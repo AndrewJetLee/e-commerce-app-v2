@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Product from "./Product";
-import { mobile } from "../responsive";
+import { mobile, tablet } from "../responsive";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
@@ -79,8 +79,13 @@ export default Products;
 
 const Container = styled.div`
   display: grid;
+  width: 100%; 
+  grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 1fr 1fr;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 5px;
+  ${tablet({
+    gridTemplateColumns: "repeat(2, 1fr)"
+  })}
   ${mobile({ display: "flex", flexDirection: "column" })};
+
 `;
