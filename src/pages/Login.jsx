@@ -3,11 +3,14 @@ import Navbar from "../components/Navbar";
 import Announcement from "../components/Announcement";
 import Input from "../components/Input";
 import Footer from "../components/Footer";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../redux/apiCalls";
+import { tablet } from "../responsive";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
@@ -26,14 +29,14 @@ const Login = () => {
       <Content>
         <Form>
           <Title>LOGIN</Title>
-          <Input setValue={setUsername} placeholder="Username" />
-          <Input setValue={setPassword} placeholder="Password" />
+          <Input setValue={setUsername} placeholder="Username" type="text"/>
+          <Input setValue={setPassword} placeholder="Password" type="password"/>
           <Submit onClick={handleClick} disabled={isFetching}>SIGN IN</Submit>
-          { error && <Error>Something went wrong. </Error>}
+          { error && <Error>Something went wrong. Please confirm your information and try again. </Error>}
         </Form>
         <Links>
           <LinkItem>Forgot your password?</LinkItem>
-          <LinkItem>Create account</LinkItem>
+          <LinkItem onClick={() => navigate("/register")}>Create account</LinkItem>
         </Links>
       </Content>
       <Footer />
@@ -61,6 +64,9 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
   margin-bottom: 10px;
+  ${tablet({
+    width: "100%"
+  })}
 `;
 
 const Title = styled.span`
@@ -97,4 +103,5 @@ const LinkItem = styled.a`
 
 const Error = styled.span`
   color: red; 
+  margin-top: 20px; 
 `

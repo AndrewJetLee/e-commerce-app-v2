@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-const Input = ({ placeholder, setValue }) => {
+const Input = ({ placeholder, setValue, type }) => {
   return (
     <InputWrapper>
       <input
-        type="text"
+        type={type}
         placeholder={placeholder}
         onChange={(e) => {
           setValue(e.target.value);
