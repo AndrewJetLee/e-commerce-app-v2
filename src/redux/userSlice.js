@@ -25,7 +25,7 @@ const userSlice = createSlice({
       state.currentUser = null;
     },
     registerSuccess: (state) => {
-      state.isFetching = true; 
+      state.isFetching = false; 
     },
   },
 });
