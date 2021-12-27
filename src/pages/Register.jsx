@@ -3,8 +3,10 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Announcement from "../components/Announcement";
 import Input from "../components/Input";
+import { useState } from "react";
 
 const Register = () => {
+  
   return (
     <Container>
       <Navbar />

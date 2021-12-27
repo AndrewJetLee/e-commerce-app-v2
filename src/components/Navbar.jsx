@@ -1,13 +1,16 @@
 import styled from "styled-components";
 import { ShoppingCartOutlined, Search } from "@mui/icons-material/";
 import { mobile } from "../responsive";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { logout } from "../redux/userSlice"
 
 const Navbar = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const cartQuantity = useSelector((state) => state.cart.quantity);
+  const user = useSelector((state) => state.user.currentUser);
   const [query, setQuery] = useState("");
 
   const handleSubmit = (e) => {
@@ -41,7 +44,12 @@ const Navbar = () => {
         </Center>
         <Right>
           <Register onClick={() => navigate("/register")}>REGISTER</Register>
-          <SignIn onClick={() => navigate("/login")}>SIGN IN</SignIn>
+          {user ? (
+            <SignOut onClick={() => dispatch(logout())}>SIGN OUT</SignOut>
+          ) : (
+            <SignIn onClick={() => navigate("/login")}>SIGN IN</SignIn>
+          )}
+
           <VerticalSeparator></VerticalSeparator>
           <Cart onClick={() => navigate("/cart")}>
             CART
@@ -99,7 +107,7 @@ const SearchBar = styled.form`
     height: "32px",
     marginLeft: "10px",
   })};
-  
+
   input {
     width: 100%;
     border: none;
@@ -111,14 +119,14 @@ const SearchBar = styled.form`
     }
   }
   button {
-   background-color: transparent; 
-   .navbarSearchIcon {
-    margin-top: 4px; 
-    margin-left: 8px;
-    font-size: 25px;
-    cursor: pointer;
-    ${mobile({ fontSize: "18px" })};
-  }
+    background-color: transparent;
+    .navbarSearchIcon {
+      margin-top: 4px;
+      margin-left: 8px;
+      font-size: 25px;
+      cursor: pointer;
+      ${mobile({ fontSize: "18px" })};
+    }
   }
 `;
 
@@ -142,6 +150,8 @@ const Register = styled.button`
 const SignIn = styled(Register)`
   ${mobile({ fontSize: "12px", margin: "0 4px" })};
 `;
+
+const SignOut = styled(SignIn)``;
 
 const Cart = styled(Register)`
   display: flex;
