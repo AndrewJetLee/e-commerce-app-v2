@@ -4,12 +4,15 @@ import Footer from "../components/Footer";
 import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
-import { useLocation } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 
 const ProductList = () => {
-  const location = useLocation();
-  const cat = location.pathname.split("/")[2];
+  let { category } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const q = searchParams.get('q');
+  console.log(q);
+  console.log(category);
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState("newest");
 
@@ -31,7 +34,7 @@ const ProductList = () => {
       <Navbar />
       <Announcement />
       <Content>
-        <Title>{cat}</Title>
+        <Title>{category ? category : `Showing results for: ${q}`}</Title>
         <Top>
           <FilterContainer>
             <label>Filter products: </label>
@@ -72,7 +75,7 @@ const ProductList = () => {
             </Sort>
           </SortContainer>
         </Top>
-        <Products category={cat} filters={filter} sort={sort}/>
+        <Products query={q} category={category} filters={filter} sort={sort}/>
       </Content>
       <Footer />
     </Container>

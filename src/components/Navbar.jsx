@@ -15,7 +15,7 @@ const Navbar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("you have searched for - " + query);
+    navigate(`/products/search/?q=${query}`);
   };
 
   const handleKeypress = (e) => {
