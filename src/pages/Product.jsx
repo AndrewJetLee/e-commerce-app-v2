@@ -20,6 +20,7 @@ const Product = () => {
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
   const [count, setCount] = useState(1);
+  const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
     const getProduct = async () => {
@@ -37,11 +38,6 @@ const Product = () => {
     product.color && setColor(product.color[0]);
     product.size && setSize(product.size[0]);
   }, [product]);
-
-  const handleChangeDropdown = (event, label) => {
-    if (label === "color") setColor(event.target.value);
-    if (label === "size") setSize(event.target.value);
-  };
 
   const handleClickCounter = (action) => {
     if (action === "add") {
@@ -88,48 +84,67 @@ const Product = () => {
                   />
                 </Box>
                 <ProductNumber>
-                  SKU: {product._id}
+                  <strong>SKU:</strong> {product._id}
                 </ProductNumber>
               </InfoRight>
             </Info>
-
+            <Description>
+              <p>{product.description}</p>
+            </Description>
             <Selection>
               <Top>
                 <Color>
-                  <TopTitle>Color</TopTitle>
-                  <Dropdown
-                    value={color}
-                    handleChangeDropdown={handleChangeDropdown}
-                    label={"color"}
-                    choices={product.color}
-                  />
+                  <TopTitle>COLOR</TopTitle>
+                  <FilterColors>
+                    {product.color?.map((color) => (
+                      <FilterColor
+                        onClick={(e) => {
+                          setColor(color);
+                        }}
+                        color={color}
+                      />
+                    ))}
+                  </FilterColors>
                 </Color>
                 <Size>
-                  <TopTitle>Size</TopTitle>
-                  <Dropdown
-                    value={size}
-                    handleChangeDropdown={handleChangeDropdown}
-                    label={"size"}
-                    choices={product.size}
-                  />
+                  <TopTitle>SIZE</TopTitle>
+                  <FilterSizes>
+                    {product.size?.map((size) => (
+                      <FilterSize
+                        onClick={(e) => {
+                          setSize(size);
+                        }}
+                      >
+                        {size}
+                      </FilterSize>
+                    ))}
+                  </FilterSizes>
                 </Size>
               </Top>
               <Bottom>
+                <Quantity>
+                  <Counter>{count}</Counter>
+                  <AddRemoveWrapper>
+                    <AddWrapper onClick={() => handleClickCounter("add")}>
+                      <Add className="addIcon icon" />
+                    </AddWrapper>
+                    <RemoveWrapper onClick={() => handleClickCounter("remove")}>
+                      <Remove className="removeIcon icon" />
+                    </RemoveWrapper>
+                  </AddRemoveWrapper>
+                </Quantity>
                 <AddToCart onClick={handleClickAddToCart}>
                   ADD TO CART
                 </AddToCart>
-                <Quantity>
-                  <Remove
-                    className="removeIcon icon"
-                    onClick={() => handleClickCounter("remove")}
-                  />
-                  <Counter>{count}</Counter>
-                  <Add
-                    className="addIcon icon"
-                    onClick={() => handleClickCounter("add")}
-                  />
-                </Quantity>
               </Bottom>
+              <AdditionalInfo>
+                <Categories>
+                  <span>CATEGORIES:</span> {product.categories?.join(", ")}
+                </Categories>
+                <Tags>
+                  <span>TAGS:</span> COTTON, JACKETS, SHIRT
+                </Tags>
+              </AdditionalInfo>
             </Selection>
           </Right>
         </Content>
@@ -148,15 +163,14 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   margin-bottom: 50px;
 `;
 
 const Content = styled.div`
-  width: 80%;
+  width: 55%;
   display: flex;
   justify-content: center;
-  margin-left: 150px;
   ${mobile({ flexDirection: "column", width: "100vw", marginLeft: "0" })};
 `;
 
@@ -165,11 +179,12 @@ const Left = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  /* background-color: lightgray; */
 `;
 
 const ProductImage = styled.img`
-  height: 400px;
-  width: 400px;
+  height: 500px;
+  width: 500px;
   min-width: 400px;
   object-fit: cover;
 `;
@@ -177,57 +192,104 @@ const ProductImage = styled.img`
 const Right = styled.div`
   flex: 1;
   display: flex;
-  justify-content: center;
   flex-direction: column;
   margin-left: 50px;
   line-height: 1.5;
 `;
 
-
-
 const Title = styled.span`
   font-size: 18px;
+  font-weight: 500;
+  padding: 2px 0;
 `;
 const Info = styled.div`
-  display: flex; 
-  align-items: center; 
-  justify-content: space-between; 
-  border: solid; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid lightgrey;
+  padding: 20px 0;
 `;
 
 const InfoLeft = styled.div`
   display: flex;
   flex-direction: column;
-  line-height: 1.5; 
-  border: solid;
-`
+  line-height: 1.5;
+`;
 
 const InfoRight = styled.div`
   display: flex;
   flex-direction: column;
-  line-height: 1.5; 
-  border: solid;
-  height: 100%; 
-`
+  line-height: 1.5;
+  height: 100%;
+`;
 
 const ProductNumber = styled.span`
-  
-`
-
-const Price = styled.span`
+  font-size: 12px;
+  strong {
+    font-weight: 500;
+  }
 `;
 
-const Selection = styled.div`
+const Price = styled.span``;
+
+const Description = styled.div`
+  display: flex;
+  align-items: center;
+  height: auto;
+  border-bottom: 1px solid lightgrey;
+  padding: 12px 0;
+  font-size: 14px;
 `;
+
+const Selection = styled.div``;
 
 const Top = styled.div``;
 
-const TopTitle = styled.h3`
-  margin-bottom: 10px;
+const TopTitle = styled.h5`
+  margin-right: 15px;
 `;
 
 const Color = styled.div`
   margin-top: 20px;
+  display: flex;
+  align-items: center;
+`;
+
+const FilterColors = styled.div`
+  display: flex;
+`;
+
+const FilterColor = styled.div`
+  width: 31px;
+  height: 20px;
+  background-color: ${(props) => props.color};
+  margin: 0px 5px;
+  cursor: pointer;
+`;
+
+const FilterSizes = styled.div`
+  display: flex;
+  margin-left: 19px;
+  .clicked {
+    color: rgb(35, 35, 35);
+  }
+`;
+
+const FilterSize = styled.div`
+  width: 31px;
+  height: 20px;
+  margin: 0px 5px;
+  cursor: pointer;
+  border: 1px solid;
+  color: #999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  :hover,
+  :active {
+    color: rgb(35, 35, 35);
+  }
 `;
 
 const Size = styled(Color)``;
@@ -235,33 +297,71 @@ const Size = styled(Color)``;
 const Bottom = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 30px;
+  border-bottom: 1px solid lightgrey;
+  padding: 20px 0;
 `;
 const Quantity = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 10px;
-  .icon {
-    margin: 0 8px;
-  }
+  border: 1px solid lightgrey;
+  margin-right: 20px;
 `;
 
 const Counter = styled.span`
-  border: 1px solid gray;
-  height: 25px;
-  width: 25px;
+  height: 35px;
+  width: 45px;
   padding: 8px;
   border-radius: 5px;
-
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
+const AddRemoveWrapper = styled.div`
+  display: flex
+  flex-direction: column;
+  height: 100%; 
+  .icon {
+    font-size: 14px; 
+    
+  }
+`;
+
+const AddWrapper = styled.div`
+  border: 1px solid lightgrey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px;
+  border-right: none;
+  border-top: none;
+  cursor: pointer;
+`;
+
+const RemoveWrapper = styled(AddWrapper)`
+  border-left: 1px solid lightgrey;
+  border-bottom: none;
+`;
+
 const AddToCart = styled.button`
-  padding: 12px 59px;
-  background-color: teal;
+  padding: 8px 24px;
+  background-color: #757575;
   color: white;
   font-weight: 500;
   font-size: 16px;
+  cursor: pointer;
 `;
+
+const AdditionalInfo = styled.div`
+  font-size: 12px;
+  padding: 20px 0;
+`;
+
+const Categories = styled.div`
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  span {
+    font-weight: 500;
+  }
+`;
+const Tags = styled(Categories)``;

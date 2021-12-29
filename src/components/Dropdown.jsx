@@ -5,8 +5,8 @@ import styled from "styled-components";
 const Dropdown = ({ value, handleChangeDropdown, label, choices }) => {
   if (choices) {
     return (
-      <Container>
-        <FormControl sx={{ minWidth: 120, width: 1 / 2, }}>
+      <Container className="productDropdown">
+        <FormControl fullWidth sx={{ minWidth: 120}}>
           <Select
             value={value}
             onChange={(e) => handleChangeDropdown(e, label)}
