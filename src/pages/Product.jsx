@@ -5,27 +5,21 @@ import { Remove, Add } from "@mui/icons-material/";
 import Dropdown from "../components/Dropdown";
 import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
-import Footer from "../components/Footer"
-import { useLocation } from "react-router-dom";
+import Footer from "../components/Footer";
+import { useParams } from "react-router-dom";
 import { publicRequest } from "../requestMethods";
 import { addProduct } from "../redux/cartSlice";
 import { useDispatch } from "react-redux";
 import { mobile } from "../responsive";
 
 const Product = () => {
-  
   const dispatch = useDispatch();
-
-  const location = useLocation();
-  const id = location.pathname.split("/")[2];
-  
+  const { id } = useParams();
   const [product, setProduct] = useState({});
   const [rating, setRating] = useState(0);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
   const [count, setCount] = useState(1);
-
-  
 
   useEffect(() => {
     const getProduct = async () => {
@@ -35,15 +29,14 @@ const Product = () => {
       } catch (err) {
         console.log(err);
       }
-    }
+    };
     getProduct();
-  }, [id])
+  }, [id]);
 
-  
   useEffect(() => {
     product.color && setColor(product.color[0]);
     product.size && setSize(product.size[0]);
-  }, [product])
+  }, [product]);
 
   const handleChangeDropdown = (event, label) => {
     if (label === "color") setColor(event.target.value);
@@ -68,8 +61,7 @@ const Product = () => {
       size,
     };
     dispatch(addProduct(payload));
-
-  }
+  };
 
   return (
     <>
@@ -83,15 +75,22 @@ const Product = () => {
 
           <Right>
             <Info>
-              <Title>{product.title}</Title>
-              <Price>${product.price}</Price>
-              <Box>
-                <Rating
-                  name="productRating"
-                  value={rating}
-                  onChange={(e, newRating) => setRating(newRating)}
-                />
-              </Box>
+              <InfoLeft>
+                <Title>{product.title}</Title>
+                <Price>${product.price}</Price>
+              </InfoLeft>
+              <InfoRight>
+                <Box>
+                  <Rating
+                    name="productRating"
+                    value={rating}
+                    onChange={(e, newRating) => setRating(newRating)}
+                  />
+                </Box>
+                <ProductNumber>
+                  SKU: {product._id}
+                </ProductNumber>
+              </InfoRight>
             </Info>
 
             <Selection>
@@ -116,7 +115,9 @@ const Product = () => {
                 </Size>
               </Top>
               <Bottom>
-                <AddToCart onClick={handleClickAddToCart}>ADD TO CART</AddToCart>
+                <AddToCart onClick={handleClickAddToCart}>
+                  ADD TO CART
+                </AddToCart>
                 <Quantity>
                   <Remove
                     className="removeIcon icon"
@@ -133,7 +134,7 @@ const Product = () => {
           </Right>
         </Content>
       </Container>
-      <Footer/>
+      <Footer />
     </>
   );
 };
@@ -141,33 +142,29 @@ const Product = () => {
 export default Product;
 
 const Container = styled.div`
-  min-height: 60vh; 
+  min-height: 60vh;
   max-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between; 
-  margin-bottom: 50px; 
+  justify-content: space-between;
+  margin-bottom: 50px;
 `;
 
 const Content = styled.div`
   width: 80%;
   display: flex;
-  justify-content: center; 
-  margin-left: 150px; 
-  ${mobile({ flexDirection: "column",
-              width: "100vw",
-              marginLeft: "0",
-
-  })};
+  justify-content: center;
+  margin-left: 150px;
+  ${mobile({ flexDirection: "column", width: "100vw", marginLeft: "0" })};
 `;
 
 const Left = styled.div`
   flex: 1;
   display: flex;
-  align-items: center; 
-  justify-content: center; 
+  align-items: center;
+  justify-content: center;
 `;
 
 const ProductImage = styled.img`
@@ -180,23 +177,48 @@ const ProductImage = styled.img`
 const Right = styled.div`
   flex: 1;
   display: flex;
-  justify-content: center; 
-  flex-direction: column; 
-  margin-left: 50px; 
+  justify-content: center;
+  flex-direction: column;
+  margin-left: 50px;
   line-height: 1.5;
 `;
 
-const Title = styled.h1``;
-const Info = styled.div`
-  padding-top: 30px;
-  padding-left: 30px;
+
+
+const Title = styled.span`
+  font-size: 18px;
 `;
+const Info = styled.div`
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  border: solid; 
+`;
+
+const InfoLeft = styled.div`
+  display: flex;
+  flex-direction: column;
+  line-height: 1.5; 
+  border: solid;
+`
+
+const InfoRight = styled.div`
+  display: flex;
+  flex-direction: column;
+  line-height: 1.5; 
+  border: solid;
+  height: 100%; 
+`
+
+const ProductNumber = styled.span`
+  
+`
 
 const Price = styled.span`
-  font-size: 34px;
 `;
 
-const Selection = styled(Info)``;
+const Selection = styled.div`
+`;
 
 const Top = styled.div``;
 
