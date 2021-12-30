@@ -1,22 +1,21 @@
 import styled from "styled-components";
-import { mobile } from "../responsive";
+import { tablet, mobile } from "../responsive";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const About = () => {
   return (
     <Container>
-      <Title> Made for the Modern American</Title>
-      <Info>
-        <Description>
-          We blend bussin, fashion forward pieces including elevated basics with
-          streetwear detailing. Since our inception, our aim has been to provide
-          size inclusive fashion basics for the modern American. We seek to be
-          an environmentally and socially responsible company; as such we work
-          closely with our suppliers to ensure ethical conditions for workers.
-          We are continually working towards providing the best clothing and
-          accessories, with the least environmental and social harm possible.
-        </Description>
-        <AboutUs>ABOUT US</AboutUs>
-      </Info>
+      <Content>
+        <Title> HURRY! </Title>
+        <DiscountText>NEWSLETTER AND GET DISCOUNT 25% OFF</DiscountText>
+          <Description>
+            Sign up for newsletter and get 10% cash back offer
+          </Description>
+        <InputWrapper>
+            <Input placeholder="Enter your email..."/>
+            <InputButton>SUBSCRIBE<ArrowForwardIcon className="arrowRightIcon"/></InputButton>
+          </InputWrapper>
+      </Content>
     </Container>
   );
 };
@@ -24,41 +23,85 @@ const About = () => {
 export default About;
 
 const Container = styled.div`
-  height: auto;
+  height: 600px;
   width: 100%;
   padding: 80px;
   display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: rgb(247, 244, 240);
-  color: rgb(51, 51, 51);
-  ${mobile({ flexDirection: "column", padding: "20px" })};
-`;
-const Title = styled.h1`
-  flex: 1;
-  font-weight: 400;
-  margin-right: 30px;
-  ${mobile({ flex: "column", marginBottom: "20px", textAlign: "center", fontSize: "23px", marginRight: "0" })};
+  color: white;
+  background-image: url("/images/home-page-fashion-newsletter-bg.jpg");
+  ${mobile({ flexDirection: "column", padding: "20px", height: "400px" })};
 `;
 
-const Info = styled.div`
+const Content = styled.div`
+  width: 60%; 
   display: flex;
   flex-direction: column;
-  flex: 2;
-  ${mobile({
-    alignItems: "center",
-  })};
-`;
-const Description = styled.div`
-  font-size: 14px;
-  line-height: 1.5;
+  justify-content: center;
+  align-items: center; 
+  line-height: 2; 
+  ${mobile({ width: "100%" })};
 `;
 
-const AboutUs = styled.button`
-  border: 1px solid black;
-  width: 200px;
-  font-size: 15px;
-  padding: 12px 18px;
-  margin-top: 30px;
-  font-weight: 300;
-  color: rgb(51, 51, 51);
-  cursor: pointer;
+const Title = styled.h1`
+  flex: 1;
+  font-weight: 600;
+  margin-right: 30px;
+  font-size: 64px; 
+  ${mobile({
+    flex: "column",
+    marginBottom: "20px",
+    textAlign: "center",
+    fontSize: "28px",
+    marginRight: "0",
+  })};
 `;
+
+const DiscountText = styled.span`
+  text-align: center; 
+  background-color: black; 
+  padding: 3px 16px; 
+  margin-bottom: 25px; 
+  ${mobile({ width: "70%",
+  fontSize: "14px" })};
+`
+
+const Description = styled.div`
+  font-size: 28px;
+  line-height: 1.5;
+  width: 50%;
+  text-align: center;  
+  margin-bottom: 40px; 
+  ${mobile({ width: "100%" })};
+`;
+
+const InputWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid black; 
+  align-items: center;
+
+`
+
+const Input = styled.input`
+  width: 100%;
+  font-size: 15px;
+  padding: 12px 0;
+  font-weight: 300;
+  color: black;
+  ::placeholder {
+    color: inherit; 
+  }
+`;
+
+const InputButton = styled.button`
+  height: 100%; 
+  display: flex;
+  align-items: center; 
+  .arrowRightIcon {
+    font-size: 14px; 
+    margin-left: 3px; 
+  }
+`

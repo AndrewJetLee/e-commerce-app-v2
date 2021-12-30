@@ -99,7 +99,7 @@ const Top = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center; 
-  padding: 20px 40px;
+  padding: 20px 200px;
   border-bottom: 1px solid rgb(80, 80, 80, 0.6); 
 `;
 
@@ -149,7 +149,7 @@ const Bottom = styled.div`
   height: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 40px;
+  padding: 40px 200px;
   position: relative;
   bottom: 0;
   ${mobile({ flexDirection: "column" })};
@@ -218,7 +218,6 @@ const Link = styled.li`
 `;
 
 const Right = styled.div`
-  flex: 1;
 `;
 
 const ContactItem = styled.div`
