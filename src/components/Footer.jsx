@@ -100,7 +100,7 @@ const Top = styled.div`
   justify-content: space-between;
   align-items: center; 
   padding: 20px 40px;
-  border-bottom: 1px solid rgb(128, 128, 128); 
+  border-bottom: 1px solid rgb(80, 80, 80, 0.6); 
 `;
 
 const Subscribe = styled.div`
@@ -109,6 +109,7 @@ const Subscribe = styled.div`
 `
 const SubscribeText = styled.span`
   margin-right: 20px; 
+  font-size: 14px; 
   color: #b7b7b7;
 `
 const SubscribeInput = styled.input`
@@ -138,6 +139,9 @@ const SubscribeButton = styled.button`
 `
 const SocialsText = styled.span`
   margin-right: 15px; 
+  font-size: 14px; 
+  position: relative; 
+  bottom: 2px; 
 `
 
 const Bottom = styled.div`
@@ -172,12 +176,14 @@ const Description = styled.p`
 const Socials = styled.div`
   display: flex;
   color: #b7b7b7;
+  align-items: center; 
 `;
 const SocialWrapper = styled.div`
   .socialIcon {
     margin-right: 8px;
     transition: all 0.167s ease;
     cursor: pointer;
+    font-size: 16px; 
     :hover {
       transform: scale(1.1);
     }
