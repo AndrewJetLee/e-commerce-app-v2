@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { Box, Rating } from "@mui/material/";
 import { useState, useEffect } from "react";
 import { Remove, Add } from "@mui/icons-material/";
-import Dropdown from "../components/Dropdown";
 import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -20,7 +19,6 @@ const Product = () => {
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
   const [count, setCount] = useState(1);
-  const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
     const getProduct = async () => {
@@ -179,7 +177,6 @@ const Left = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background-color: lightgray; */
 `;
 
 const ProductImage = styled.img`
