@@ -6,6 +6,7 @@ import About from "../components/About";
 import Footer from "../components/Footer";
 import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
+import Separator from "../components/Separator";
 
 const Home = () => {
   return (
@@ -13,9 +14,11 @@ const Home = () => {
       <Announcement />
       <Navbar />
       <Carousel />
+      <Separator />
       <Categories />
-      <Title>Featured Products</Title>
+      <Separator />
       <Products />
+      <Separator />
       <About />
       <Footer />
     </Container>

@@ -23,7 +23,6 @@ const Container = styled.div``;
 const Content = styled.div``;
 
 const Items = styled.div`
-  margin-top: 100px;
   width: 100%;
   display: flex;
   background-color: white;
