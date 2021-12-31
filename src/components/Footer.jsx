@@ -6,9 +6,9 @@ import {
   MailOutline,
   Phone,
   Room,
-  ArrowForward
+  ArrowForward,
 } from "@mui/icons-material/";
-import { mobile } from "../responsive";
+import { mobile, tablet } from "../responsive";
 
 const Footer = () => {
   return (
@@ -17,7 +17,10 @@ const Footer = () => {
         <Subscribe>
           <SubscribeText>LAST CHANCE TO WIN OUR DISCOUNT!</SubscribeText>
           <SubscribeInput placeholder="Enter your email..." />
-          <SubscribeButton>SUBSCRIBE<ArrowForward className="arrowRightIcon"/></SubscribeButton>
+          <SubscribeButton>
+            SUBSCRIBE
+            <ArrowForward className="arrowRightIcon" />
+          </SubscribeButton>
         </Subscribe>
         <Socials>
           <SocialsText>SOCIAL NETWORKS</SocialsText>
@@ -92,57 +95,72 @@ export default Footer;
 const Container = styled.div`
   background-color: rgb(30, 30, 30);
   color: white;
-  
 `;
 
 const Top = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center; 
+  align-items: center;
   padding: 20px 200px;
-  border-bottom: 1px solid rgb(80, 80, 80, 0.6); 
+  border-bottom: 1px solid rgb(80, 80, 80, 0.6);
+  ${tablet({
+    padding: "30px",
+    flexDirection: "column"
+  })};
 `;
 
 const Subscribe = styled.div`
   position: relative;
   color: #8a8a8a;
-`
+`;
 const SubscribeText = styled.span`
-  margin-right: 20px; 
-  font-size: 14px; 
+  margin-right: 20px;
+  font-size: 14px;
   color: #b7b7b7;
-`
+  ${tablet({
+    display: "none",
+  })};
+`;
 const SubscribeInput = styled.input`
   background-color: #303030;
-  padding: 8px; 
-  font-size: 12px; 
-  width: 300px; 
-  color: inherit; 
+  padding: 8px;
+  font-size: 12px;
+  width: 300px;
+  color: inherit;
   :focus {
     background-color: #303030;
-    color: inherit; 
+    color: inherit;
   }
-`
+  ${tablet({
+    marginBottom: "10px",
+  })};
+  ${mobile({
+    width: "90vw",
+  })};
+`;
 const SubscribeButton = styled.button`
-  position: absolute; 
+  position: absolute;
   top: 8px;
-  right: 10px; 
-  font-size: 12px; 
+  right: 10px;
+  font-size: 12px;
   color: inherit;
   display: flex;
-  align-items: center; 
-  cursor: pointer; 
+  align-items: center;
+  cursor: pointer;
   .arrowRightIcon {
     font-size: 14px;
-    margin-left: 5px; 
+    margin-left: 5px;
   }
-`
+`;
 const SocialsText = styled.span`
-  margin-right: 15px; 
-  font-size: 14px; 
-  position: relative; 
-  bottom: 2px; 
-`
+  margin-right: 15px;
+  font-size: 14px;
+  position: relative;
+  bottom: 2px;
+  ${tablet({
+    display: "none",
+  })};
+`;
 
 const Bottom = styled.div`
   width: 100%;
@@ -152,12 +170,17 @@ const Bottom = styled.div`
   padding: 40px 200px;
   position: relative;
   bottom: 0;
+  ${tablet({
+    padding: "30px",
+  })};
   ${mobile({ flexDirection: "column" })};
 `;
 
 const Left = styled.div`
   flex: 1;
   color: #808080;
+  ${mobile({ display: "flex", flexDirection: "column", textAlign: "center",
+   })};
 `;
 
 const Logo = styled.h1`
@@ -171,19 +194,20 @@ const Description = styled.p`
   margin-top: 2px;
   width: 70%;
   font-size: 14px;
+  ${mobile({ width: "100%", marginBottom: "20px" })};
 `;
 
 const Socials = styled.div`
   display: flex;
   color: #b7b7b7;
-  align-items: center; 
+  align-items: center;
 `;
 const SocialWrapper = styled.div`
   .socialIcon {
     margin-right: 8px;
     transition: all 0.167s ease;
     cursor: pointer;
-    font-size: 16px; 
+    font-size: 16px;
     :hover {
       transform: scale(1.1);
     }
@@ -193,18 +217,23 @@ const SocialWrapper = styled.div`
 const Title = styled.h3`
   margin-bottom: 20px;
   color: #b7b7b7;
-  font-size: 15px; 
-  font-weight: 500; 
-  text-transform: uppercase; 
+  font-size: 15px;
+  font-weight: 500;
+  text-transform: uppercase;
+  ${mobile({ marginBottom: "10px" })};
 `;
 
 const Center = styled.div`
   flex: 1;
   display: flex;
+  ${mobile({ textAlign: "center",
+    flexDirection: "column" })};
 `;
 
 const Column = styled.div`
   flex: 1;
+  ${mobile({ marginBottom: "20px" })};
+  
 `;
 
 const Links = styled.ul`
@@ -218,6 +247,7 @@ const Link = styled.li`
 `;
 
 const Right = styled.div`
+  ${mobile({ display: "flex", flexDirection: "column", textAlign: "center", alignItems: "center" })};
 `;
 
 const ContactItem = styled.div`
@@ -235,4 +265,4 @@ const Payment = styled.div`
   img {
     height: 22px;
   }
-`
+`;

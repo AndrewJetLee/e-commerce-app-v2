@@ -11,8 +11,6 @@ const ProductList = () => {
   let { category } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const q = searchParams.get('q');
-  console.log(q);
-  console.log(category);
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState("newest");
 
