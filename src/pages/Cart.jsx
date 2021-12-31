@@ -26,7 +26,7 @@ const Cart = () => {
         tokenId: stripeToken.id,
         amount: cart.total * 100,
       });
-      navigate("/success", {state: { stripeData: res.data, products: cart }} );
+      navigate("/success", { state: { stripeData: res.data, products: cart } });
     } catch (err) {
       console.log(err);
     }
@@ -37,75 +37,79 @@ const Cart = () => {
   }, [stripeToken]);
 
   return (
-    <Container>
+    <>
       <Navbar />
       <Announcement />
-      <Content>
-        <Top>
-          <Title>YOUR CART</Title>
-          <Options>
-            <LeftButton onClick={() => navigate("/products/mens")}>
-              Continue Shopping
-            </LeftButton>
-            <CenterLinks>
-              <CenterLink>Shopping Bag</CenterLink>
-              <CenterLink>Your Wishlist</CenterLink>
-            </CenterLinks>
-            <StripeCheckout
-              name="Shop"
-              image="https://w7.pngwing.com/pngs/621/196/png-transparent-e-commerce-logo-logo-e-commerce-electronic-business-ecommerce-angle-text-service.png"
-              billingAddress
-              shippingAddress
-              description={`You total is $${cart.total}`}
-              amount={cart.total * 100}
-              token={onToken}
-              stripeKey={KEY}
-            >
-              <RightButton>Checkout Now</RightButton>
-            </StripeCheckout>
-          </Options>
-        </Top>
-        <Bottom>
-          <Items>
-            {cart.products.map((item) => (
-              <CartItem item={item} />
-            ))}
-          </Items>
-          <Summary>
-            <SummaryTitle>ORDER SUMMARY</SummaryTitle>
-            <SummaryItem>
-              <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>${cart.total}</SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem>
-              <SummaryItemText>Estimate Shipping</SummaryItemText>
-              <SummaryItemPrice>$6.90</SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem>
-              <SummaryItemText>Shipping Discount</SummaryItemText>
-              <SummaryItemPrice>-$6.90</SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem type="total">
-              <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>${cart.total}</SummaryItemPrice>
-            </SummaryItem>
-            <StripeCheckout
-              name="Shop"
-              image="https://w7.pngwing.com/pngs/621/196/png-transparent-e-commerce-logo-logo-e-commerce-electronic-business-ecommerce-angle-text-service.png"
-              billingAddress
-              shippingAddress
-              description={`You total is $${cart.total}`}
-              amount={cart.total * 100}
-              token={onToken}
-              stripeKey={KEY}
-            >
-              <CheckoutButton>CHECKOUT NOW</CheckoutButton>
-            </StripeCheckout>
-          </Summary>
-        </Bottom>
-      </Content>
-      <Footer />
-    </Container>
+      <Container>
+        <Content>
+          <Top>
+            <Title>CART</Title>
+            <Options>
+              <LeftButton onClick={() => navigate("/products/mens")}>
+                Continue Shopping
+              </LeftButton>
+              <CenterLinks>
+                <CenterLink>Shopping Bag</CenterLink>
+                <CenterLink>Your Wishlist</CenterLink>
+              </CenterLinks>
+              <StripeCheckout
+                name="Shop"
+                image="https://w7.pngwing.com/pngs/621/196/png-transparent-e-commerce-logo-logo-e-commerce-electronic-business-ecommerce-angle-text-service.png"
+                billingAddress
+                shippingAddress
+                description={`You total is $${cart.total}`}
+                amount={cart.total * 100}
+                token={onToken}
+                stripeKey={KEY}
+              >
+                <RightButton>Checkout Now</RightButton>
+              </StripeCheckout>
+            </Options>
+          </Top>
+          <Bottom>
+         
+            <Items>
+            <HorizontalSeparator></HorizontalSeparator>
+              {cart.products.map((item) => (
+                <CartItem item={item} />
+              ))}
+            </Items>
+            <Summary>
+              <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+              <SummaryItem>
+                <SummaryItemText>Subtotal</SummaryItemText>
+                <SummaryItemPrice>${cart.total}</SummaryItemPrice>
+              </SummaryItem>
+              <SummaryItem>
+                <SummaryItemText>Estimate Shipping</SummaryItemText>
+                <SummaryItemPrice>$6.90</SummaryItemPrice>
+              </SummaryItem>
+              <SummaryItem>
+                <SummaryItemText>Shipping Discount</SummaryItemText>
+                <SummaryItemPrice>-$6.90</SummaryItemPrice>
+              </SummaryItem>
+              <SummaryItem type="total">
+                <SummaryItemText>Total</SummaryItemText>
+                <SummaryItemPrice>${cart.total}</SummaryItemPrice>
+              </SummaryItem>
+              <StripeCheckout
+                name="Shop"
+                image="https://w7.pngwing.com/pngs/621/196/png-transparent-e-commerce-logo-logo-e-commerce-electronic-business-ecommerce-angle-text-service.png"
+                billingAddress
+                shippingAddress
+                description={`You total is $${cart.total}`}
+                amount={cart.total * 100}
+                token={onToken}
+                stripeKey={KEY}
+              >
+                <CheckoutButton>CHECKOUT NOW</CheckoutButton>
+              </StripeCheckout>
+            </Summary>
+          </Bottom>
+        </Content>
+        <Footer />
+      </Container>
+    </>
   );
 };
 
@@ -113,16 +117,21 @@ export default Cart;
 
 const Container = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
-const Content = styled.div`
-  width: 100%;
+const Content = styled.main`
+  width: 70%;
   height: 100%;
   padding: 20px;
 `;
 
 const Top = styled.div`
   width: 100%;
+  padding: 20px 0; 
 `;
 
 const Title = styled.h1`
@@ -145,6 +154,7 @@ const CenterLink = styled.a`
   text-decoration: underline;
   margin-right: 5px;
 `;
+
 const RightButton = styled.button`
   padding: 8px;
   background-color: black;
@@ -153,18 +163,27 @@ const RightButton = styled.button`
 
 const Bottom = styled.div`
   display: flex;
-  margin-top: 20px;
+`;
+
+const HorizontalSeparator = styled.span`
+  display: inline-block; 
+  border-bottom: 1px solid lightgrey; 
+  width: 100%;
+  margin-top: 10px; 
+  position: absolute; 
 `;
 
 const Items = styled.div`
   flex: 2;
+  position: relative; 
 `;
 
 const Summary = styled.div`
   flex: 1;
   max-width: 390px;
   height: 45vh;
-  border: solid 1px lightgray;
+  background-color: rgb(247, 247, 247);
+  border-top: none; 
   padding: 20px;
   display: flex;
   flex-direction: column;

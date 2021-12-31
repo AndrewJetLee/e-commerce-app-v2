@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { Remove, Add } from "@mui/icons-material/";
+import { Remove, Add, Close } from "@mui/icons-material/";
 
 const CartItem = ({item}) => {
   const [count, setCount] = useState(item.quantity);
@@ -18,6 +18,7 @@ const CartItem = ({item}) => {
   return (
     <Wrapper>
       <Left>
+        <Close className="closeIcon"/>
         <Image src={item.image}></Image>
       </Left>
       <Center>
@@ -27,7 +28,7 @@ const CartItem = ({item}) => {
         <ProductId>
           <strong>ID:</strong> {item._id}
         </ProductId>
-        <ProductColor>{item.color}</ProductColor>
+        <ProductColor><strong>Color</strong>: {item.color}</ProductColor>
         <ProductSize>
           <strong>Size:</strong> {item.size}
         </ProductSize>
@@ -55,12 +56,22 @@ export default CartItem;
 const Wrapper = styled.div`
   display: flex;
   border-bottom: solid 1px lightgray;
+  font-size: 14px; 
 `;
-const Left = styled.div`
+const Left = styled.td`
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+ 
+  .closeIcon {
+    font-size: 14px; 
+    transition: color .167s ease-in-out;
+    cursor: pointer; 
+    :hover {
+      color: red; 
+    }
+  }
 `;
 const Image = styled.img`
   width: 200px;
@@ -71,9 +82,10 @@ const Center = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 10px;
+  justify-content: center;  
 `;
 const ProductName = styled.span`
-  margin: 10px 0;
+  margin: 5px 0;
 `;
 
 const ProductId = styled(ProductName)``;
@@ -84,8 +96,8 @@ const Right = styled.div`
   flex: 1.3;
   display: flex;
   justify-content: space-between;
+  align-items: center; 
   margin-top: 10px;
-  font-size: 18px;
 `;
 const Counter = styled.div`
     display: flex;
