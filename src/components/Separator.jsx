@@ -1,13 +1,13 @@
 import React from 'react'
 import styled from 'styled-components';
 
-const Separator = ({title, desc}) => {
+const Separator = ({item}) => {
     return (
         <Container>
             <Content>
                 <VerticalLine></VerticalLine>
-                <Title>Featured Products</Title>
-                <Description>Want to know the most popular products from the shop</Description>
+                <Title>{item.title}</Title>
+                <Description>{item.desc}</Description>
             </Content>
         </Container>
     )

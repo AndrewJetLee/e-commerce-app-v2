@@ -11,7 +11,7 @@ export const carouselItems = [
     title: "WOMENS STYLE",
     desc: "QUEENS GET 30% OFF!",
   },
-  
+
   {
     id: 3,
     img: "/images/slide-image-3.jpg",
@@ -25,25 +25,37 @@ export const CategoriesItems = [
     id: 1,
     img: "/images/categories-new.jpg",
     title: "NEW ARRIVALS",
-    category: "new"
+    category: "new",
   },
   {
     id: 2,
     img: "/images/categories-streetwear.jpg",
     title: "MEN'S COLLECTION",
-    category: "mens"
+    category: "mens",
   },
   {
     id: 3,
     img: "/images/categories-denim.jpg",
     title: "WOMEN'S COLLECTION",
-    category: "womens"
+    category: "womens",
   },
   {
     id: 4,
     img: "/images/categories-accessories.jpg",
     title: "ACCESSORIES",
-    category: "accessories"
+    category: "accessories",
   },
 ];
 
+export const SeparatorItems = [
+  {
+    id: 1,
+    title: "Categories",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  },
+  {
+    id: 2,
+    title: "Featured Products",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  },
+];

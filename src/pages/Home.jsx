@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
 import Separator from "../components/Separator";
+import { SeparatorItems } from "../dummyData";
 
 const Home = () => {
   return (
@@ -14,11 +15,10 @@ const Home = () => {
       <Announcement />
       <Navbar />
       <Carousel />
-      <Separator />
+      <Separator item={SeparatorItems[0]}/>
       <Categories />
-      <Separator />
+      <Separator item={SeparatorItems[1]}/>
       <Products />
-      <Separator />
       <About />
       <Footer />
     </Container>
@@ -28,9 +28,3 @@ const Home = () => {
 export default Home;
 
 const Container = styled.div``;
-
-const Title = styled.h1`
-  text-align: center;
-  padding-top: 40px;
-  padding-bottom: 25px;
-`;
