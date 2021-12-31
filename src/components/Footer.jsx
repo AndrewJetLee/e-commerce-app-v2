@@ -9,8 +9,11 @@ import {
   ArrowForward,
 } from "@mui/icons-material/";
 import { mobile, tablet } from "../responsive";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
   return (
     <Container>
       <Top>
@@ -51,18 +54,18 @@ const Footer = () => {
           <Column>
             <Title>CATEGORIES</Title>
             <Links>
-              <Link>New</Link>
-              <Link>Mens</Link>
-              <Link>Womens</Link>
-              <Link>Streetwear</Link>
-              <Link>Accessories</Link>
+              <Link onClick={() => navigate("/products/new")}>New</Link>
+              <Link onClick={() => navigate("/products/mens")}>Mens</Link>
+              <Link onClick={() => navigate("/products/womens")}>Womens</Link>
+              <Link onClick={() => navigate("/products/streetwear")}>Streetwear</Link>
+              <Link onClick={() => navigate("/products/accessories")}>Accessories</Link>
             </Links>
           </Column>
           <Column>
             <Title>CUSTOMER</Title>
             <Links>
               <Link>My Account</Link>
-              <Link>Cart</Link>
+              <Link onClick={() => navigate("/cart")}>Cart</Link>
               <Link>Wishlist</Link>
               <Link>Returns</Link>
               <Link>Terms</Link>
