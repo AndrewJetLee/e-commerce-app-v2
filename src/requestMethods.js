@@ -4,8 +4,8 @@ const BASE_URL = "http://localhost:4000/api/";
 
 // Redux persist stores User and Cart states in local storage as strings
 // Access the token from local storage
-const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
-const currentUser = user && JSON.parse(user).currentUser;
+const user = (localStorage.getItem("persist:user")) ? JSON.parse(localStorage.getItem("persist:user")) : null;
+const currentUser = user && JSON.parse(user.currentUser);
 const TOKEN = currentUser?.accessToken;
 
 export const publicRequest = axios.create({
@@ -16,5 +16,5 @@ export const userRequest = axios.create({
     baseURL: BASE_URL,
     headers: { 
         token: `Bearer ${TOKEN}`,
-    }
+    },
 })

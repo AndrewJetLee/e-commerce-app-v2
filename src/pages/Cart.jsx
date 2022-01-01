@@ -41,72 +41,76 @@ const Cart = () => {
       <Navbar />
       <Announcement />
       <Container>
-        <Content>
-          <Top>
-            <Title>CART</Title>
-            <Options>
-              <LeftButton onClick={() => navigate("/products/mens")}>
-                Continue Shopping
-              </LeftButton>
-              <CenterLinks>
-                <CenterLink>Shopping Bag</CenterLink>
-                <CenterLink>Your Wishlist</CenterLink>
-              </CenterLinks>
-              <StripeCheckout
-                name="Shop"
-                image="https://w7.pngwing.com/pngs/621/196/png-transparent-e-commerce-logo-logo-e-commerce-electronic-business-ecommerce-angle-text-service.png"
-                billingAddress
-                shippingAddress
-                description={`You total is $${cart.total}`}
-                amount={cart.total * 100}
-                token={onToken}
-                stripeKey={KEY}
-              >
-                <RightButton>Checkout Now</RightButton>
-              </StripeCheckout>
-            </Options>
-          </Top>
-          <Bottom>
-         
-            <Items>
-            <HorizontalSeparator></HorizontalSeparator>
-              {cart.products.map((item) => (
-                <CartItem item={item} />
-              ))}
-            </Items>
-            <Summary>
-              <SummaryTitle>ORDER SUMMARY</SummaryTitle>
-              <SummaryItem>
-                <SummaryItemText>Subtotal</SummaryItemText>
-                <SummaryItemPrice>${cart.total}</SummaryItemPrice>
-              </SummaryItem>
-              <SummaryItem>
-                <SummaryItemText>Estimate Shipping</SummaryItemText>
-                <SummaryItemPrice>$6.90</SummaryItemPrice>
-              </SummaryItem>
-              <SummaryItem>
-                <SummaryItemText>Shipping Discount</SummaryItemText>
-                <SummaryItemPrice>-$6.90</SummaryItemPrice>
-              </SummaryItem>
-              <SummaryItem type="total">
-                <SummaryItemText>Total</SummaryItemText>
-                <SummaryItemPrice>${cart.total}</SummaryItemPrice>
-              </SummaryItem>
-              <StripeCheckout
-                name="Shop"
-                image="https://w7.pngwing.com/pngs/621/196/png-transparent-e-commerce-logo-logo-e-commerce-electronic-business-ecommerce-angle-text-service.png"
-                billingAddress
-                shippingAddress
-                description={`You total is $${cart.total}`}
-                amount={cart.total * 100}
-                token={onToken}
-                stripeKey={KEY}
-              >
-                <CheckoutButton>CHECKOUT NOW</CheckoutButton>
-              </StripeCheckout>
-            </Summary>
-          </Bottom>
-        </Content>
+        {!cart.products.length ? (
+          <div>Gigity</div>
+        ) : (
+          <Content>
+            <Top>
+              <Title>CART</Title>
+              <Options>
+                <LeftButton onClick={() => navigate("/products/mens")}>
+                  Continue Shopping
+                </LeftButton>
+                <CenterLinks>
+                  <CenterLink>Shopping Bag</CenterLink>
+                  <CenterLink>Your Wishlist</CenterLink>
+                </CenterLinks>
+                <StripeCheckout
+                  name="Shop"
+                  image="https://w7.pngwing.com/pngs/621/196/png-transparent-e-commerce-logo-logo-e-commerce-electronic-business-ecommerce-angle-text-service.png"
+                  billingAddress
+                  shippingAddress
+                  description={`You total is $${cart.total}`}
+                  amount={cart.total * 100}
+                  token={onToken}
+                  stripeKey={KEY}
+                >
+                  <RightButton>Checkout Now</RightButton>
+                </StripeCheckout>
+              </Options>
+            </Top>
+            <Bottom>
+              <Items>
+                <HorizontalSeparator></HorizontalSeparator>
+                {cart.products.map((item) => (
+                  <CartItem item={item} />
+                ))}
+              </Items>
+              <Summary>
+                <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+                <SummaryItem>
+                  <SummaryItemText>Subtotal</SummaryItemText>
+                  <SummaryItemPrice>${cart.total}</SummaryItemPrice>
+                </SummaryItem>
+                <SummaryItem>
+                  <SummaryItemText>Estimate Shipping</SummaryItemText>
+                  <SummaryItemPrice>$6.90</SummaryItemPrice>
+                </SummaryItem>
+                <SummaryItem>
+                  <SummaryItemText>Shipping Discount</SummaryItemText>
+                  <SummaryItemPrice>-$6.90</SummaryItemPrice>
+                </SummaryItem>
+                <SummaryItem type="total">
+                  <SummaryItemText>Total</SummaryItemText>
+                  <SummaryItemPrice>${cart.total}</SummaryItemPrice>
+                </SummaryItem>
+                <StripeCheckout
+                  name="Shop"
+                  image="https://w7.pngwing.com/pngs/621/196/png-transparent-e-commerce-logo-logo-e-commerce-electronic-business-ecommerce-angle-text-service.png"
+                  billingAddress
+                  shippingAddress
+                  description={`You total is $${cart.total}`}
+                  amount={cart.total * 100}
+                  token={onToken}
+                  stripeKey={KEY}
+                >
+                  <CheckoutButton>CHECKOUT NOW</CheckoutButton>
+                </StripeCheckout>
+              </Summary>
+            </Bottom>
+          </Content>
+        )}
+
         <Footer />
       </Container>
     </>
@@ -131,7 +135,7 @@ const Content = styled.main`
 
 const Top = styled.div`
   width: 100%;
-  padding: 20px 0; 
+  padding: 20px 0;
 `;
 
 const Title = styled.h1`
@@ -166,16 +170,16 @@ const Bottom = styled.div`
 `;
 
 const HorizontalSeparator = styled.span`
-  display: inline-block; 
-  border-bottom: 1px solid lightgrey; 
+  display: inline-block;
+  border-bottom: 1px solid lightgrey;
   width: 100%;
-  margin-top: 10px; 
-  position: absolute; 
+  margin-top: 10px;
+  position: absolute;
 `;
 
 const Items = styled.div`
   flex: 2;
-  position: relative; 
+  position: relative;
 `;
 
 const Summary = styled.div`
@@ -183,7 +187,7 @@ const Summary = styled.div`
   max-width: 390px;
   height: 45vh;
   background-color: rgb(247, 247, 247);
-  border-top: none; 
+  border-top: none;
   padding: 20px;
   display: flex;
   flex-direction: column;

@@ -1,4 +1,4 @@
-import { publicRequest } from "../requestMethods";
+import { publicRequest, userRequest } from "../requestMethods";
 import { loginFailure, loginStart, loginSuccess, registerSuccess } from "./userSlice";
 
 export const login = async (dispatch, user) => {
@@ -21,5 +21,15 @@ export const register = async (dispatch, newUser) => {
       
     } catch (err) {
         dispatch(loginFailure());
+    }
+}
+
+export const updateCart = async (dispatch, payload) => {
+    const { userId, products } = payload;  
+    debugger; 
+    try {
+        const res = await userRequest.put(`/carts/${userId}`, products);
+    } catch (err) {
+        return err
     }
 }

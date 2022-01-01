@@ -1,8 +1,13 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { Remove, Add, Close } from "@mui/icons-material/";
+import { useSelector, useDispatch } from "react-redux";
+import { updateCart } from "../redux/apiCalls";
 
 const CartItem = ({item}) => {
+  const cart = useSelector((state) => state.cart);
+  const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
   const [count, setCount] = useState(item.quantity);
   const [price, setPrice] = useState(item.price);
 
@@ -15,10 +20,22 @@ const CartItem = ({item}) => {
     }
   };
 
+  const handleRemoveItem = (id) => {
+    let filtered = cart.products.filter((cartItem) => id !== cartItem._id);
+    let userId = user._id;
+    let payload = {
+      products: filtered,
+      userId: user._id
+    }
+    console.log("redux cart:", cart, "payload: ", payload);
+    // dispatch to api call for update cart
+    updateCart(dispatch, payload);
+  }
+
   return (
     <Wrapper>
       <Left>
-        <Close className="closeIcon"/>
+        <Close onClick={() => handleRemoveItem(user._id)}className="closeIcon"/>
         <Image src={item.image}></Image>
       </Left>
       <Center>
