@@ -23,13 +23,3 @@ export const register = async (dispatch, newUser) => {
         dispatch(loginFailure());
     }
 }
-
-export const updateCart = async (dispatch, payload) => {
-    const { userId, products } = payload;  
-    debugger; 
-    try {
-        const res = await userRequest.put(`/carts/${userId}`, products);
-    } catch (err) {
-        return err
-    }
-}

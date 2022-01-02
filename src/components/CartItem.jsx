@@ -29,7 +29,6 @@ const CartItem = ({item}) => {
     }
     console.log("redux cart:", cart, "payload: ", payload);
     // dispatch to api call for update cart
-    updateCart(dispatch, payload);
   }
 
   return (

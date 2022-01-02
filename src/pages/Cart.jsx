@@ -123,8 +123,9 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  min-height: 100vh; 
 `;
 
 const Content = styled.main`
