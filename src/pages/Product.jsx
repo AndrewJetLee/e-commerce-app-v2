@@ -7,7 +7,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useParams } from "react-router-dom";
 import { publicRequest } from "../requestMethods";
-import { addProduct } from "../redux/cartSlice";
+import { addProduct, reset } from "../redux/cartSlice";
 import { useDispatch } from "react-redux";
 import { mobile } from "../responsive";
 
@@ -54,6 +54,7 @@ const Product = () => {
       color,
       size,
     };
+    // dispatch(reset());
     dispatch(addProduct(payload));
   };
 
@@ -94,12 +95,13 @@ const Product = () => {
                 <Color>
                   <TopTitle>COLOR</TopTitle>
                   <FilterColors>
-                    {product.color?.map((color) => (
+                    {product.color?.map((color, key) => (
                       <FilterColor
                         onClick={(e) => {
                           setColor(color);
                         }}
                         color={color}
+                        key={key}
                       />
                     ))}
                   </FilterColors>
@@ -107,11 +109,12 @@ const Product = () => {
                 <Size>
                   <TopTitle>SIZE</TopTitle>
                   <FilterSizes>
-                    {product.size?.map((size) => (
+                    {product.size?.map((size, key) => (
                       <FilterSize
                         onClick={(e) => {
                           setSize(size);
                         }}
+                        key={key}
                       >
                         {size}
                       </FilterSize>

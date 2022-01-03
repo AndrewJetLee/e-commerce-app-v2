@@ -73,7 +73,7 @@ const Cart = () => {
               <Items>
                 <HorizontalSeparator></HorizontalSeparator>
                 {cart.products.map((item) => (
-                  <CartItem item={item} />
+                  <CartItem cart={cart} item={item} />
                 ))}
               </Items>
               <Summary>

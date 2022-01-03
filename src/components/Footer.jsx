@@ -98,6 +98,7 @@ export default Footer;
 const Container = styled.div`
   background-color: rgb(30, 30, 30);
   color: white;
+  margin-top: auto; 
 `;
 
 const Top = styled.div`
