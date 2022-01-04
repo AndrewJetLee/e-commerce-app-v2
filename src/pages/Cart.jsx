@@ -236,6 +236,7 @@ const EmptyCartContainer = styled.div`
   justify-content: center; 
   align-items: center; 
   margin-top: auto; 
+  margin-bottom: auto; 
 `
 const EmptyCartContent = styled.div`
   display: flex; 
