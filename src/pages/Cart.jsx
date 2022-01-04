@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import StripeCheckout from "react-stripe-checkout";
 import { useState, useEffect } from "react";
 import { userRequest } from "../requestMethods";
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 
 const KEY = process.env.REACT_APP_STRIPE;
 
@@ -42,7 +43,17 @@ const Cart = () => {
       <Announcement />
       <Container>
         {!cart.products.length ? (
-          <div>Gigity</div>
+          <EmptyCartContainer>
+            <EmptyCartContent>
+             <ShoppingCartOutlinedIcon className="cartIcon"/>
+             <EmptyCartText>
+              Your cart is currently empty.
+             </EmptyCartText>
+             <ReturnButton>
+                RETURN TO SHOP
+             </ReturnButton>
+            </EmptyCartContent>
+          </EmptyCartContainer>
         ) : (
           <Content>
             <Top>
@@ -217,3 +228,36 @@ const CheckoutButton = styled(RightButton)`
   margin-top: 40px;
   height: 45px;
 `;
+
+const EmptyCartContainer = styled.div`
+  width: 100%; 
+  height: 50vh; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  margin-top: auto; 
+`
+const EmptyCartContent = styled.div`
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  width: 70%; 
+  .cartIcon {
+    color: orange; 
+    font-size: 60px; 
+  }
+  * {
+    margin-bottom: 25px; 
+  }
+`
+
+const EmptyCartText = styled.span`
+  font-weight: 500; 
+  font-size: 20px;
+`
+const ReturnButton = styled.button`
+  background-color: black;
+  color: white; 
+  padding: 8px 24px; 
+  font-size: 12px; 
+`
