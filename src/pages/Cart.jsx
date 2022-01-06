@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import StripeCheckout from "react-stripe-checkout";
 import { useState, useEffect } from "react";
 import { userRequest } from "../requestMethods";
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { mobile, tablet } from "../responsive";
 
 const KEY = process.env.REACT_APP_STRIPE;
 
@@ -42,7 +44,17 @@ const Cart = () => {
       <Announcement />
       <Container>
         {!cart.products.length ? (
-          <div>Gigity</div>
+          <EmptyCartContainer>
+            <EmptyCartContent>
+             <ShoppingCartOutlinedIcon className="cartIcon"/>
+             <EmptyCartText>
+              Your cart is currently empty.
+             </EmptyCartText>
+             <ReturnButton>
+                RETURN TO SHOP
+             </ReturnButton>
+            </EmptyCartContent>
+          </EmptyCartContainer>
         ) : (
           <Content>
             <Top>
@@ -129,9 +141,13 @@ const Container = styled.div`
 `;
 
 const Content = styled.main`
-  width: 70%;
-  height: 100%;
+  width: 75%;
+  min-height: 80vh;
   padding: 20px;
+  font-size: 14px; 
+  ${mobile({
+    width: "100%",
+  })}
 `;
 
 const Top = styled.div`
@@ -153,8 +169,18 @@ const Options = styled.div`
 const LeftButton = styled.button`
   padding: 8px;
   border: solid 1px black;
+  ${mobile({
+    padding: "4px",
+    fontSize: "12px"
+  })}
 `;
-const CenterLinks = styled.div``;
+const CenterLinks = styled.div`
+  display: flex; 
+   ${mobile({
+    flexDirection: "column",
+    fontSize: "12px"
+  })}
+`;
 const CenterLink = styled.a`
   text-decoration: underline;
   margin-right: 5px;
@@ -164,10 +190,17 @@ const RightButton = styled.button`
   padding: 8px;
   background-color: black;
   color: white;
+  ${mobile({
+    padding: "4px",
+    fontSize: "12px"
+  })}
 `;
 
 const Bottom = styled.div`
   display: flex;
+  ${tablet({
+    flexDirection: "column"
+  })}
 `;
 
 const HorizontalSeparator = styled.span`
@@ -181,18 +214,28 @@ const HorizontalSeparator = styled.span`
 const Items = styled.div`
   flex: 2;
   position: relative;
+  ${mobile({
+    display: "flex",
+    flexDirection: "column"
+  })}
 `;
 
 const Summary = styled.div`
   flex: 1;
   max-width: 390px;
   height: 45vh;
+  margin-top: 8px; 
+  margin-left: 40px;
   background-color: rgb(247, 247, 247);
   border-top: none;
   padding: 20px;
   display: flex;
   flex-direction: column;
   padding-bottom: 30px;
+  ${tablet({
+    maxWidth: "100%",
+    marginLeft: 0
+  })}
 `;
 
 const SummaryTitle = styled.h2`
@@ -217,3 +260,37 @@ const CheckoutButton = styled(RightButton)`
   margin-top: 40px;
   height: 45px;
 `;
+
+const EmptyCartContainer = styled.div`
+  width: 100%; 
+  height: 50vh; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  margin-top: auto; 
+  margin-bottom: auto; 
+`
+const EmptyCartContent = styled.div`
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  width: 70%; 
+  .cartIcon {
+    color: orange; 
+    font-size: 60px; 
+  }
+  * {
+    margin-bottom: 25px; 
+  }
+`
+
+const EmptyCartText = styled.span`
+  font-weight: 500; 
+  font-size: 20px;
+`
+const ReturnButton = styled.button`
+  background-color: black;
+  color: white; 
+  padding: 8px 24px; 
+  font-size: 12px; 
+`
