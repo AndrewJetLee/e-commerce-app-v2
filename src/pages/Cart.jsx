@@ -9,6 +9,7 @@ import StripeCheckout from "react-stripe-checkout";
 import { useState, useEffect } from "react";
 import { userRequest } from "../requestMethods";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { mobile, tablet } from "../responsive";
 
 const KEY = process.env.REACT_APP_STRIPE;
 
@@ -141,7 +142,7 @@ const Container = styled.div`
 
 const Content = styled.main`
   width: 70%;
-  height: 100%;
+  min-height: 80vh;
   padding: 20px;
 `;
 
@@ -179,6 +180,9 @@ const RightButton = styled.button`
 
 const Bottom = styled.div`
   display: flex;
+  ${tablet({
+    flexDirection: "column"
+  })}
 `;
 
 const HorizontalSeparator = styled.span`
@@ -198,12 +202,18 @@ const Summary = styled.div`
   flex: 1;
   max-width: 390px;
   height: 45vh;
+  margin-top: 8px; 
+  margin-left: 40px;
   background-color: rgb(247, 247, 247);
   border-top: none;
   padding: 20px;
   display: flex;
   flex-direction: column;
   padding-bottom: 30px;
+  ${tablet({
+    maxWidth: "100%",
+    marginLeft: 0
+  })}
 `;
 
 const SummaryTitle = styled.h2`
