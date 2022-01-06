@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Remove, Add, Close, ConstructionSharp } from "@mui/icons-material/";
 import { useSelector, useDispatch } from "react-redux";
 import { removeProduct } from "../redux/cartSlice";
+import { mobile, tablet} from "../responsive";
 
 const CartItem = ({cart, item}) => {
   const dispatch = useDispatch();
@@ -70,8 +71,10 @@ const Wrapper = styled.div`
   display: flex;
   border-bottom: solid 1px lightgray;
   font-size: 14px; 
+  ${mobile({
+  })}
 `;
-const Left = styled.td`
+const Left = styled.div`
   flex: 1;
   display: flex;
   justify-content: center;

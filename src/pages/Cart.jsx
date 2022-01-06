@@ -141,9 +141,13 @@ const Container = styled.div`
 `;
 
 const Content = styled.main`
-  width: 70%;
+  width: 75%;
   min-height: 80vh;
   padding: 20px;
+  font-size: 14px; 
+  ${mobile({
+    width: "100%",
+  })}
 `;
 
 const Top = styled.div`
@@ -165,8 +169,18 @@ const Options = styled.div`
 const LeftButton = styled.button`
   padding: 8px;
   border: solid 1px black;
+  ${mobile({
+    padding: "4px",
+    fontSize: "12px"
+  })}
 `;
-const CenterLinks = styled.div``;
+const CenterLinks = styled.div`
+  display: flex; 
+   ${mobile({
+    flexDirection: "column",
+    fontSize: "12px"
+  })}
+`;
 const CenterLink = styled.a`
   text-decoration: underline;
   margin-right: 5px;
@@ -176,6 +190,10 @@ const RightButton = styled.button`
   padding: 8px;
   background-color: black;
   color: white;
+  ${mobile({
+    padding: "4px",
+    fontSize: "12px"
+  })}
 `;
 
 const Bottom = styled.div`
@@ -196,6 +214,10 @@ const HorizontalSeparator = styled.span`
 const Items = styled.div`
   flex: 2;
   position: relative;
+  ${mobile({
+    display: "flex",
+    flexDirection: "column"
+  })}
 `;
 
 const Summary = styled.div`
