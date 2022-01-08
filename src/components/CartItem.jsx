@@ -3,9 +3,9 @@ import { useState } from "react";
 import { Remove, Add, Close, ConstructionSharp } from "@mui/icons-material/";
 import { useSelector, useDispatch } from "react-redux";
 import { removeProduct } from "../redux/cartSlice";
-import { mobile, tablet} from "../responsive";
+import { mobile, tablet } from "../responsive";
 
-const CartItem = ({cart, item}) => {
+const CartItem = ({ cart, item }) => {
   const dispatch = useDispatch();
   const [count, setCount] = useState(item.quantity);
   const [price, setPrice] = useState(item.price);
@@ -24,15 +24,18 @@ const CartItem = ({cart, item}) => {
     let payload = {
       price,
       quantity: count,
-    }
-    console.log("redux cart:", cart, "payload: ", payload, "item: ", item );
+    };
+    console.log("redux cart:", cart, "payload: ", payload, "item: ", item);
     dispatch(removeProduct(payload));
-  }
+  };
 
   return (
     <Wrapper>
       <Left>
-        <Close onClick={() => handleRemoveItem(item._id)}className="closeIcon"/>
+        <Close
+          onClick={() => handleRemoveItem(item._id)}
+          className="closeIcon"
+        />
         <Image src={item.image}></Image>
       </Left>
       <Center>
@@ -42,23 +45,25 @@ const CartItem = ({cart, item}) => {
         <ProductId>
           <strong>ID:</strong> {item._id}
         </ProductId>
-        <ProductColor><strong>Color</strong>: {item.color}</ProductColor>
+        <ProductColor>
+          <strong>Color</strong>: {item.color}
+        </ProductColor>
         <ProductSize>
           <strong>Size:</strong> {item.size}
         </ProductSize>
       </Center>
       <Right>
-        <Counter>
-          <Remove
-            className="removeIcon icon"
-            onClick={() => handleClickCounter("remove")}
-          />
-          {count}
-          <Add
-            className="addIcon icon"
-            onClick={() => handleClickCounter("add")}
-          />
-        </Counter>
+        <Quantity>
+          <Counter>{count}</Counter>
+          <AddRemoveWrapper>
+            <AddWrapper onClick={() => handleClickCounter("add")}>
+              <Add className="addIcon icon" />
+            </AddWrapper>
+            <RemoveWrapper onClick={() => handleClickCounter("remove")}>
+              <Remove className="removeIcon icon" />
+            </RemoveWrapper>
+          </AddRemoveWrapper>
+        </Quantity>
         <Total>{`$${item.price * count}.00`}</Total>
       </Right>
     </Wrapper>
@@ -70,22 +75,55 @@ export default CartItem;
 const Wrapper = styled.div`
   display: flex;
   border-bottom: solid 1px lightgray;
-  font-size: 14px; 
-  ${mobile({
-  })}
+  font-size: 14px;
+  ${mobile({})}
 `;
+
+const Quantity = styled.div`
+  display: flex;
+  align-items: center;
+  border: 1px solid lightgrey;
+  margin-right: 20px;
+`;
+
+const AddRemoveWrapper = styled.div`
+  display: flex
+  flex-direction: column;
+  height: 100%; 
+  .icon {
+    font-size: 14px; 
+    
+  }
+`;
+
+const AddWrapper = styled.div`
+  border: 1px solid lightgrey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px;
+  border-right: none;
+  border-top: none;
+  cursor: pointer;
+`;
+
+const RemoveWrapper = styled(AddWrapper)`
+  border-left: 1px solid lightgrey;
+  border-bottom: none;
+`;
+
 const Left = styled.div`
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
- 
+
   .closeIcon {
-    font-size: 14px; 
-    transition: color .167s ease-in-out;
-    cursor: pointer; 
+    font-size: 14px;
+    transition: color 0.167s ease-in-out;
+    cursor: pointer;
     :hover {
-      color: red; 
+      color: red;
     }
   }
 `;
@@ -98,7 +136,7 @@ const Center = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 10px;
-  justify-content: center;  
+  justify-content: center;
 `;
 const ProductName = styled.span`
   margin: 5px 0;
@@ -112,11 +150,32 @@ const Right = styled.div`
   flex: 1.3;
   display: flex;
   justify-content: space-between;
-  align-items: center; 
+  align-items: center;
   margin-top: 10px;
 `;
 const Counter = styled.div`
+  height: 35px;
+  width: 45px;
+  padding: 8px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Count = styled.div`
+  padding: 10px;
+`;
+
+const Icons = styled.div`
+  display: flex
+  flex-direction: column;
+  
+  .icon {
+    font-size: 16px;
+    border: solid;
     display: flex;
+  }
 `;
 
 const Total = styled.span`
