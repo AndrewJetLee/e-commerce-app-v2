@@ -169,6 +169,7 @@ const Options = styled.div`
 const LeftButton = styled.button`
   padding: 8px;
   border: solid 1px black;
+  cursor: pointer;
   ${mobile({
     padding: "4px",
     fontSize: "12px"
@@ -184,12 +185,14 @@ const CenterLinks = styled.div`
 const CenterLink = styled.a`
   text-decoration: underline;
   margin-right: 5px;
+  cursor: pointer;
 `;
 
 const RightButton = styled.button`
   padding: 8px;
   background-color: black;
   color: white;
+  cursor: pointer;
   ${mobile({
     padding: "4px",
     fontSize: "12px"
