@@ -76,7 +76,9 @@ const Wrapper = styled.div`
   display: flex;
   border-bottom: solid 1px lightgray;
   font-size: 14px;
-  ${mobile({})}
+  ${mobile({
+    flexDirection: "column",
+  })}
 `;
 
 const Quantity = styled.div`
@@ -129,6 +131,9 @@ const Left = styled.div`
 `;
 const Image = styled.img`
   width: 200px;
+  ${mobile({
+    width: "90vw"
+  })}
 `;
 
 const Center = styled.div`
@@ -137,9 +142,17 @@ const Center = styled.div`
   flex-direction: column;
   margin-left: 10px;
   justify-content: center;
+  font-size: 13px;
+  ${mobile({
+    marginLeft: "0"
+  })}
 `;
 const ProductName = styled.span`
   margin: 5px 0;
+  ${mobile({
+    display: "flex",
+    justifyContent: "space-between",
+  })}
 `;
 
 const ProductId = styled(ProductName)``;
@@ -152,6 +165,9 @@ const Right = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 10px;
+  ${mobile({
+    marginBottom: "15px",
+  })}
 `;
 const Counter = styled.div`
   height: 35px;
@@ -161,23 +177,16 @@ const Counter = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const Count = styled.div`
-  padding: 10px;
-`;
-
-const Icons = styled.div`
-  display: flex
-  flex-direction: column;
   
-  .icon {
-    font-size: 16px;
-    border: solid;
-    display: flex;
-  }
 `;
+
 
 const Total = styled.span`
   margin-right: 10px;
+  ${mobile({
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    marginRight: "0"
+  })}
 `;
