@@ -226,7 +226,6 @@ const Summary = styled.div`
   flex: 1;
   max-width: 390px;
   height: 45vh;
-  margin-top: 8px; 
   margin-left: 40px;
   background-color: rgb(247, 247, 247);
   border-top: none;
