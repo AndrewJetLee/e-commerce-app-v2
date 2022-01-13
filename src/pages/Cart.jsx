@@ -210,7 +210,6 @@ const HorizontalSeparator = styled.span`
   display: inline-block;
   border-bottom: 1px solid lightgrey;
   width: 100%;
-  margin-top: 10px;
   position: absolute;
 `;
 
@@ -227,7 +226,6 @@ const Summary = styled.div`
   flex: 1;
   max-width: 390px;
   height: 45vh;
-  margin-top: 8px; 
   margin-left: 40px;
   background-color: rgb(247, 247, 247);
   border-top: none;
