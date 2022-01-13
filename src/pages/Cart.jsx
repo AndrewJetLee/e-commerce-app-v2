@@ -210,7 +210,6 @@ const HorizontalSeparator = styled.span`
   display: inline-block;
   border-bottom: 1px solid lightgrey;
   width: 100%;
-  margin-top: 10px;
   position: absolute;
 `;
 

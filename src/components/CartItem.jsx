@@ -131,6 +131,7 @@ const Left = styled.div`
 `;
 const Image = styled.img`
   width: 200px;
+  height: 200px;
   ${mobile({
     width: "90vw"
   })}
