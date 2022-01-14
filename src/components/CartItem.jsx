@@ -130,7 +130,7 @@ const Left = styled.div`
   }
 `;
 const Image = styled.img`
-  width: 200px;
+  width: 150px;
   ${mobile({
     width: "90vw"
   })}
@@ -144,7 +144,8 @@ const Center = styled.div`
   justify-content: center;
   font-size: 13px;
   ${mobile({
-    marginLeft: "0"
+    marginLeft: "0",
+    fontSize: "16px",
   })}
 `;
 const ProductName = styled.span`
