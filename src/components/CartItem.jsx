@@ -119,7 +119,7 @@ const Left = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
+  position: relative; 
   .closeIcon {
     font-size: 14px;
     transition: color 0.167s ease-in-out;
@@ -127,10 +127,15 @@ const Left = styled.div`
     :hover {
       color: red;
     }
+    ${mobile({
+    position: "absolute",
+    top: "0px",
+    right: "0px",
+  })}
   }
 `;
 const Image = styled.img`
-  width: 200px;
+  width: 150px;
   ${mobile({
     width: "90vw"
   })}
@@ -144,7 +149,8 @@ const Center = styled.div`
   justify-content: center;
   font-size: 13px;
   ${mobile({
-    marginLeft: "0"
+    marginLeft: "0",
+    fontSize: "16px",
   })}
 `;
 const ProductName = styled.span`
