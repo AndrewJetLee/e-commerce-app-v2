@@ -119,7 +119,7 @@ const Left = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
+  position: relative; 
   .closeIcon {
     font-size: 14px;
     transition: color 0.167s ease-in-out;
@@ -127,6 +127,11 @@ const Left = styled.div`
     :hover {
       color: red;
     }
+    ${mobile({
+    position: "absolute",
+    top: "0px",
+    right: "0px",
+  })}
   }
 `;
 const Image = styled.img`

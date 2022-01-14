@@ -211,6 +211,10 @@ const HorizontalSeparator = styled.span`
   border-bottom: 1px solid lightgrey;
   width: 100%;
   position: absolute;
+  z-index: 1000;
+  ${mobile({
+    display: "none"
+  })}
 `;
 
 const Items = styled.div`
