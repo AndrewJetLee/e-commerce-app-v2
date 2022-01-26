@@ -1,5 +1,6 @@
 import { publicRequest, userRequest } from "../requestMethods";
 import { loginFailure, loginStart, loginSuccess, registerSuccess } from "./userSlice";
+import { addProduct } from "./cartSlice";
 
 export const login = async (dispatch, user) => {
     dispatch(loginStart());
@@ -23,12 +24,14 @@ export const register = async (dispatch, newUser) => {
 }
 
 export const addToCart = async (dispatch, cartInfo) => {
-    dispatch(loginStart());
+    // dispatch(loginStart());
     try {
         const res = await userRequest.post("/carts/", cartInfo);
-        // debugger; 
-        // console.log(res.data);
-        
+        // debugger;
+        let productId = res.data.products[0].productId;
+        const product = await publicRequest.get(`/products/find/${productId}`);
+        res.data.products[0].image = product.data.image;
+        dispatch(addProduct(res.data));
     } catch (err) {
         dispatch(loginFailure());
     }
