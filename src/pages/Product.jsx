@@ -55,8 +55,6 @@ const Product = () => {
       color,
       size,
     };
-    // dispatch(reset());
-    // dispatch(addProduct(payload));
     addToCart(dispatch, payload);
   };
 
