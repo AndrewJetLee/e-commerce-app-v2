@@ -6,7 +6,6 @@ export const login = async (dispatch, user) => {
     try {
         const res = await publicRequest.post("/auth/login", user);
         dispatch(loginSuccess(res.data));
-        
     } catch (err) { 
         dispatch(loginFailure());
     }
@@ -18,7 +17,18 @@ export const register = async (dispatch, newUser) => {
       const res = await publicRequest.post("/auth/register", newUser);
       dispatch(registerSuccess());
       return res.data; 
-      
+    } catch (err) {
+        dispatch(loginFailure());
+    }
+}
+
+export const addToCart = async (dispatch, cartInfo) => {
+    dispatch(loginStart());
+    try {
+        const res = await userRequest.post("/carts/", cartInfo);
+        // debugger; 
+        // console.log(res.data);
+        
     } catch (err) {
         dispatch(loginFailure());
     }

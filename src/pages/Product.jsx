@@ -8,6 +8,7 @@ import Footer from "../components/Footer";
 import { useParams } from "react-router-dom";
 import { publicRequest } from "../requestMethods";
 import { addProduct, reset } from "../redux/cartSlice";
+import { addToCart } from "../redux/apiCalls";
 import { useDispatch } from "react-redux";
 import { mobile } from "../responsive";
 
@@ -38,7 +39,7 @@ const Product = () => {
   }, [product]);
 
   const handleClickCounter = (action) => {
-    if (action === "add") {
+    if (action === "add") { 
       count < 10 && setCount(count + 1);
     }
     if (action === "remove") {
@@ -48,14 +49,15 @@ const Product = () => {
 
   const handleClickAddToCart = () => {
     let payload = {
-      ...product,
+      productId: product._id,
       price: product.price,
       quantity: count,
       color,
       size,
     };
     // dispatch(reset());
-    dispatch(addProduct(payload));
+    // dispatch(addProduct(payload));
+    addToCart(dispatch, payload);
   };
 
   return (
