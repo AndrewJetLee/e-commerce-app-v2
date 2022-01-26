@@ -58,4 +58,9 @@ export const SeparatorItems = [
     title: "Featured Products",
     desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
+  {
+    id: 3,
+    title: "Newsletter",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  },
 ];

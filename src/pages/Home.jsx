@@ -19,6 +19,7 @@ const Home = () => {
       <Categories />
       <Separator item={SeparatorItems[1]}/>
       <Products />
+      <Separator item={SeparatorItems[2]}/>
       <About />
       <Footer />
     </Container>
