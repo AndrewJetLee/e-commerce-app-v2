@@ -53,6 +53,8 @@ const Product = () => {
       quantity: count,
       color,
       size,
+      image: product.image,
+      title: product.title
     };
     addToCart(dispatch, payload);
   };
