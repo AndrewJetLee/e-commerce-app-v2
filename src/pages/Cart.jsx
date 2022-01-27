@@ -17,6 +17,7 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
   const [stripeToken, setStripeToken] = useState(null);
+  const [editedCart, setEditedCart] = useState(cart);
 
   const onToken = (token) => {
     setStripeToken(token);
@@ -37,6 +38,11 @@ const Cart = () => {
   useEffect(() => {
     stripeToken && makeStripeRequest();
   }, [stripeToken]);
+
+  
+  useEffect(() => {
+    setEditedCart(cart);
+  }, [cart]);
 
   return (
     <>

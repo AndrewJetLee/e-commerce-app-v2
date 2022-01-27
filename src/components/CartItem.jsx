@@ -1,14 +1,28 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Remove, Add, Close, ConstructionSharp } from "@mui/icons-material/";
 import { useSelector, useDispatch } from "react-redux";
-import { removeProduct } from "../redux/cartSlice";
+import { editCart } from "../redux/apiCalls";
 import { mobile, tablet } from "../responsive";
 
+
 const CartItem = ({ cart, item }) => {
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [count, setCount] = useState(item.quantity);
   const [price, setPrice] = useState(item.price);
+  const [editedCart, setEditedCart] = useState(cart);
+
+  useEffect(() => {
+    setEditedCart(cart);
+  }, [cart])
+
+  useEffect(() => {
+    console.log(editedCart);
+    if (editedCart !== cart) {
+      editCart(dispatch, editedCart);
+    }
+  }, [editedCart])
 
   const handleClickCounter = (action) => {
     if (action === "add") {
@@ -19,14 +33,13 @@ const CartItem = ({ cart, item }) => {
     }
   };
 
-  const handleRemoveItem = (id) => {
-    let filtered = cart.products.filter((cartItem) => id !== cartItem._id);
-    let payload = {
-      price,
-      quantity: count,
-    };
-    console.log("redux cart:", cart, "payload: ", payload, "item: ", item);
-    dispatch(removeProduct(payload));
+  const handleRemoveItem = async (productId) => {
+    let filteredProducts = cart.products.filter((cartItem) => productId !== cartItem._id);
+    setEditedCart({
+      userId: user.currentUser._id, 
+      products: filteredProducts,
+      cartId: cart.cartId
+    })
   };
 
   return (

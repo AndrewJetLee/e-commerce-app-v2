@@ -7,7 +7,6 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useParams } from "react-router-dom";
 import { publicRequest } from "../requestMethods";
-import { addProduct, reset } from "../redux/cartSlice";
 import { addToCart } from "../redux/apiCalls";
 import { useDispatch } from "react-redux";
 import { mobile } from "../responsive";
