@@ -39,11 +39,6 @@ const Cart = () => {
     stripeToken && makeStripeRequest();
   }, [stripeToken]);
 
-  
-  useEffect(() => {
-    setEditedCart(cart);
-  }, [cart]);
-
   return (
     <>
       <Navbar />

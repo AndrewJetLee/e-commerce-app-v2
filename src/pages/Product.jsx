@@ -8,11 +8,15 @@ import Footer from "../components/Footer";
 import { useParams } from "react-router-dom";
 import { publicRequest } from "../requestMethods";
 import { addToCart } from "../redux/apiCalls";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { mobile } from "../responsive";
+import { editCart } from "../redux/apiCalls";
+
 
 const Product = () => {
   const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+  const user = useSelector((state) => state.user);
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [rating, setRating] = useState(0);
