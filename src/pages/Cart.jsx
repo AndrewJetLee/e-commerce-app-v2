@@ -240,18 +240,25 @@ const Items = styled.div`
 const CartOptions = styled.div`
   display: flex;
   justify-content: space-between;
+  font-size: 13px;
+  margin-top: 50px;
 `
 const CouponInputWrapper = styled.div`
-  
+   font-size: inherit;
+   border-bottom: 1px solid lightgrey; 
+   padding: 10px;
 `
 const ApplyCouponButton = styled.button`
-  
+  font-size: inherit;
+  font-weight: 600;
 `
-const EmptyCartButton = styled.button`
-  
+const EmptyCartButton = styled.button`  
+  font-size: inherit;
+  font-weight: 500;
+  text-decoration: underline; 
 `
-const UpdateCartButton = styled.button`
-  
+const UpdateCartButton = styled(EmptyCartButton)`
+
 `
 
 
