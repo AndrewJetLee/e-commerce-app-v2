@@ -9,6 +9,7 @@ import StripeCheckout from "react-stripe-checkout";
 import { useState, useEffect } from "react";
 import { userRequest } from "../requestMethods";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import LocalActivityOutlinedIcon from '@mui/icons-material/LocalActivityOutlined';
 import { mobile, tablet } from "../responsive";
 
 const KEY = process.env.REACT_APP_STRIPE;
@@ -90,6 +91,7 @@ const Cart = () => {
                 ))}
                 <CartOptions>
                   <CouponInputWrapper>
+                  <LocalActivityOutlinedIcon className="couponIcon"/>
                     <input type="text" placeholder="Coupon code"/>
                     <ApplyCouponButton>Apply Coupon</ApplyCouponButton>
                   </CouponInputWrapper>
@@ -247,6 +249,13 @@ const CouponInputWrapper = styled.div`
    font-size: inherit;
    border-bottom: 1px solid lightgrey; 
    padding: 10px;
+   display: flex; 
+   align-items: center;
+   .couponIcon {
+     color: gray;
+     font-size: 18px;
+     margin-right: 4px;
+   }
 `
 const ApplyCouponButton = styled.button`
   font-size: inherit;
