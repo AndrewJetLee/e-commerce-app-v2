@@ -88,10 +88,16 @@ const Cart = () => {
                 {cart.products.map((item) => (
                   <CartItem cart={cart} item={item} />
                 ))}
+                <CartOptions>
+                  <CouponInputWrapper>
+                    <input type="text" placeholder="Coupon code"/>
+                  </CouponInputWrapper>
+                  <ApplyCouponButton>Apply Coupon</ApplyCouponButton>
+                  <EmptyCartButton>Empty Cart</EmptyCartButton>
+                  <UpdateCartButton>Update Cart</UpdateCartButton>
+              </CartOptions>
               </Items>
-              <CartOptions>
-
-                </CartOptions>
+              
               <Summary>
                 <SummaryTitle>ORDER SUMMARY</SummaryTitle>
                 <SummaryItem>
@@ -231,8 +237,21 @@ const Items = styled.div`
 `;
 
 const CartOptions = styled.div`
+  display: flex;
+`
+const CouponInputWrapper = styled.div`
   
 `
+const ApplyCouponButton = styled.button`
+  
+`
+const EmptyCartButton = styled.button`
+  
+`
+const UpdateCartButton = styled.button`
+  
+`
+
 
 const Summary = styled.div`
   flex: 1;
