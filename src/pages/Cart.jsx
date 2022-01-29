@@ -91,8 +91,9 @@ const Cart = () => {
                 <CartOptions>
                   <CouponInputWrapper>
                     <input type="text" placeholder="Coupon code"/>
+                    <ApplyCouponButton>Apply Coupon</ApplyCouponButton>
                   </CouponInputWrapper>
-                  <ApplyCouponButton>Apply Coupon</ApplyCouponButton>
+                 
                   <EmptyCartButton>Empty Cart</EmptyCartButton>
                   <UpdateCartButton>Update Cart</UpdateCartButton>
               </CartOptions>
@@ -238,6 +239,7 @@ const Items = styled.div`
 
 const CartOptions = styled.div`
   display: flex;
+  justify-content: space-between;
 `
 const CouponInputWrapper = styled.div`
   
