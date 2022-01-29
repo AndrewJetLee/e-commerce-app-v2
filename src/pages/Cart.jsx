@@ -89,6 +89,9 @@ const Cart = () => {
                   <CartItem cart={cart} item={item} />
                 ))}
               </Items>
+              <CartOptions>
+
+                </CartOptions>
               <Summary>
                 <SummaryTitle>ORDER SUMMARY</SummaryTitle>
                 <SummaryItem>
@@ -226,6 +229,10 @@ const Items = styled.div`
     flexDirection: "column"
   })}
 `;
+
+const CartOptions = styled.div`
+  
+`
 
 const Summary = styled.div`
   flex: 1;
