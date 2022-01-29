@@ -259,12 +259,14 @@ const CouponInputWrapper = styled.div`
 `
 const ApplyCouponButton = styled.button`
   font-size: inherit;
-  font-weight: 600;
+  font-weight: 500;
+  cursor: pointer; 
 `
 const EmptyCartButton = styled.button`  
   font-size: inherit;
   font-weight: 500;
   text-decoration: underline; 
+  cursor: pointer; 
 `
 const UpdateCartButton = styled(EmptyCartButton)`
 
