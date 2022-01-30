@@ -16,6 +16,7 @@ import { deleteCart } from "../redux/apiCalls";
 const KEY = process.env.REACT_APP_STRIPE;
 
 const Cart = () => {
+  const user = useSelector((state) => state.user);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -38,10 +39,9 @@ const Cart = () => {
     }
   };
 
-  const deleteCart = async (cartId) => {
+  const handleDeleteCart = async (userId) => {
     try {
-      await deleteCart(dispatch, cartId);
-
+      await deleteCart(dispatch, userId);
     } catch (err) {
       console.log(err);
     }
@@ -108,7 +108,7 @@ const Cart = () => {
                   </CouponInputWrapper>
        
                   <EmptyCartButton onClick={() => {
-                    deleteCart(cart._id)
+                    handleDeleteCart(user.currentUser._id)
                   }}>Empty Cart</EmptyCartButton>
                   <UpdateCartButton>Update Cart</UpdateCartButton>
               </CartOptions>

@@ -1,6 +1,6 @@
 import { publicRequest, userRequest } from "../requestMethods";
 import { loginFailure, loginStart, loginSuccess, registerSuccess } from "./userSlice";
-import { addProduct, removeProduct } from "./cartSlice";
+import { addProduct, removeProduct, resetCart } from "./cartSlice";
 
 export const login = async (dispatch, user) => {
     dispatch(loginStart());
@@ -46,9 +46,10 @@ export const editCart = async (dispatch, editedCart) => {
     }
 }
 
-export const deleteCart = async (dispatch, cartId) => {
+export const deleteCart = async (dispatch, userId) => {
     try {
-        const res = await userRequest.delete(`/carts/${cartId}`);
+        const res = await userRequest.delete(`/carts/${userId}`);
+        dispatch(resetCart());
     } catch (err) {
         dispatch(loginFailure());
     }
