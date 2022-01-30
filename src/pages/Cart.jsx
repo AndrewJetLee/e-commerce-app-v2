@@ -3,7 +3,7 @@ import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import CartItem from "../components/CartItem";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import StripeCheckout from "react-stripe-checkout";
 import { useState, useEffect } from "react";
@@ -11,11 +11,13 @@ import { userRequest } from "../requestMethods";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import LocalActivityOutlinedIcon from '@mui/icons-material/LocalActivityOutlined';
 import { mobile, tablet } from "../responsive";
+import { deleteCart } from "../redux/apiCalls";
 
 const KEY = process.env.REACT_APP_STRIPE;
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [stripeToken, setStripeToken] = useState(null);
   const [editedCart, setEditedCart] = useState(cart);
@@ -35,6 +37,15 @@ const Cart = () => {
       console.log(err);
     }
   };
+
+  const deleteCart = async (cartId) => {
+    try {
+      await deleteCart(dispatch, cartId);
+
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   useEffect(() => {
     stripeToken && makeStripeRequest();
@@ -95,12 +106,14 @@ const Cart = () => {
                     <input type="text" placeholder="Coupon code"/>
                     <ApplyCouponButton>Apply Coupon</ApplyCouponButton>
                   </CouponInputWrapper>
-                 
-                  <EmptyCartButton>Empty Cart</EmptyCartButton>
+       
+                  <EmptyCartButton onClick={() => {
+                    deleteCart(cart._id)
+                  }}>Empty Cart</EmptyCartButton>
                   <UpdateCartButton>Update Cart</UpdateCartButton>
               </CartOptions>
               </Items>
-              
+
               <Summary>
                 <SummaryTitle>ORDER SUMMARY</SummaryTitle>
                 <SummaryItem>

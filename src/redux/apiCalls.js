@@ -45,3 +45,11 @@ export const editCart = async (dispatch, editedCart) => {
         dispatch(loginFailure());
     }
 }
+
+export const deleteCart = async (dispatch, cartId) => {
+    try {
+        const res = await userRequest.delete(`/carts/${cartId}`);
+    } catch (err) {
+        dispatch(loginFailure());
+    }
+}
