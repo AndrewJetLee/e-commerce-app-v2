@@ -63,7 +63,9 @@ const Cart = () => {
              <EmptyCartText>
               Your cart is currently empty.
              </EmptyCartText>
-             <ReturnButton>
+             <ReturnButton onClick={() => {
+               navigate("/products/new")
+             }}>
                 RETURN TO SHOP
              </ReturnButton>
             </EmptyCartContent>
@@ -358,4 +360,5 @@ const ReturnButton = styled.button`
   color: white; 
   padding: 8px 24px; 
   font-size: 12px; 
+  cursor: pointer; 
 `
