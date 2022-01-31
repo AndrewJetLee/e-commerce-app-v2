@@ -70,7 +70,7 @@ const Carousel = () => {
 export default Carousel;
 
 const Container = styled.div`
-  height: calc(100vh - 115px);
+  height: 80vh;
   width: 100%;
   position: relative;
   overflow: hidden;
