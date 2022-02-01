@@ -55,6 +55,19 @@ export const editCart = async (dispatch, editedCart, type) => {
     }
 }
 
+export const editCount = async (dispatch, payload) => {
+        let cartId = payload.cartId;
+        try {
+            const res = await userRequest.put(`/carts/${cartId}`, {
+                productId: payload.productId,
+                quantity: payload.quantity
+            });
+            dispatch(updateCart(res.data))
+        } catch (err) {
+            console.log(err);
+        }
+}
+
 export const deleteCart = async (dispatch, userId) => {
     try {
         const res = await userRequest.delete(`/carts/${userId}`);

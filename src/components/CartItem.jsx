@@ -2,47 +2,44 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { Remove, Add, Close, ConstructionSharp } from "@mui/icons-material/";
 import { useSelector, useDispatch } from "react-redux";
-import { editCart } from "../redux/apiCalls";
+import { editCart, editCount } from "../redux/apiCalls";
 import { mobile, tablet } from "../responsive";
 
 
-const CartItem = ({ cart, item, editedCart, setEditedCart }) => {
+const CartItem = ({ item }) => {
   const user = useSelector((state) => state.user);
+  const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const [count, setCount] = useState(item.quantity);
   const [price, setPrice] = useState(item.price);
+  const [editedCart, setEditedCart] = useState(cart);
 
-  useEffect(() => {
+  useEffect(() => { 
     setEditedCart(cart);
   }, [cart])
 
   useEffect(() => {
     console.log(editedCart);
-    if (editedCart !== cart) {
+    if (editedCart.products.length < cart.products.length) {
       editCart(dispatch, editedCart);
+    } else if (editedCart !== cart) {
+      editCart(dispatch, editedCart, "update");
     }
   }, [editedCart])
 
   useEffect(() => {
-    if (count !== item.quantity || price !== item.price) {
+    if (count !== item.quantity) {
       updateEditedCart()
     }
-  }, [count, price])
+  }, [count])
 
   const updateEditedCart = () => {
-    let copyCart = {...editedCart};
-    let total = 0; 
-    copyCart.products.forEach((cartItem, i) => {
-      if (cartItem.productId === item.productId) {
-        copyCart.products[i].price = price; 
-        copyCart.products[i].quantity = count; 
-        copyCart.total = total; 
-      }
-      total += (copyCart.products[i].price * copyCart.products[i].quantity);
-    })
-    copyCart.total = total;
-    console.log(copyCart);
-    setEditedCart(copyCart);
+    let payload = {
+      cartId: cart.cartId,
+      productId: item.productId,
+      quantity: count
+    }
+    editCount(dispatch, payload)
   }
 
   const handleClickCounter = (action) => {
