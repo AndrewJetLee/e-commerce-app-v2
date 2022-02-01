@@ -108,7 +108,7 @@ const Cart = () => {
               <Items>
                 <HorizontalSeparator></HorizontalSeparator>
                 {cart.products.map((item) => (
-                  <CartItem cart={cart} item={item} />
+                  <CartItem editedCart={editedCart} setEditedCart={setEditedCart} cart={cart} item={item} />
                 ))}
                 <CartOptions>
                   <CouponInputWrapper>
