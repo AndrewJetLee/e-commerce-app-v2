@@ -11,7 +11,7 @@ import { userRequest } from "../requestMethods";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import LocalActivityOutlinedIcon from '@mui/icons-material/LocalActivityOutlined';
 import { mobile, tablet } from "../responsive";
-import { deleteCart } from "../redux/apiCalls";
+import { deleteCart, editCart } from "../redux/apiCalls";
 
 const KEY = process.env.REACT_APP_STRIPE;
 
@@ -42,6 +42,14 @@ const Cart = () => {
   const handleDeleteCart = async (userId) => {
     try {
       await deleteCart(dispatch, userId);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const handleUpdateCart = async () => {
+    try {
+      await editCart(dispatch, editedCart, "update");
     } catch (err) {
       console.log(err);
     }
@@ -112,7 +120,7 @@ const Cart = () => {
                   <EmptyCartButton onClick={() => {
                     handleDeleteCart(user.currentUser._id)
                   }}>Empty Cart</EmptyCartButton>
-                  <UpdateCartButton>Update Cart</UpdateCartButton>
+                  <UpdateCartButton onClick={handleUpdateCart}>Update Cart</UpdateCartButton>
               </CartOptions>
               </Items>
 

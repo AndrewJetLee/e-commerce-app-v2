@@ -1,6 +1,6 @@
 import { publicRequest, userRequest } from "../requestMethods";
 import { loginFailure, loginStart, loginSuccess, registerSuccess } from "./userSlice";
-import { addProduct, removeProduct, resetCart } from "./cartSlice";
+import { addProduct, removeProduct, resetCart, updateCart } from "./cartSlice";
 
 export const login = async (dispatch, user) => {
     dispatch(loginStart());
@@ -32,17 +32,26 @@ export const addToCart = async (dispatch, cartInfo) => {
     }
 }
 
-export const editCart = async (dispatch, editedCart) => {
+export const editCart = async (dispatch, editedCart, type) => {
     let cartId = editedCart.cartId; 
     let updatedCart = {
         userId: editedCart.userId,
         products: editedCart.products,
     }
-    try {
-        const res = await userRequest.put(`/carts/${cartId}`, updatedCart);
-        dispatch(removeProduct(res.data))
-    } catch (err) {
-        dispatch(loginFailure());
+    if (type === "update") {
+        try {
+            const res = await userRequest.put(`/carts/${cartId}`, updatedCart);
+            dispatch(updateCart(res.data))
+        } catch (err) {
+            console.log(err);
+        }
+    } else {
+        try {
+            const res = await userRequest.put(`/carts/${cartId}`, updatedCart);
+            dispatch(removeProduct(res.data))
+        } catch (err) {
+            console.log(err);
+        }
     }
 }
 
