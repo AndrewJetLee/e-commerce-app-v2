@@ -16,9 +16,9 @@ function App() {
   const user = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
   
-  const getCart = () => {
+  const getCart = async () => {
     if (user) {
-      getUserCart(dispatch, user._id);
+      await getUserCart(dispatch, user._id);
     } else {
       console.log("Not logged in")
       dispatch(resetCart());
