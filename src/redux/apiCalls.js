@@ -70,7 +70,7 @@ export const editCount = async (dispatch, payload) => {
 
 export const deleteCart = async (dispatch, userId) => {
     try {
-        const res = await userRequest.delete(`/carts/${userId}`);
+        await userRequest.delete(`/carts/${userId}`);
         dispatch(resetCart());
     } catch (err) {
         dispatch(loginFailure());

@@ -47,12 +47,9 @@ const Cart = () => {
     }
   }
 
-  const handleUpdateCart = async () => {
-    try {
-      await editCart(dispatch, editedCart, "update");
-    } catch (err) {
-      console.log(err);
-    }
+  const handleUpdateCart =  () => {
+    alert("Successfully Updated Cart")
+    window.location.reload();
   }
 
   useEffect(() => {
