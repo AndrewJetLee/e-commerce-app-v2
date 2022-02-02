@@ -1,6 +1,6 @@
 import { publicRequest, userRequest } from "../requestMethods";
 import { loginFailure, loginStart, loginSuccess, registerSuccess } from "./userSlice";
-import { addProduct, removeProduct, resetCart, updateCart } from "./cartSlice";
+import { setCart, addProduct, removeProduct, resetCart, updateCart } from "./cartSlice";
 
 export const login = async (dispatch, user) => {
     dispatch(loginStart());
@@ -20,6 +20,15 @@ export const register = async (dispatch, newUser) => {
       return res.data; 
     } catch (err) {
         dispatch(loginFailure());
+    }
+}
+
+export const getUserCart = async (dispatch, userId) => {
+    try {   
+        const res = await userRequest.get(`/carts/find/${userId}`);
+        dispatch(setCart(res.data));
+    } catch (err) {
+        console.log(err);
     }
 }
 

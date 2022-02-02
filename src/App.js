@@ -7,10 +7,28 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Success from "./pages/Success"
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserCart } from "./redux/apiCalls";
+import { useEffect } from "react";
+import { resetCart } from "./redux/cartSlice";
 
 function App() {
   const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
+  
+  const getCart = () => {
+    if (user) {
+      getUserCart(dispatch, user._id);
+    } else {
+      console.log("Not logged in")
+      dispatch(resetCart());
+    }
+  }
+
+  useEffect(() => {
+    getCart();
+  }, [user])
+
   return (
     <div className="App">
       <Router>
