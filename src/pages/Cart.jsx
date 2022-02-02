@@ -11,7 +11,7 @@ import { userRequest } from "../requestMethods";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import LocalActivityOutlinedIcon from '@mui/icons-material/LocalActivityOutlined';
 import { mobile, tablet } from "../responsive";
-import { deleteCart, editCart } from "../redux/apiCalls";
+import { deleteCart } from "../redux/apiCalls";
 
 const KEY = process.env.REACT_APP_STRIPE;
 
@@ -33,6 +33,7 @@ const Cart = () => {
         tokenId: stripeToken.id,
         amount: cart.total * 100,
       });
+      await deleteCart(dispatch, user.currentUser._id);
       navigate("/success", { state: { stripeData: res.data, products: cart } });
     } catch (err) {
       console.log(err);
@@ -41,7 +42,7 @@ const Cart = () => {
 
   const handleDeleteCart = async (userId) => {
     try {
-      await deleteCart(dispatch, userId);
+      await deleteCart(dispatch, userId, user.currentUser.accessToken);
     } catch (err) {
       console.log(err);
     }

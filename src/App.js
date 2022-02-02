@@ -5,8 +5,13 @@ import Product from "./pages/Product";
 import Cart from "./pages/Cart";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import Success from "./pages/Success"
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Success from "./pages/Success";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserCart } from "./redux/apiCalls";
 import { useEffect } from "react";
@@ -15,19 +20,19 @@ import { resetCart } from "./redux/cartSlice";
 function App() {
   const user = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
-  
+
   const getCart = async () => {
     if (user) {
-      await getUserCart(dispatch, user._id);
+      await getUserCart(dispatch, user._id, user.accessToken);
     } else {
-      console.log("Not logged in")
+      console.log("Not logged in");
       dispatch(resetCart());
     }
-  }
+  };
 
-  useEffect(() => {
-    getCart();
-  }, [user])
+  useEffect( () => {
+     getCart();
+  }, [user]);
 
   return (
     <div className="App">
@@ -38,10 +43,16 @@ function App() {
           <Route path="/products/search/" element={<ProductList />} />
           <Route path="/products/" element={<ProductList />} />
           <Route path="/product/:id" element={<Product />} />
-          <Route path="/cart" element={<Cart />}/>
-          <Route path="/register" element={user ? <Navigate to="/"/> : < Register/>}/>
-          <Route path="/login" element={user ? <Navigate to="/"/> : < Login/>}/>
-          <Route path="/success" element={< Success/>}/>
+          <Route path="/cart" element={<Cart />} />
+          <Route
+            path="/register"
+            element={user ? <Navigate to="/" /> : <Register />}
+          />
+          <Route
+            path="/login"
+            element={user ? <Navigate to="/" /> : <Login />}
+          />
+          <Route path="/success" element={<Success />} />
         </Routes>
       </Router>
     </div>

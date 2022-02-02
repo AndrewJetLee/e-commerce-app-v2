@@ -60,7 +60,7 @@ const Product = () => {
       image: product.image,
       title: product.title
     };
-    addToCart(dispatch, payload);
+    addToCart(dispatch, payload, user.currentUser.accessToken);
   };
 
   return (

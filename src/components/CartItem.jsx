@@ -21,9 +21,9 @@ const CartItem = ({ item }) => {
   useEffect(() => {
     console.log(editedCart);
     if (editedCart.products.length < cart.products.length) {
-      editCart(dispatch, editedCart);
+      editCart(dispatch, editedCart, "delete", user.currentUser.accessToken);
     } else if (editedCart !== cart) {
-      editCart(dispatch, editedCart, "update");
+      editCart(dispatch, editedCart, "update", user.currentUser.accessToken);
     }
   }, [editedCart])
 
@@ -37,9 +37,10 @@ const CartItem = ({ item }) => {
     let payload = {
       cartId: cart.cartId,
       productId: item.productId,
-      quantity: count
+      quantity: count,
+      userId: user.currentUser._id,
     }
-    editCount(dispatch, payload)
+    editCount(dispatch, payload, user.currentUser.accessToken)
   }
 
   const handleClickCounter = (action) => {
