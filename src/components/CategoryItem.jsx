@@ -51,7 +51,7 @@ const ItemInfo = styled.div`
   justify-content: flex-end;
   .itemTitle {
     margin: 16px 12px;
-    font-size: 22px;
+    font-size: 26px;
   }
   .itemDesc {
     margin: 0 12px;
