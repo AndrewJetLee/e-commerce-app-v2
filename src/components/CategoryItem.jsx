@@ -28,6 +28,7 @@ const Container = styled.div`
   position: relative;
   cursor: pointer;
   height: 600px;
+  margin: 5px;
   .itemImg {
     width: 100%;
     height: 100%;

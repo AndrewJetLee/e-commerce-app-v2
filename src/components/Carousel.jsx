@@ -70,10 +70,11 @@ const Carousel = () => {
 export default Carousel;
 
 const Container = styled.div`
-  height: 80vh;
+  height: 90vh;
   width: 100%;
   position: relative;
   overflow: hidden;
+  margin-bottom: 20px;
 `;
 
 const Arrow = styled.div`

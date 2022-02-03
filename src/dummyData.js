@@ -20,7 +20,7 @@ export const carouselItems = [
   },
 ];
 
-export const CategoriesItems = [
+export const CategoriesItemsRowOne = [
   {
     id: 1,
     img: "/images/categories-new.jpg",
@@ -38,6 +38,15 @@ export const CategoriesItems = [
     img: "/images/categories-denim.jpg",
     title: "WOMEN'S COLLECTION",
     category: "womens",
+  },
+];
+
+export const CategoriesItemsRowTwo = [
+  {
+    id: 1,
+    img: "/images/categories-new.jpg",
+    title: "NEW ARRIVALS",
+    category: "new",
   },
   {
     id: 4,

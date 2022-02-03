@@ -15,7 +15,6 @@ const Home = () => {
       <Announcement />
       <Navbar />
       <Carousel />
-      <Separator item={SeparatorItems[0]}/>
       <Categories />
       <Separator item={SeparatorItems[1]}/>
       <Products />
