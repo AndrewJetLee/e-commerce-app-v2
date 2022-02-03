@@ -81,10 +81,12 @@ export default Products;
 
 const Container = styled.div`
   display: grid;
-  width: 100%;
+  width: 98%;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 1fr 1fr;
-  gap: 5px;
+  gap: 10px;
+  margin-left: 20px;
+  margin-left: 20px;
   ${tablet({
     gridTemplateColumns: "repeat(2, 1fr)",
   })}

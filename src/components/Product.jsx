@@ -28,8 +28,8 @@ const Container = styled.div`
 `
 
 const Image = styled.img`
-    width: 250px;
-    height: 300px; 
+    width: 380px;
+    height: 400px; 
     object-fit: contain; 
 `
 const Info = styled.div`
