@@ -38,11 +38,11 @@ const VerticalLine = styled.span`
 
 const Title = styled.h3`
     padding: 12px 0; 
-    font-size: 24px; 
+    font-size: 30px; 
     font-weight: 500; 
 `
 
 const Description = styled.div`
-    font-size: 13px; 
+    font-size: 14px; 
     color: rgb(128, 128, 128);
 `
