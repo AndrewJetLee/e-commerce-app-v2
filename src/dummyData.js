@@ -45,8 +45,8 @@ export const CategoriesItemsRowTwo = [
   {
     id: 1,
     img: "/images/categories-new.jpg",
-    title: "NEW ARRIVALS",
-    category: "new",
+    title: "DENIM",
+    category: "denim",
   },
   {
     id: 4,

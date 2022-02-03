@@ -141,12 +141,12 @@ const SlideInfoContainer = styled.div`
 `;
 
 const SlideInfoTitle = styled.h1`
-  font-size: 48px;
+  font-size: 50px;
   margin-bottom: 30px;
 `;
 
 const SlideInfoDescription = styled.span`
-  font-size: 20px;
+  font-size: 24px;
   line-height: 1.5;
   margin-bottom: 30px;
 `;
