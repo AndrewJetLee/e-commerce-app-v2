@@ -19,7 +19,6 @@ export default Product
 
 const Container = styled.div`
     width: 100%;
-    height: 280px; 
     padding: 20px;
     background-color: white;
     display: flex;
@@ -30,7 +29,7 @@ const Container = styled.div`
 
 const Image = styled.img`
     width: 250px;
-    height: 250px; 
+    height: 300px; 
     object-fit: contain; 
 `
 const Info = styled.div`
