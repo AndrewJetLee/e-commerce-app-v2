@@ -29,11 +29,11 @@ const Cart = () => {
 
   const makeStripeRequest = async () => {
     try {
-      const res = await userRequest.post("/checkout/payment", {
+      const res = await userRequest(user.currentUser.accessToken).post("/checkout/payment", {
         tokenId: stripeToken.id,
         amount: cart.total * 100,
       });
-      await deleteCart(dispatch, user.currentUser._id);
+      await deleteCart(dispatch, user.currentUser._id, user.currentUser.accessToken);
       navigate("/success", { state: { stripeData: res.data, products: cart } });
     } catch (err) {
       console.log(err);

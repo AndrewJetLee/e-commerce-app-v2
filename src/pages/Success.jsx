@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -8,6 +8,7 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
 const Success = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const data = location.state?.stripeData;
   const cart = location.state?.cart;
   console.log(data, cart);
@@ -22,13 +23,15 @@ const Success = () => {
           <OrderHeader>YOUR ORDER HAS BEEN RECEIVED</OrderHeader>
           <OrderInfo>
             <OrderInfoHeader>THANK YOU FOR YOUR PURCHASE!</OrderInfoHeader>
-            <OrderNumber>Your order number is: 123123</OrderNumber>
+            <OrderNumber>Your order ID is: {data.id}</OrderNumber>
             <OrderText>
               You will receive an order confirmation email with details of your
               order.
             </OrderText>
           </OrderInfo>
-          <ContinueShoppingButton>CONTINUE SHOPPING</ContinueShoppingButton>
+          <ContinueShoppingButton onClick={() => {
+              navigate("/")
+          }}>CONTINUE SHOPPING</ContinueShoppingButton>
         </Content>
       </Container>
       <Footer />
@@ -75,8 +78,9 @@ const OrderNumber = styled.span``;
 const OrderText = styled.p``;
 const ContinueShoppingButton = styled.button`
     margin-top: 20px;
-    background-color: blue;
+    background-color: gray;
     color: white;
     padding: 8px 16px;
     border-radius: 2px;
+    cursor: pointer;
 `;
