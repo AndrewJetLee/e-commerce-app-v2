@@ -29,13 +29,13 @@ export const CategoriesItemsRowOne = [
   },
   {
     id: 2,
-    img: "/images/categories-streetwear.jpg",
+    img: "/images/categories-mens.jpg",
     title: "MEN'S COLLECTION",
     category: "mens",
   },
   {
     id: 3,
-    img: "/images/categories-denim.jpg",
+    img: "/images/categories-placeholder.jpg",
     title: "WOMEN'S COLLECTION",
     category: "womens",
   },
@@ -44,7 +44,7 @@ export const CategoriesItemsRowOne = [
 export const CategoriesItemsRowTwo = [
   {
     id: 1,
-    img: "/images/categories-new.jpg",
+    img: "/images/categories-denim.jpg",
     title: "DENIM",
     category: "denim",
   },
