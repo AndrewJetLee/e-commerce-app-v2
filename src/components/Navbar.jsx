@@ -4,7 +4,7 @@ import { mobile } from "../responsive";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { logout } from "../redux/userSlice"
+import { logout } from "../redux/userSlice";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -45,7 +45,14 @@ const Navbar = () => {
         <Right>
           <Register onClick={() => navigate("/register")}>REGISTER</Register>
           {user ? (
-            <SignOut onClick={() => dispatch(logout())}>SIGN OUT</SignOut>
+            <SignOut
+              onClick={() => {
+                dispatch(logout());
+                navigate("/");
+              }}
+            >
+              SIGN OUT
+            </SignOut>
           ) : (
             <SignIn onClick={() => navigate("/login")}>SIGN IN</SignIn>
           )}
