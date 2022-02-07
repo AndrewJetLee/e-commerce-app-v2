@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { tablet, mobile } from "../responsive";
+import { mobile } from "../responsive";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const About = () => {
