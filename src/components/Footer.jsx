@@ -96,8 +96,8 @@ const Footer = () => {
 export default Footer;
 
 const Container = styled.div`
-  background-color: rgb(30, 30, 30);
-  color: white;
+  background-color: white;
+  color: black;
   margin-top: 0; 
 `;
 
@@ -115,24 +115,21 @@ const Top = styled.div`
 
 const Subscribe = styled.div`
   position: relative;
-  color: #8a8a8a;
 `;
 const SubscribeText = styled.span`
   margin-right: 20px;
   font-size: 14px;
-  color: #b7b7b7;
   ${tablet({
     display: "none",
   })};
 `;
 const SubscribeInput = styled.input`
-  background-color: #303030;
+  background-color: white;
   padding: 8px;
   font-size: 12px;
   width: 300px;
   color: inherit;
   :focus {
-    background-color: #303030;
     color: inherit;
   }
   ${tablet({
@@ -182,14 +179,12 @@ const Bottom = styled.div`
 
 const Left = styled.div`
   flex: 1;
-  color: #808080;
   ${mobile({ display: "flex", flexDirection: "column", textAlign: "center",
    })};
 `;
 
 const Logo = styled.h1`
   font-size: 32px;
-  color: #b7b7b7;
   position: relative;
   top: -12px;
 `;
@@ -203,7 +198,6 @@ const Description = styled.p`
 
 const Socials = styled.div`
   display: flex;
-  color: #b7b7b7;
   align-items: center;
 `;
 const SocialWrapper = styled.div`
@@ -220,7 +214,6 @@ const SocialWrapper = styled.div`
 
 const Title = styled.h3`
   margin-bottom: 20px;
-  color: #b7b7b7;
   font-size: 15px;
   font-weight: 500;
   text-transform: uppercase;
@@ -241,7 +234,6 @@ const Column = styled.div`
 `;
 
 const Links = styled.ul`
-  color: #808080;
   font-size: 14px;
 `;
 
@@ -259,7 +251,6 @@ const ContactItem = styled.div`
   align-items: center;
   margin-bottom: 10px;
   font-size: 14px;
-  color: #808080;
   .contactIcon {
     margin-right: 5px;
   }

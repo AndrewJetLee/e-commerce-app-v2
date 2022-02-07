@@ -29,9 +29,8 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(247, 244, 240);
+  background-color: #4d4d4d;
   color: white;
-  background-image: url("/images/home-page-fashion-newsletter-bg.jpg");
   ${mobile({ flexDirection: "column", padding: "20px", height: "400px" })};
 `;
 
@@ -80,7 +79,7 @@ const Description = styled.div`
 const InputWrapper = styled.div`
   display: flex;
   width: 100%;
-  border-bottom: 1px solid black; 
+  border-bottom: 1px solid white; 
   align-items: center;
 
 `
@@ -90,7 +89,7 @@ const Input = styled.input`
   font-size: 15px;
   padding: 12px 0;
   font-weight: 300;
-  color: black;
+  color: white;
   ::placeholder {
     color: inherit; 
   }
@@ -100,6 +99,7 @@ const InputButton = styled.button`
   height: 100%; 
   display: flex;
   align-items: center; 
+  color: white;
   .arrowRightIcon {
     font-size: 14px; 
     margin-left: 3px; 

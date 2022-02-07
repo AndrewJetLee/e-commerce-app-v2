@@ -14,7 +14,7 @@ export default Announcement
 
 const Container = styled.div`
     display: flex;
-    background-color: rgb(30, 30, 30); 
+    background-color: #4d4d4d; 
     justify-content: center; 
     align-items: center; 
     height: 35px; 
