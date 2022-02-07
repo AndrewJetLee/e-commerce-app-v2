@@ -42,6 +42,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
+  margin-bottom: 20px;
 `;
 
 const Image = styled.img`
