@@ -27,4 +27,6 @@ const Home = () => {
 
 export default Home;
 
-const Container = styled.div``;
+const Container = styled.div`
+  overflow-x: hidden;
+`;

@@ -71,7 +71,7 @@ const Products = ({ query, category, filters, sort }) => {
       {category
         ? filteredProducts.map((item, key) => <Product item={item} key={key} />)
         : products
-            .slice(0, 8)
+            .slice(0, 10)
             .map((item, key) => <Product item={item} key={key} />)}
     </Container>
   );
@@ -82,11 +82,10 @@ export default Products;
 const Container = styled.div`
   display: grid;
   width: 98%;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-template-rows: 1fr 1fr;
   gap: 10px;
-  margin-left: 20px;
-  margin-left: 20px;
+  margin-left: 60px;
   ${tablet({
     gridTemplateColumns: "repeat(2, 1fr)",
   })}

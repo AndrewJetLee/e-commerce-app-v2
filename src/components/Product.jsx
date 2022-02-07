@@ -18,7 +18,7 @@ const Product = ({item}) => {
 export default Product
 
 const Container = styled.div`
-    width: 100%;
+    width: 80%;
     padding: 20px;
     background-color: white;
     display: flex;
@@ -28,8 +28,8 @@ const Container = styled.div`
 `
 
 const Image = styled.img`
-    width: 380px;
-    height: 400px; 
+    width: 300px;
+    height: 300px; 
     object-fit: contain; 
 `
 const Info = styled.div`

@@ -16,8 +16,7 @@ const Categories = () => {
           {CategoriesItemsRowTwo.map((item, key) => (
             <CategoryItem item={item} key={key} />
           ))}
-        </Items> 
-
+        </Items>
       </Content>
     </Container>
   );
