@@ -38,7 +38,6 @@ const Products = ({ query, category, filters, sort }) => {
           const res = await asosRequest.get(
             `/v2/list?q=${query}&=categoryId=27108&limit=24&store=US&offset=0`
           );
-          console.log(res.data.products);
           setProducts(res.data.products);
         } else {
           const res = await asosRequest.get(
@@ -46,7 +45,6 @@ const Products = ({ query, category, filters, sort }) => {
               ? `/v2/list?categoryId=${category}&limit=24&store=US&offset=0`
               : `/v2/list/?categoryId=27108&limit=24&store=US&offset=0`
           );
-          console.log(res.data.products);
           setProducts(res.data.products);
         }
       } catch (err) {
@@ -96,7 +94,7 @@ const Products = ({ query, category, filters, sort }) => {
       {category
         ? filteredProducts.map((item, key) => <Product item={item} key={key} />)
         : products.length > 0 && products
-            .slice(0, 10)
+            .slice(0, 20)
             .map((item, key) => <Product item={item} key={key} />)}
     </Container>
   );

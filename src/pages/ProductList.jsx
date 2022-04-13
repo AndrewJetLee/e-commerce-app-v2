@@ -4,35 +4,50 @@ import Footer from "../components/Footer";
 import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
+import { asosRequest } from "../requestMethods";
 import { useParams, useSearchParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const ProductList = () => {
   let { category } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
-  const q = searchParams.get('q');
+  const q = searchParams.get("q");
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState("newest");
+  const [list, setList] = useState([]);
+  const [categoryTitle, setCategoryTitle] = useState("");
+
+  useEffect(() => {
+    getList();
+  }, []);
+
+  const getList = async () => {
+    const res = await asosRequest.get(
+      `/v2/list?categoryId=${category}&limit=24&store=US&offset=0`
+    );
+    setCategoryTitle(res.data.categoryName);
+    setList(res.data.products);
+  };
 
   const handleFilter = (e) => {
-    const value = e.target.value; 
+    const value = e.target.value;
     setFilter({
-      ...filter, 
+      ...filter,
       [e.target.name]: value,
-    })
-  }
+    });
+  };
 
   const handleSort = (e) => {
-    const value = e.target.value; 
+    const value = e.target.value;
     setSort(value);
-  }
+  };
 
   return (
     <Container>
       <Navbar />
       <Announcement />
       <Content>
-        <Title>{category ? category : `Showing results for: ${q}`}</Title>
+        <Title>{category ? categoryTitle : `Showing results for: ${q}`}</Title>
         <Top>
           <FilterContainer>
             <label>Filter products: </label>
@@ -73,7 +88,7 @@ const ProductList = () => {
             </Sort>
           </SortContainer>
         </Top>
-        <Products query={q} category={category} filters={filter} sort={sort}/>
+        <Products query={q} category={category} filters={filter} sort={sort} />
       </Content>
       <Footer />
     </Container>
@@ -102,8 +117,8 @@ const Top = styled.div`
 
 const Title = styled.h1`
   padding: 30px 20px;
-  text-transform: uppercase; 
-  ${mobile({ textAlign: "center"})};
+  text-transform: uppercase;
+  ${mobile({ textAlign: "center" })};
 `;
 const FilterContainer = styled.div`
   width: 100%;
