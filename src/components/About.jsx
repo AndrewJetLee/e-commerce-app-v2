@@ -29,7 +29,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #4d4d4d;
+  background-color: ${props => props.theme.colors.tertiary};
   color: white;
   ${mobile({ flexDirection: "column", padding: "20px", height: "400px" })};
 `;

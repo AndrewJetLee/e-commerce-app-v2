@@ -96,7 +96,7 @@ const Footer = () => {
 export default Footer;
 
 const Container = styled.div`
-  background-color: white;
+  background-color: ${props => props.theme.colors.extra};
   color: black;
   margin-top: 0; 
 `;
