@@ -6,14 +6,7 @@ import { ThemeProvider } from "styled-components";
 import { store, persistor } from "./redux/store";
 import { Provider } from "react-redux";
 import { PersistGate } from 'redux-persist/es/integration/react'
-
-
-const theme = {
-  colors: {
-    darkGrey: "rgba(0, 0, 0, 0.8)",
-    lightGrey: "rgba(0, 0, 0, 0.06)",
-  },
-};
+import { theme } from "./utility/themes"; 
 
 ReactDOM.render(
   <Provider store={store}>
