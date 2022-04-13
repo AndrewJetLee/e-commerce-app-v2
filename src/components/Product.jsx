@@ -3,22 +3,23 @@ import { useNavigate } from "react-router-dom";
 
 const Product = ({ item }) => {
   const navigate = useNavigate();
+
   return (
     <Container>
       <Wrapper>
-        <Image src={item.image} />
+        <Image src={`https://${item.imageUrl}`} />
 
         <Info>
           <button
             className="searchButton"
-            onClick={() => navigate(`/product/${item._id}`)}
+            onClick={() => navigate(`/product/${item.id}`)}
           >
             VIEW
           </button>
         </Info>
       </Wrapper>
-      <Title>{item.title}</Title>
-      <Price>${item.price}.00</Price>
+      <Title>{item.name}</Title>
+      <Price>{item.price.current.text}</Price>
     </Container>
   );
 };
