@@ -8,6 +8,8 @@ const Products = ({ query, category, filters, sort }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
+  console.log(process.env.RAPIDAPI_KEY);
+
   // useEffect(() => {
   //   const getProducts = async (req, res) => {
   //     try {
