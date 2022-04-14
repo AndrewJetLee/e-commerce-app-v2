@@ -23,7 +23,7 @@ const ProductList = () => {
 
   const getList = async () => {
     const res = await asosRequest.get(
-      `/v2/list?categoryId=${category}&limit=24&store=US&offset=0`
+      `/v2/list?categoryId=${category}&limit=20&store=US&offset=0`
     );
     setCategoryTitle(res.data.categoryName);
     setList(res.data.products);
@@ -88,7 +88,7 @@ const ProductList = () => {
             </Sort>
           </SortContainer>
         </Top>
-        <Products query={q} category={category} filters={filter} sort={sort} />
+        <Products list={list} query={q} category={category} filters={filter} sort={sort} />
       </Content>
       <Footer />
     </Container>
