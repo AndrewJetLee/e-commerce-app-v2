@@ -6,7 +6,7 @@ import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useParams } from "react-router-dom";
-import { publicRequest } from "../requestMethods";
+import { publicRequest, asosRequest } from "../requestMethods";
 import { addToCart } from "../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
 import { mobile } from "../responsive";
@@ -27,7 +27,10 @@ const Product = () => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const res = await publicRequest.get(`/products/find/${id}`);
+        const res = await asosRequest.get(
+          `/v3/detail?id=${id}&lang=en-US&store=US&sizeSchema=US&currency=USD`
+        );
+        console.log(res.data);
         setProduct(res.data);
       } catch (err) {
         console.log(err);
@@ -70,14 +73,14 @@ const Product = () => {
       <Container>
         <Content>
           <Left>
-            <ProductImage src={product.image}></ProductImage>
+            <ProductImage src={`https://${product.media?.images[0].url}`}></ProductImage>
           </Left>
 
           <Right>
             <Info>
               <InfoLeft>
-                <Title>{product.title}</Title>
-                <Price>${product.price}</Price>
+                {/* <Title>{product.title}</Title>
+                <Price>${product.price}</Price> */}
               </InfoLeft>
               <InfoRight>
                 <Box>
@@ -88,7 +91,7 @@ const Product = () => {
                   />
                 </Box>
                 <ProductNumber>
-                  <strong>SKU:</strong> {product._id}
+                  <strong>SKU:</strong> {product.id}
                 </ProductNumber>
               </InfoRight>
             </Info>
@@ -99,7 +102,7 @@ const Product = () => {
               <Top>
                 <Color>
                   <TopTitle>COLOR</TopTitle>
-                  <FilterColors>
+                  {/* <FilterColors>
                     {product.color?.map((color, key) => (
                       <FilterColor
                         onClick={(e) => {
@@ -109,11 +112,11 @@ const Product = () => {
                         key={key}
                       />
                     ))}
-                  </FilterColors>
+                  </FilterColors> */}
                 </Color>
                 <Size>
                   <TopTitle>SIZE</TopTitle>
-                  <FilterSizes>
+                  {/* <FilterSizes>
                     {product.size?.map((size, key) => (
                       <FilterSize
                         onClick={(e) => {
@@ -124,7 +127,7 @@ const Product = () => {
                         {size}
                       </FilterSize>
                     ))}
-                  </FilterSizes>
+                  </FilterSizes> */}
                 </Size>
               </Top>
               <Bottom>
@@ -145,7 +148,7 @@ const Product = () => {
               </Bottom>
               <AdditionalInfo>
                 <Categories>
-                  <span>CATEGORIES:</span> {product.categories?.join(", ")}
+                  {/* <span>CATEGORIES:</span> {product.categories?.join(", ")} */}
                 </Categories>
                 <Tags>
                   <span>TAGS:</span> COTTON, JACKETS, SHIRT
