@@ -23,19 +23,19 @@ export const carouselItems = [
 export const CategoriesItemsRowOne = [
   {
     id: 1,
-    img: "/images/test5.jpg",
+    img: "/images/categories-new.jpg",
     title: "NEW ARRIVALS",
     category: "13500",
   },
   {
     id: 2,
-    img: "/images/test.jpg",
+    img: "/images/categories-mens.jpg",
     title: "MEN'S COLLECTION",
     category: "13500",
   },
   {
     id: 3,
-    img: "/images/test3.jpg",
+    img: "/images/categories-womens.jpg",
     title: "WOMEN'S COLLECTION",
     category: "13497",
   },
@@ -44,7 +44,7 @@ export const CategoriesItemsRowOne = [
 export const CategoriesItemsRowTwo = [
   {
     id: 4,
-    img: "/images/categories-activewear.webp",
+    img: "/images/categories-activewear.jpg",
     title: "ACTIVEWEAR",
     category: "26090",
   },
