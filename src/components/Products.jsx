@@ -2,34 +2,59 @@ import styled from "styled-components";
 import Product from "./Product";
 import { mobile, tablet } from "../responsive";
 import { useState, useEffect } from "react";
-import { publicRequest } from "../requestMethods";
+import { publicRequest, asosRequest } from "../requestMethods";
 
-const Products = ({ query, category, filters, sort }) => {
+const Products = ({ query, category, filters, sort, list }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
+  // useEffect(() => {
+  //   const getProducts = async (req, res) => {
+  //     try {
+  //       if (query) {
+  //         const res = await publicRequest.get(
+  //           `/products?keyword=${query}`
+  //         );
+  //         setProducts(res.data);
+  //       } else {
+  //         const res = await publicRequest.get(
+  //           category
+  //             ? `/products?category=${category}`
+  //             : `/products/`
+  //         );
+  //         setProducts(res.data);
+  //       }
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   getProducts();
+  // }, [category, query]);
+
   useEffect(() => {
-    const getProducts = async (req, res) => {
+    const getProducts = async () => {
       try {
         if (query) {
-          const res = await publicRequest.get(
-            `/products?keyword=${query}`
+          const res = await asosRequest.get(
+            `/v2/list?q=${query}&=categoryId=50060&limit=24&store=US&offset=0`
           );
-          setProducts(res.data);
+          setProducts(res.data.products);
         } else {
-          const res = await publicRequest.get(
-            category
-              ? `/products?category=${category}`
-              : `/products/`
-          );
-          setProducts(res.data);
+          if (list && category) {
+            setProducts(list);
+          } else {
+            const res = await asosRequest.get(
+              `/v2/list/?categoryId=50060&limit=24&store=US&offset=0`
+            );
+            setProducts(res.data.products);
+          }
         }
       } catch (err) {
         console.log(err);
       }
     };
     getProducts();
-  }, [category, query]);
+  }, [category, query, list]);
 
   useEffect(() => {
     category &&
@@ -70,8 +95,9 @@ const Products = ({ query, category, filters, sort }) => {
     <Container>
       {category
         ? filteredProducts.map((item, key) => <Product item={item} key={key} />)
-        : products
-            .slice(0, 10)
+        : products.length > 0 &&
+          products
+            .slice(0, 20)
             .map((item, key) => <Product item={item} key={key} />)}
     </Container>
   );

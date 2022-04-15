@@ -22,3 +22,12 @@ export const userRequest = (TOKEN) => {
     },
   });
 };
+
+export const asosRequest = axios.create({
+    baseURL: "https://asos2.p.rapidapi.com/products/",
+    headers: {
+      'X-RapidAPI-Host': 'asos2.p.rapidapi.com',
+      'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_KEY,
+    }
+  })
+

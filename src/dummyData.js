@@ -25,34 +25,34 @@ export const CategoriesItemsRowOne = [
     id: 1,
     img: "/images/categories-new.jpg",
     title: "NEW ARRIVALS",
-    category: "new",
+    category: "13500",
   },
   {
     id: 2,
     img: "/images/categories-mens.jpg",
     title: "MEN'S COLLECTION",
-    category: "mens",
+    category: "13500",
   },
   {
     id: 3,
-    img: "/images/categories-placeholder.jpg",
+    img: "/images/categories-womens.jpg",
     title: "WOMEN'S COLLECTION",
-    category: "womens",
+    category: "13497",
   },
 ];
 
 export const CategoriesItemsRowTwo = [
   {
-    id: 1,
-    img: "/images/categories-denim.jpg",
-    title: "DENIM",
-    category: "denim",
+    id: 4,
+    img: "/images/categories-activewear.jpg",
+    title: "ACTIVEWEAR",
+    category: "26090",
   },
   {
-    id: 4,
+    id: 5,
     img: "/images/categories-accessories.jpg",
     title: "ACCESSORIES",
-    category: "accessories",
+    category: "50062",
   },
 ];
 

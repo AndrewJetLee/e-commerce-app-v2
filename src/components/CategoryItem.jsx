@@ -27,7 +27,7 @@ const Container = styled.div`
   background-color: white;
   position: relative;
   cursor: pointer;
-  height: 480px;
+  height: 500px;
   margin: 5px;
   .itemImg {
     width: 100%;

@@ -6,12 +6,11 @@ import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useParams } from "react-router-dom";
-import { publicRequest } from "../requestMethods";
+import { publicRequest, asosRequest } from "../requestMethods";
 import { addToCart } from "../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
 import { mobile } from "../responsive";
 import { editCart } from "../redux/apiCalls";
-
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -19,7 +18,6 @@ const Product = () => {
   const user = useSelector((state) => state.user);
   const { id } = useParams();
   const [product, setProduct] = useState({});
-  const [rating, setRating] = useState(0);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
   const [count, setCount] = useState(1);
@@ -27,7 +25,10 @@ const Product = () => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const res = await publicRequest.get(`/products/find/${id}`);
+        const res = await asosRequest.get(
+          `/v3/detail?id=${id}&lang=en-US&store=US&sizeSchema=US&currency=USD`
+        );
+        console.log(res.data);
         setProduct(res.data);
       } catch (err) {
         console.log(err);
@@ -42,7 +43,7 @@ const Product = () => {
   }, [product]);
 
   const handleClickCounter = (action) => {
-    if (action === "add") { 
+    if (action === "add") {
       count < 10 && setCount(count + 1);
     }
     if (action === "remove") {
@@ -58,7 +59,7 @@ const Product = () => {
       color,
       size,
       image: product.image,
-      title: product.title
+      title: product.title,
     };
     addToCart(dispatch, payload, user.currentUser.accessToken);
   };
@@ -70,61 +71,46 @@ const Product = () => {
       <Container>
         <Content>
           <Left>
-            <ProductImage src={product.image}></ProductImage>
+            <ProductImage
+              src={`https://${product.media?.images[0].url}`}
+            ></ProductImage>
           </Left>
 
           <Right>
             <Info>
               <InfoLeft>
-                <Title>{product.title}</Title>
-                <Price>${product.price}</Price>
+                <ProductName>{product.name}</ProductName>
+                <ProductPrice>{product.price?.current.text}</ProductPrice>
               </InfoLeft>
               <InfoRight>
-                <Box>
-                  <Rating
-                    name="productRating"
-                    value={rating}
-                    onChange={(e, newRating) => setRating(newRating)}
-                  />
-                </Box>
                 <ProductNumber>
-                  <strong>SKU:</strong> {product._id}
+                  SKU: {product.productCode}
                 </ProductNumber>
+                <Rating
+                  size="small"
+                  precision={0.5}
+                  name="read-only"
+                  value={product.rating.averageOverallRating}
+                  readOnly
+                />
               </InfoRight>
             </Info>
             <Description>
-              <p>{product.description}</p>
+              <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the standard dummy text. Lorem
+                Ipsum is simply dummy text of the printing and typesetting
+                industry
+              </p>
             </Description>
             <Selection>
               <Top>
                 <Color>
                   <TopTitle>COLOR</TopTitle>
-                  <FilterColors>
-                    {product.color?.map((color, key) => (
-                      <FilterColor
-                        onClick={(e) => {
-                          setColor(color);
-                        }}
-                        color={color}
-                        key={key}
-                      />
-                    ))}
-                  </FilterColors>
+                  <div>{product.color}</div>
                 </Color>
                 <Size>
                   <TopTitle>SIZE</TopTitle>
-                  <FilterSizes>
-                    {product.size?.map((size, key) => (
-                      <FilterSize
-                        onClick={(e) => {
-                          setSize(size);
-                        }}
-                        key={key}
-                      >
-                        {size}
-                      </FilterSize>
-                    ))}
-                  </FilterSizes>
                 </Size>
               </Top>
               <Bottom>
@@ -145,7 +131,7 @@ const Product = () => {
               </Bottom>
               <AdditionalInfo>
                 <Categories>
-                  <span>CATEGORIES:</span> {product.categories?.join(", ")}
+                  {/* <span>CATEGORIES:</span> {product.categories?.join(", ")} */}
                 </Categories>
                 <Tags>
                   <span>TAGS:</span> COTTON, JACKETS, SHIRT
@@ -188,8 +174,8 @@ const Left = styled.div`
 `;
 
 const ProductImage = styled.img`
-  height: 500px;
-  width: 500px;
+  height: 100%;
+  width: 100%;
   min-width: 400px;
   object-fit: cover;
 `;
@@ -209,37 +195,41 @@ const Title = styled.span`
 `;
 const Info = styled.div`
   display: flex;
-  align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid lightgrey;
   padding: 20px 0;
 `;
 
-const InfoLeft = styled.div`
-  display: flex;
-  flex-direction: column;
-  line-height: 1.5;
-`;
-
 const InfoRight = styled.div`
   display: flex;
   flex-direction: column;
-  line-height: 1.5;
-  height: 100%;
+`;
+
+const InfoLeft = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const ProductNumber = styled.span`
+  margin-top: 3px;
   font-size: 12px;
+  padding: 4px 0;
   strong {
     font-weight: 500;
   }
 `;
 
-const Price = styled.span``;
+const ProductName = styled.span`
+  font-size: 16px;
+  padding: 4px 0;
+  font-weight: 500;
+`;
+
+const ProductPrice = styled.span``;
 
 const Description = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
   height: auto;
   border-bottom: 1px solid lightgrey;
   padding: 12px 0;
@@ -258,43 +248,6 @@ const Color = styled.div`
   margin-top: 20px;
   display: flex;
   align-items: center;
-`;
-
-const FilterColors = styled.div`
-  display: flex;
-`;
-
-const FilterColor = styled.div`
-  width: 31px;
-  height: 20px;
-  background-color: ${(props) => props.color};
-  margin: 0px 5px;
-  cursor: pointer;
-`;
-
-const FilterSizes = styled.div`
-  display: flex;
-  margin-left: 19px;
-  .clicked {
-    color: rgb(35, 35, 35);
-  }
-`;
-
-const FilterSize = styled.div`
-  width: 31px;
-  height: 20px;
-  margin: 0px 5px;
-  cursor: pointer;
-  border: 1px solid;
-  color: #999999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 12px;
-  :hover,
-  :active {
-    color: rgb(35, 35, 35);
-  }
 `;
 
 const Size = styled(Color)``;
