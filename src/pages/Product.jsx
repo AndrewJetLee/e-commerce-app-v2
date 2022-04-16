@@ -35,7 +35,7 @@ const Product = () => {
       }
     };
     getProduct();
-  }, [id]);
+  }, []);
 
   useEffect(() => {
     product.color && setColor(product.color[0]);
@@ -78,22 +78,8 @@ const Product = () => {
 
           <Right>
             <Info>
-              <InfoLeft>
-                <ProductName>{product.name}</ProductName>
-                <ProductPrice>{product.price?.current.text}</ProductPrice>
-              </InfoLeft>
-              <InfoRight>
-                <ProductNumber>
-                  SKU: {product.productCode}
-                </ProductNumber>
-                <Rating
-                  size="small"
-                  precision={0.5}
-                  name="read-only"
-                  value={product.rating.averageOverallRating}
-                  readOnly
-                />
-              </InfoRight>
+              <ProductName>{product.name}</ProductName>
+              <ProductPrice>{product.price?.current.text}</ProductPrice>
             </Info>
             <Description>
               <p>
@@ -149,8 +135,6 @@ const Product = () => {
 export default Product;
 
 const Container = styled.div`
-  min-height: 60vh;
-  max-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -177,7 +161,7 @@ const ProductImage = styled.img`
   height: 100%;
   width: 100%;
   min-width: 400px;
-  object-fit: cover;
+  object-fit: contain;
 `;
 
 const Right = styled.div`
@@ -188,35 +172,12 @@ const Right = styled.div`
   line-height: 1.5;
 `;
 
-const Title = styled.span`
-  font-size: 18px;
-  font-weight: 500;
-  padding: 2px 0;
-`;
 const Info = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   border-bottom: 1px solid lightgrey;
   padding: 20px 0;
-`;
-
-const InfoRight = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const InfoLeft = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const ProductNumber = styled.span`
-  margin-top: 3px;
-  font-size: 12px;
-  padding: 4px 0;
-  strong {
-    font-weight: 500;
-  }
 `;
 
 const ProductName = styled.span`
