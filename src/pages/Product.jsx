@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Box, Rating } from "@mui/material/";
 import { useState, useEffect } from "react";
 import { Remove, Add } from "@mui/icons-material/";
 import Announcement from "../components/Announcement";
@@ -36,11 +35,6 @@ const Product = () => {
     };
     getProduct();
   }, []);
-
-  useEffect(() => {
-    product.color && setColor(product.color[0]);
-    product.size && setSize(product.size[0]);
-  }, [product]);
 
   const handleClickCounter = (action) => {
     if (action === "add") {
@@ -92,11 +86,27 @@ const Product = () => {
             <Selection>
               <Top>
                 <Color>
-                  <TopTitle>COLOR</TopTitle>
-                  <div>{product.color}</div>
+                  <TopTitle>COLOR:</TopTitle>
+                  <ColorText>{product.variants && product.variants[0].colour}</ColorText>
                 </Color>
                 <Size>
-                  <TopTitle>SIZE</TopTitle>
+                  <TopTitle>SIZE: </TopTitle>
+                  <SizeSelect>
+                    {product.variants?.map((variant, i) =>
+                      variant.isInStock ? (
+                        <option value={variant.displaySizeText}>
+                          {variant.displaySizeText}
+                        </option>
+                      ) : (
+                        <option value={variant.displaySizeText}>
+                          {variant.displaySizeText} - Out of Stock
+                        </option>
+                      )
+                    )}
+                  </SizeSelect>
+                  {product.sizeGuide && (
+                    <SizeGuide href={product.sizeGuide}>Size Guide</SizeGuide>
+                  )}
                 </Size>
               </Top>
               <Bottom>
@@ -211,7 +221,16 @@ const Color = styled.div`
   align-items: center;
 `;
 
+const ColorText = styled.span``
+
+
 const Size = styled(Color)``;
+
+const SizeSelect = styled.select`
+  width: 180px;
+`;
+
+const SizeGuide = styled.a``;
 
 const Bottom = styled.div`
   display: flex;
