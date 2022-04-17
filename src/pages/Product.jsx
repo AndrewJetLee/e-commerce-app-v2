@@ -87,26 +87,30 @@ const Product = () => {
               <Top>
                 <Color>
                   <TopTitle>COLOR:</TopTitle>
-                  <ColorText>{product.variants && product.variants[0].colour}</ColorText>
+                  <ColorText>
+                    {product.variants && product.variants[0].colour}
+                  </ColorText>
                 </Color>
                 <Size>
-                  <TopTitle>SIZE: </TopTitle>
+                  <SizeLeft>
+                    <TopTitle>SIZE: </TopTitle>
+                    {product.sizeGuide && (
+                      <SizeGuide href={product.sizeGuide}>Size Guide</SizeGuide>
+                    )}
+                  </SizeLeft>
                   <SizeSelect>
                     {product.variants?.map((variant, i) =>
                       variant.isInStock ? (
-                        <option value={variant.displaySizeText}>
+                        <option key={i} value={variant.displaySizeText}>
                           {variant.displaySizeText}
                         </option>
                       ) : (
-                        <option value={variant.displaySizeText}>
+                        <option key={i} value={variant.displaySizeText}>
                           {variant.displaySizeText} - Out of Stock
                         </option>
                       )
                     )}
                   </SizeSelect>
-                  {product.sizeGuide && (
-                    <SizeGuide href={product.sizeGuide}>Size Guide</SizeGuide>
-                  )}
                 </Size>
               </Top>
               <Bottom>
@@ -126,9 +130,7 @@ const Product = () => {
                 </AddToCart>
               </Bottom>
               <AdditionalInfo>
-                <Categories>
-                  {/* <span>CATEGORIES:</span> {product.categories?.join(", ")} */}
-                </Categories>
+                
                 <Tags>
                   <span>TAGS:</span> COTTON, JACKETS, SHIRT
                 </Tags>
@@ -161,21 +163,21 @@ const Content = styled.div`
 `;
 
 const Left = styled.div`
-  flex: 1;
+  width: 370px;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 20px;
 `;
 
 const ProductImage = styled.img`
   height: 100%;
   width: 100%;
-  min-width: 400px;
   object-fit: contain;
 `;
 
 const Right = styled.div`
-  flex: 1;
+  width: 350px;
   display: flex;
   flex-direction: column;
   margin-left: 50px;
@@ -221,22 +223,35 @@ const Color = styled.div`
   align-items: center;
 `;
 
-const ColorText = styled.span``
+const ColorText = styled.span``;
 
-
-const Size = styled(Color)``;
-
-const SizeSelect = styled.select`
-  width: 180px;
+const Size = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
-const SizeGuide = styled.a``;
+const SizeLeft = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const SizeSelect = styled.select`
+  width: 100%;
+  font-size: 14px;
+  padding: 4px;
+`;
+
+const SizeGuide = styled.a`
+  color: inherit;
+  font-size: 12px;
+`;
 
 const Bottom = styled.div`
   display: flex;
   align-items: center;
   border-bottom: 1px solid lightgrey;
   padding: 20px 0;
+  
 `;
 const Quantity = styled.div`
   display: flex;
@@ -282,7 +297,7 @@ const RemoveWrapper = styled(AddWrapper)`
 `;
 
 const AddToCart = styled.button`
-  padding: 8px 24px;
+  padding: 8px 50px;
   background-color: #757575;
   color: white;
   font-weight: 500;
