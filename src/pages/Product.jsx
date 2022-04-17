@@ -64,79 +64,116 @@ const Product = () => {
       <Announcement />
       <Container>
         <Content>
-          <Left>
-            <ProductImage
-              src={`https://${product.media?.images[0].url}`}
-            ></ProductImage>
-          </Left>
+          <Top>
+            <Left>
+              <ProductImage
+                src={`https://${product.media?.images[0].url}`}
+              ></ProductImage>
+            </Left>
 
-          <Right>
-            <Info>
-              <ProductName>{product.name}</ProductName>
-              <ProductPrice>{product.price?.current.text}</ProductPrice>
-            </Info>
-            <Description>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the standard dummy text. Lorem
-                Ipsum is simply dummy text of the printing and typesetting
-                industry
-              </p>
-            </Description>
-            <Selection>
-              <Top>
-                <Color>
-                  <TopTitle>COLOR:</TopTitle>
-                  <ColorText>
-                    {product.variants && product.variants[0].colour}
-                  </ColorText>
-                </Color>
-                <Size>
-                  <SizeLeft>
-                    <TopTitle>SIZE: </TopTitle>
-                    {product.sizeGuide && (
-                      <SizeGuide href={product.sizeGuide}>Size Guide</SizeGuide>
-                    )}
-                  </SizeLeft>
-                  <SizeSelect>
-                    {product.variants?.map((variant, i) =>
-                      variant.isInStock ? (
-                        <option key={i} value={variant.displaySizeText}>
-                          {variant.displaySizeText}
-                        </option>
-                      ) : (
-                        <option key={i} value={variant.displaySizeText}>
-                          {variant.displaySizeText} - Out of Stock
-                        </option>
-                      )
-                    )}
-                  </SizeSelect>
-                </Size>
-              </Top>
-              <Bottom>
-                <Quantity>
-                  <Counter>{count}</Counter>
-                  <AddRemoveWrapper>
-                    <AddWrapper onClick={() => handleClickCounter("add")}>
-                      <Add className="addIcon icon" />
-                    </AddWrapper>
-                    <RemoveWrapper onClick={() => handleClickCounter("remove")}>
-                      <Remove className="removeIcon icon" />
-                    </RemoveWrapper>
-                  </AddRemoveWrapper>
-                </Quantity>
-                <AddToCart onClick={handleClickAddToCart}>
-                  ADD TO CART
-                </AddToCart>
-              </Bottom>
-              <AdditionalInfo>
-                
-                <Tags>
-                  <span>TAGS:</span> COTTON, JACKETS, SHIRT
-                </Tags>
-              </AdditionalInfo>
-            </Selection>
-          </Right>
+            <Right>
+              <Info>
+                <ProductName>{product.name}</ProductName>
+                <ProductPrice>{product.price?.current.text}</ProductPrice>
+              </Info>
+              <Description>
+                <p>
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the standard dummy
+                  text. Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry
+                </p>
+              </Description>
+              <Selection>
+                <SelectionTop>
+                  <Color>
+                    <TopTitle>COLOR:</TopTitle>
+                    <ColorText>
+                      {product.variants && product.variants[0].colour}
+                    </ColorText>
+                  </Color>
+                  <Size>
+                    <SizeLeft>
+                      <TopTitle>SIZE: </TopTitle>
+                      {product.sizeGuide && (
+                        <SizeGuide href={product.sizeGuide}>
+                          Size Guide
+                        </SizeGuide>
+                      )}
+                    </SizeLeft>
+                    <SizeSelect>
+                      {product.variants?.map((variant, i) =>
+                        variant.isInStock ? (
+                          <option key={i} value={variant.displaySizeText}>
+                            {variant.displaySizeText}
+                          </option>
+                        ) : (
+                          <option key={i} value={variant.displaySizeText}>
+                            {variant.displaySizeText} - Out of Stock
+                          </option>
+                        )
+                      )}
+                    </SizeSelect>
+                  </Size>
+                </SelectionTop>
+                <SelectionBottom>
+                  <Quantity>
+                    <Counter>{count}</Counter>
+                    <AddRemoveWrapper>
+                      <AddWrapper onClick={() => handleClickCounter("add")}>
+                        <Add className="addIcon icon" />
+                      </AddWrapper>
+                      <RemoveWrapper
+                        onClick={() => handleClickCounter("remove")}
+                      >
+                        <Remove className="removeIcon icon" />
+                      </RemoveWrapper>
+                    </AddRemoveWrapper>
+                  </Quantity>
+                  <AddToCart onClick={handleClickAddToCart}>
+                    ADD TO CART
+                  </AddToCart>
+                </SelectionBottom>
+                <AdditionalInfo>
+                  <Tags>
+                    <span>TAGS:</span> COTTON, JACKETS, SHIRT
+                  </Tags>
+                </AdditionalInfo>
+              </Selection>
+            </Right>
+          </Top>
+          <Bottom>
+            <BottomLeft>
+              <h3>Product Details</h3>
+              <ProductDetails
+                dangerouslySetInnerHTML={{ __html: product.description }}
+              ></ProductDetails>
+            </BottomLeft>
+            <BottomMiddle>
+              <ProductCode>
+                <h3>Product Code</h3>
+                <span>product.productCode</span>
+              </ProductCode>
+              <h3>Brand</h3>
+              <Brand
+                dangerouslySetInnerHTML={{ __html: product.brand.description }}
+              ></Brand>
+            </BottomMiddle>
+            <BottomRight>
+              <h3>Size & Fit</h3>
+              <SizeAndFit
+                dangerouslySetInnerHTML={{ __html: product.info.sizeAndFit }}
+              ></SizeAndFit>
+              <h3>Care Instructions</h3>
+              <WashInfo
+                dangerouslySetInnerHTML={{ __html: product.info.careInfo }}
+              ></WashInfo>
+              <h3>About Me</h3>
+              <Materials
+                dangerouslySetInnerHTML={{ __html: product.info.aboutMe }}
+              ></Materials>
+            </BottomRight>
+          </Bottom>
         </Content>
       </Container>
       <Footer />
@@ -156,14 +193,21 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  width: 55%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  ${mobile({ flexDirection: "column", width: "100vw", marginLeft: "0" })};
+`;
+
+const Top = styled.section`
+  width: 100%;
   display: flex;
   justify-content: center;
   ${mobile({ flexDirection: "column", width: "100vw", marginLeft: "0" })};
 `;
 
 const Left = styled.div`
-  width: 370px;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -173,11 +217,11 @@ const Left = styled.div`
 const ProductImage = styled.img`
   height: 100%;
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
 `;
 
 const Right = styled.div`
-  width: 350px;
+  flex: 1;
   display: flex;
   flex-direction: column;
   margin-left: 50px;
@@ -211,7 +255,7 @@ const Description = styled.div`
 
 const Selection = styled.div``;
 
-const Top = styled.div``;
+const SelectionTop = styled.div``;
 
 const TopTitle = styled.h5`
   margin-right: 15px;
@@ -246,12 +290,11 @@ const SizeGuide = styled.a`
   font-size: 12px;
 `;
 
-const Bottom = styled.div`
+const SelectionBottom = styled.div`
   display: flex;
   align-items: center;
   border-bottom: 1px solid lightgrey;
   padding: 20px 0;
-  
 `;
 const Quantity = styled.div`
   display: flex;
@@ -318,3 +361,44 @@ const Categories = styled.div`
   }
 `;
 const Tags = styled(Categories)``;
+
+const Bottom = styled.section`
+  display: flex;
+  
+`;
+
+const BottomLeft = styled.div`
+  flex: 1;
+  h5 {
+  }
+`;
+
+const ProductDetails = styled.div`
+  a {
+    color: inherit;
+  }
+  li {
+    color: brown;
+  }
+`;
+
+const BottomMiddle = styled.div`
+  flex: 1;
+`;
+
+const ProductCode = styled.div``;
+
+const Brand = styled.div``;
+
+const BottomRight = styled.div`
+  flex: 1;
+  margin-left: 50px;
+`;
+
+const SizeAndFit = styled.div`
+ 
+`;
+
+const WashInfo = styled.div``;
+
+const Materials = styled.div``;
