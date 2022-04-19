@@ -38,8 +38,13 @@ const Product = () => {
   }, []);
 
   useEffect(() => {
-    product.media && setActiveImage(product.media.images[0].url);
+    product.media && setActiveImage(`https://${product.media.images[0].url}`);
   }, [product]);
+
+  const handleClickImage = (e) => {
+    console.log(e.target.src);
+    setActiveImage(e.target.src);
+  };
 
   const handleClickCounter = (action) => {
     if (action === "add") {
@@ -72,11 +77,15 @@ const Product = () => {
           <Top>
             <Left>
               <ProductImages>
-                {product.media?.images.map((image, i) => <ProductImage src={`https://${image.url}`}></ProductImage>)}
+                {product.media?.images.map((image, i) => (
+                  <ProductImage
+                    active={`https://${image.url}` === activeImage}
+                    onClick={handleClickImage}
+                    src={`https://${image.url}`}
+                  ></ProductImage>
+                ))}
               </ProductImages>
-              <ActiveProductImage
-                src={`https://${activeImage}`}
-              ></ActiveProductImage>
+              <ActiveProductImage src={activeImage}></ActiveProductImage>
             </Left>
 
             <Right>
@@ -202,7 +211,7 @@ const Container = styled.div`
 
 const Content = styled.div`
   max-width: 50%;
-  min-width: 600px; 
+  min-width: 600px;
   display: flex;
   flex-direction: column;
   ${mobile({ flexDirection: "column", width: "100vw", marginLeft: "0" })};
@@ -216,7 +225,7 @@ const Top = styled.section`
 `;
 
 const Left = styled.div`
-  flex: 1;
+  flex: 0.9;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -226,7 +235,7 @@ const Left = styled.div`
 const ActiveProductImage = styled.img`
   height: 100%;
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
 `;
 
 const ProductImages = styled.div`
@@ -238,14 +247,21 @@ const ProductImages = styled.div`
 `;
 
 const ProductImage = styled.img`
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
   object-fit: cover;
-  padding: 10px;
+  margin-top: 15px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: filter 0.3s ease-in-out;
+  :hover {
+    filter: brightness(70%);
+  }
+  filter: ${(props) => props.active && "brightness(70%)"};
 `;
 
 const Right = styled.div`
-  flex: .7;
+  flex: 0.7;
   display: flex;
   flex-direction: column;
   margin-left: 50px;
