@@ -20,6 +20,7 @@ const Product = () => {
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
   const [count, setCount] = useState(1);
+  const [activeImage, setActiveImage] = useState(null);
 
   useEffect(() => {
     const getProduct = async () => {
@@ -35,6 +36,10 @@ const Product = () => {
     };
     getProduct();
   }, []);
+
+  useEffect(() => {
+    product.media && setActiveImage(product.media.images[0].url);
+  }, [product]);
 
   const handleClickCounter = (action) => {
     if (action === "add") {
@@ -66,9 +71,12 @@ const Product = () => {
         <Content>
           <Top>
             <Left>
-              <ProductImage
-                src={`https://${product.media?.images[0].url}`}
-              ></ProductImage>
+              <ProductImages>
+                {product.media?.images.map((image, i) => <ProductImage src={`https://${image.url}`}></ProductImage>)}
+              </ProductImages>
+              <ActiveProductImage
+                src={`https://${activeImage}`}
+              ></ActiveProductImage>
             </Left>
 
             <Right>
@@ -214,10 +222,23 @@ const Left = styled.div`
   margin-top: 20px;
 `;
 
-const ProductImage = styled.img`
+const ActiveProductImage = styled.img`
   height: 100%;
   width: 100%;
   object-fit: cover;
+`;
+
+const ProductImages = styled.div`
+  width: 100px;
+  display: flex;
+  position: relative;
+  z-index: 200000000;
+`;
+
+const ProductImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 `;
 
 const Right = styled.div`
@@ -405,9 +426,7 @@ const BottomRight = styled.div`
   padding-left: 50px;
 `;
 
-const SizeAndFit = styled.div`
- 
-`;
+const SizeAndFit = styled.div``;
 
 const WashInfo = styled.div``;
 
