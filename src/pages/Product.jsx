@@ -201,7 +201,8 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  width: 50%;
+  max-width: 50%;
+  min-width: 600px; 
   display: flex;
   flex-direction: column;
   ${mobile({ flexDirection: "column", width: "100vw", marginLeft: "0" })};
@@ -229,20 +230,22 @@ const ActiveProductImage = styled.img`
 `;
 
 const ProductImages = styled.div`
-  width: 100px;
+  flex: 1;
+  min-width: 20%;
   display: flex;
+  flex-direction: column;
   position: relative;
-  z-index: 200000000;
 `;
 
 const ProductImage = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  padding: 10px;
 `;
 
 const Right = styled.div`
-  flex: 1;
+  flex: .7;
   display: flex;
   flex-direction: column;
   margin-left: 50px;
@@ -318,6 +321,7 @@ const SizeGuide = styled.a`
 const SelectionBottom = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   border-bottom: 1px solid lightgrey;
   padding: 20px 0;
 `;
@@ -365,7 +369,7 @@ const RemoveWrapper = styled(AddWrapper)`
 `;
 
 const AddToCart = styled.button`
-  padding: 8px 50px;
+  padding: 10px 55px;
   background-color: #757575;
   color: white;
   font-weight: 500;
