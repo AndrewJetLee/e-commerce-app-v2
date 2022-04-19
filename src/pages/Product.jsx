@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Box, Rating } from "@mui/material/";
 import { useState, useEffect } from "react";
 import { Remove, Add } from "@mui/icons-material/";
 import Announcement from "../components/Announcement";
@@ -21,6 +20,7 @@ const Product = () => {
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
   const [count, setCount] = useState(1);
+  const [activeImage, setActiveImage] = useState(null);
 
   useEffect(() => {
     const getProduct = async () => {
@@ -35,11 +35,10 @@ const Product = () => {
       }
     };
     getProduct();
-  }, [id]);
+  }, []);
 
   useEffect(() => {
-    product.color && setColor(product.color[0]);
-    product.size && setSize(product.size[0]);
+    product.media && setActiveImage(product.media.images[0].url);
   }, [product]);
 
   const handleClickCounter = (action) => {
@@ -70,75 +69,119 @@ const Product = () => {
       <Announcement />
       <Container>
         <Content>
-          <Left>
-            <ProductImage
-              src={`https://${product.media?.images[0].url}`}
-            ></ProductImage>
-          </Left>
+          <Top>
+            <Left>
+              <ProductImages>
+                {product.media?.images.map((image, i) => <ProductImage src={`https://${image.url}`}></ProductImage>)}
+              </ProductImages>
+              <ActiveProductImage
+                src={`https://${activeImage}`}
+              ></ActiveProductImage>
+            </Left>
 
-          <Right>
-            <Info>
-              <InfoLeft>
+            <Right>
+              <Info>
                 <ProductName>{product.name}</ProductName>
                 <ProductPrice>{product.price?.current.text}</ProductPrice>
-              </InfoLeft>
-              <InfoRight>
-                <ProductNumber>
-                  SKU: {product.productCode}
-                </ProductNumber>
-                <Rating
-                  size="small"
-                  precision={0.5}
-                  name="read-only"
-                  value={product.rating.averageOverallRating}
-                  readOnly
-                />
-              </InfoRight>
-            </Info>
-            <Description>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the standard dummy text. Lorem
-                Ipsum is simply dummy text of the printing and typesetting
-                industry
-              </p>
-            </Description>
-            <Selection>
-              <Top>
-                <Color>
-                  <TopTitle>COLOR</TopTitle>
-                  <div>{product.color}</div>
-                </Color>
-                <Size>
-                  <TopTitle>SIZE</TopTitle>
-                </Size>
-              </Top>
-              <Bottom>
-                <Quantity>
-                  <Counter>{count}</Counter>
-                  <AddRemoveWrapper>
-                    <AddWrapper onClick={() => handleClickCounter("add")}>
-                      <Add className="addIcon icon" />
-                    </AddWrapper>
-                    <RemoveWrapper onClick={() => handleClickCounter("remove")}>
-                      <Remove className="removeIcon icon" />
-                    </RemoveWrapper>
-                  </AddRemoveWrapper>
-                </Quantity>
-                <AddToCart onClick={handleClickAddToCart}>
-                  ADD TO CART
-                </AddToCart>
-              </Bottom>
-              <AdditionalInfo>
-                <Categories>
-                  {/* <span>CATEGORIES:</span> {product.categories?.join(", ")} */}
-                </Categories>
-                <Tags>
-                  <span>TAGS:</span> COTTON, JACKETS, SHIRT
-                </Tags>
-              </AdditionalInfo>
-            </Selection>
-          </Right>
+              </Info>
+              <Description>
+                <p>
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the standard dummy
+                  text. Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry
+                </p>
+              </Description>
+              <Selection>
+                <SelectionTop>
+                  <Color>
+                    <TopTitle>COLOR:</TopTitle>
+                    <ColorText>
+                      {product.variants && product.variants[0].colour}
+                    </ColorText>
+                  </Color>
+                  <Size>
+                    <SizeLeft>
+                      <TopTitle>SIZE: </TopTitle>
+                      {product.sizeGuide && (
+                        <SizeGuide href={product.sizeGuide}>
+                          Size Guide
+                        </SizeGuide>
+                      )}
+                    </SizeLeft>
+                    <SizeSelect>
+                      {product.variants?.map((variant, i) =>
+                        variant.isInStock ? (
+                          <option key={i} value={variant.displaySizeText}>
+                            {variant.displaySizeText}
+                          </option>
+                        ) : (
+                          <option key={i} value={variant.displaySizeText}>
+                            {variant.displaySizeText} - Out of Stock
+                          </option>
+                        )
+                      )}
+                    </SizeSelect>
+                  </Size>
+                </SelectionTop>
+                <SelectionBottom>
+                  <Quantity>
+                    <Counter>{count}</Counter>
+                    <AddRemoveWrapper>
+                      <AddWrapper onClick={() => handleClickCounter("add")}>
+                        <Add className="addIcon icon" />
+                      </AddWrapper>
+                      <RemoveWrapper
+                        onClick={() => handleClickCounter("remove")}
+                      >
+                        <Remove className="removeIcon icon" />
+                      </RemoveWrapper>
+                    </AddRemoveWrapper>
+                  </Quantity>
+                  <AddToCart onClick={handleClickAddToCart}>
+                    ADD TO CART
+                  </AddToCart>
+                </SelectionBottom>
+                <AdditionalInfo>
+                  <Tags>
+                    <span>TAGS:</span> COTTON, JACKETS, SHIRT
+                  </Tags>
+                </AdditionalInfo>
+              </Selection>
+            </Right>
+          </Top>
+          <Bottom>
+            <BottomLeft>
+              <h3>Product Details</h3>
+              <ProductDetails
+                dangerouslySetInnerHTML={{ __html: product.description }}
+              ></ProductDetails>
+            </BottomLeft>
+            <BottomMiddle>
+              <ProductCode>
+                <h3>Product Code</h3>
+                <span>{product.productCode}</span>
+              </ProductCode>
+              <h3>Brand</h3>
+              <Brand
+                dangerouslySetInnerHTML={{ __html: product.brand?.description }}
+              ></Brand>
+            </BottomMiddle>
+            <BottomRight>
+              <h3>Size & Fit</h3>
+              <SizeAndFit
+                dangerouslySetInnerHTML={{ __html: product.info?.sizeAndFit }}
+              ></SizeAndFit>
+              <h3>Care Instructions</h3>
+              <WashInfo
+                dangerouslySetInnerHTML={{ __html: product.info?.careInfo }}
+              ></WashInfo>
+              <h3>About Me</h3>
+              <Materials
+                dangerouslySetInnerHTML={{ __html: product.info?.aboutMe }}
+              ></Materials>
+            </BottomRight>
+          </Bottom>
         </Content>
       </Container>
       <Footer />
@@ -149,8 +192,6 @@ const Product = () => {
 export default Product;
 
 const Container = styled.div`
-  min-height: 60vh;
-  max-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -160,7 +201,14 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  width: 55%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  ${mobile({ flexDirection: "column", width: "100vw", marginLeft: "0" })};
+`;
+
+const Top = styled.section`
+  width: 100%;
   display: flex;
   justify-content: center;
   ${mobile({ flexDirection: "column", width: "100vw", marginLeft: "0" })};
@@ -171,13 +219,26 @@ const Left = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 20px;
+`;
+
+const ActiveProductImage = styled.img`
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+`;
+
+const ProductImages = styled.div`
+  width: 100px;
+  display: flex;
+  position: relative;
+  z-index: 200000000;
 `;
 
 const ProductImage = styled.img`
-  height: 100%;
   width: 100%;
-  min-width: 400px;
-  object-fit: cover;
+  height: 100%;
+  object-fit: contain;
 `;
 
 const Right = styled.div`
@@ -188,35 +249,12 @@ const Right = styled.div`
   line-height: 1.5;
 `;
 
-const Title = styled.span`
-  font-size: 18px;
-  font-weight: 500;
-  padding: 2px 0;
-`;
 const Info = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   border-bottom: 1px solid lightgrey;
   padding: 20px 0;
-`;
-
-const InfoRight = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const InfoLeft = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const ProductNumber = styled.span`
-  margin-top: 3px;
-  font-size: 12px;
-  padding: 4px 0;
-  strong {
-    font-weight: 500;
-  }
 `;
 
 const ProductName = styled.span`
@@ -225,7 +263,11 @@ const ProductName = styled.span`
   font-weight: 500;
 `;
 
-const ProductPrice = styled.span``;
+const ProductPrice = styled.span`
+  font-size: 18px;
+  font-weight: 600;
+  color: #636262;
+`;
 
 const Description = styled.div`
   display: flex;
@@ -238,7 +280,7 @@ const Description = styled.div`
 
 const Selection = styled.div``;
 
-const Top = styled.div``;
+const SelectionTop = styled.div``;
 
 const TopTitle = styled.h5`
   margin-right: 15px;
@@ -250,9 +292,30 @@ const Color = styled.div`
   align-items: center;
 `;
 
-const Size = styled(Color)``;
+const ColorText = styled.span``;
 
-const Bottom = styled.div`
+const Size = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const SizeLeft = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const SizeSelect = styled.select`
+  width: 100%;
+  font-size: 14px;
+  padding: 4px;
+`;
+
+const SizeGuide = styled.a`
+  color: inherit;
+  font-size: 12px;
+`;
+
+const SelectionBottom = styled.div`
   display: flex;
   align-items: center;
   border-bottom: 1px solid lightgrey;
@@ -302,7 +365,7 @@ const RemoveWrapper = styled(AddWrapper)`
 `;
 
 const AddToCart = styled.button`
-  padding: 8px 24px;
+  padding: 8px 50px;
   background-color: #757575;
   color: white;
   font-weight: 500;
@@ -323,3 +386,48 @@ const Categories = styled.div`
   }
 `;
 const Tags = styled(Categories)``;
+
+const Bottom = styled.section`
+  display: flex;
+  font-size: 14px;
+  h3 {
+    color: #949393;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 15px;
+    margin: 6px 0;
+  }
+`;
+
+const BottomLeft = styled.div`
+  flex: 1;
+`;
+
+const ProductDetails = styled.div`
+  a {
+    color: inherit;
+  }
+  li {
+    color: inherit;
+  }
+`;
+
+const BottomMiddle = styled.div`
+  flex: 1;
+`;
+
+const ProductCode = styled.div``;
+
+const Brand = styled.div``;
+
+const BottomRight = styled.div`
+  width: 200px;
+  flex: 1;
+  padding-left: 50px;
+`;
+
+const SizeAndFit = styled.div``;
+
+const WashInfo = styled.div``;
+
+const Materials = styled.div``;
