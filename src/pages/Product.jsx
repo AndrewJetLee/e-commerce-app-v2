@@ -10,6 +10,9 @@ import { addToCart } from "../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
 import { mobile } from "../responsive";
 import { editCart } from "../redux/apiCalls";
+import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
+import AssignmentReturnOutlinedIcon from "@mui/icons-material/AssignmentReturnOutlined";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -150,12 +153,20 @@ const Product = () => {
                   <AddToCart onClick={handleClickAddToCart}>
                     ADD TO CART
                   </AddToCart>
+                  <FavoriteButton>
+                    <FavoriteBorderOutlinedIcon className="favorite icon"/>
+                  </FavoriteButton>
                 </SelectionBottom>
-                <AdditionalInfo>
-                  <Tags>
-                    <span>TAGS:</span> COTTON, JACKETS, SHIRT
-                  </Tags>
-                </AdditionalInfo>
+                <ShippingInfo>
+                  <DeliveryInfo>
+                    <LocalShippingOutlinedIcon className="icon" /> Free Delivery
+                  </DeliveryInfo>
+                  <ReturnInfo>
+                    <AssignmentReturnOutlinedIcon className="icon" /> Free
+                    Returns
+                  </ReturnInfo>
+                  <OtherInfo>Ts&Cs apply.</OtherInfo>
+                </ShippingInfo>
               </Selection>
             </Right>
           </Top>
@@ -177,7 +188,7 @@ const Product = () => {
               ></Brand>
             </BottomMiddle>
             <BottomRight>
-              <h3>Size & Fit</h3>
+              <h3>Size and Fit</h3>
               <SizeAndFit
                 dangerouslySetInnerHTML={{ __html: product.info?.sizeAndFit }}
               ></SizeAndFit>
@@ -214,6 +225,7 @@ const Content = styled.div`
   min-width: 600px;
   display: flex;
   flex-direction: column;
+  margin-top: 30px;
   ${mobile({ flexDirection: "column", width: "100vw", marginLeft: "0" })};
 `;
 
@@ -309,6 +321,7 @@ const Color = styled.div`
   margin-top: 20px;
   display: flex;
   align-items: center;
+  margin-bottom: 15px;
 `;
 
 const ColorText = styled.span``;
@@ -327,6 +340,7 @@ const SizeSelect = styled.select`
   width: 100%;
   font-size: 14px;
   padding: 4px;
+  margin-top: 5px;
 `;
 
 const SizeGuide = styled.a`
@@ -337,9 +351,8 @@ const SizeGuide = styled.a`
 const SelectionBottom = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid lightgrey;
   padding: 20px 0;
+  justify-content: space-between;
 `;
 const Quantity = styled.div`
   display: flex;
@@ -364,7 +377,6 @@ const AddRemoveWrapper = styled.div`
   height: 100%; 
   .icon {
     font-size: 14px; 
-    
   }
 `;
 
@@ -385,17 +397,51 @@ const RemoveWrapper = styled(AddWrapper)`
 `;
 
 const AddToCart = styled.button`
-  padding: 10px 55px;
+  padding: 8px 60px;
   background-color: #757575;
   color: white;
   font-weight: 500;
   font-size: 16px;
+  border-radius: 1px;
   cursor: pointer;
+  :hover {
+    filter: brightness(80%);
+  }
 `;
 
-const AdditionalInfo = styled.div`
+const FavoriteButton = styled.button`
+  background-color: lightgray;
+  border-radius: 50%;
+  padding: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ShippingInfo = styled.div`
   font-size: 12px;
-  padding: 20px 0;
+  padding: 12px;
+  border: solid 1px rgb(238, 238, 238);
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+`;
+
+const DeliveryInfo = styled.span`
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  .icon {
+    margin-right: 8px;
+    color: rgb(71, 71, 71);
+  }
+`;
+
+const ReturnInfo = styled(DeliveryInfo)``;
+
+const OtherInfo = styled.span`
+  display: flex;
+  justify-content: center;
 `;
 
 const Categories = styled.div`
@@ -410,6 +456,7 @@ const Tags = styled(Categories)``;
 const Bottom = styled.section`
   display: flex;
   font-size: 14px;
+  margin-top: 30px;
   h3 {
     color: #949393;
     font-weight: 600;
@@ -436,9 +483,11 @@ const BottomMiddle = styled.div`
   flex: 1;
 `;
 
-const ProductCode = styled.div``;
+const ProductCode = styled.div`
+  margin-bottom: 20px;
+`;
 
-const Brand = styled.div``;
+const Brand = styled(ProductCode)``;
 
 const BottomRight = styled.div`
   width: 200px;
@@ -446,8 +495,8 @@ const BottomRight = styled.div`
   padding-left: 50px;
 `;
 
-const SizeAndFit = styled.div``;
+const SizeAndFit = styled(ProductCode)``;
 
-const WashInfo = styled.div``;
+const WashInfo = styled(ProductCode)``;
 
-const Materials = styled.div``;
+const Materials = styled(ProductCode)``;
