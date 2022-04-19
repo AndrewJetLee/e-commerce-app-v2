@@ -152,25 +152,25 @@ const Product = () => {
             <BottomMiddle>
               <ProductCode>
                 <h3>Product Code</h3>
-                <span>product.productCode</span>
+                <span>{product.productCode}</span>
               </ProductCode>
               <h3>Brand</h3>
               <Brand
-                dangerouslySetInnerHTML={{ __html: product.brand.description }}
+                dangerouslySetInnerHTML={{ __html: product.brand?.description }}
               ></Brand>
             </BottomMiddle>
             <BottomRight>
               <h3>Size & Fit</h3>
               <SizeAndFit
-                dangerouslySetInnerHTML={{ __html: product.info.sizeAndFit }}
+                dangerouslySetInnerHTML={{ __html: product.info?.sizeAndFit }}
               ></SizeAndFit>
               <h3>Care Instructions</h3>
               <WashInfo
-                dangerouslySetInnerHTML={{ __html: product.info.careInfo }}
+                dangerouslySetInnerHTML={{ __html: product.info?.careInfo }}
               ></WashInfo>
               <h3>About Me</h3>
               <Materials
-                dangerouslySetInnerHTML={{ __html: product.info.aboutMe }}
+                dangerouslySetInnerHTML={{ __html: product.info?.aboutMe }}
               ></Materials>
             </BottomRight>
           </Bottom>
@@ -242,7 +242,11 @@ const ProductName = styled.span`
   font-weight: 500;
 `;
 
-const ProductPrice = styled.span``;
+const ProductPrice = styled.span`
+  font-size: 18px;
+  font-weight: 600;
+  color: #636262;
+`;
 
 const Description = styled.div`
   display: flex;
@@ -364,13 +368,18 @@ const Tags = styled(Categories)``;
 
 const Bottom = styled.section`
   display: flex;
-  
+  font-size: 14px;
+  h3 {
+    color: #949393;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 15px;
+    margin: 6px 0;
+  }
 `;
 
 const BottomLeft = styled.div`
   flex: 1;
-  h5 {
-  }
 `;
 
 const ProductDetails = styled.div`
@@ -378,7 +387,7 @@ const ProductDetails = styled.div`
     color: inherit;
   }
   li {
-    color: brown;
+    color: inherit;
   }
 `;
 
@@ -391,8 +400,9 @@ const ProductCode = styled.div``;
 const Brand = styled.div``;
 
 const BottomRight = styled.div`
+  width: 200px;
   flex: 1;
-  margin-left: 50px;
+  padding-left: 50px;
 `;
 
 const SizeAndFit = styled.div`
