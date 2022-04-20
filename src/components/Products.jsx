@@ -8,29 +8,6 @@ const Products = ({ query, category, filters, sort, list }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
-  // useEffect(() => {
-  //   const getProducts = async (req, res) => {
-  //     try {
-  //       if (query) {
-  //         const res = await publicRequest.get(
-  //           `/products?keyword=${query}`
-  //         );
-  //         setProducts(res.data);
-  //       } else {
-  //         const res = await publicRequest.get(
-  //           category
-  //             ? `/products?category=${category}`
-  //             : `/products/`
-  //         );
-  //         setProducts(res.data);
-  //       }
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   getProducts();
-  // }, [category, query]);
-
   useEffect(() => {
     const getProducts = async () => {
       try {
@@ -56,45 +33,10 @@ const Products = ({ query, category, filters, sort, list }) => {
     getProducts();
   }, [category, query, list]);
 
-  useEffect(() => {
-    category &&
-      setFilteredProducts(
-        products.filter((item) =>
-          Object.entries(filters).every(([key, value]) =>
-            item[key].includes(value)
-          )
-        )
-      );
-  }, [products, category, filters]);
-
-  useEffect(() => {
-    if (sort === "newest") {
-      setFilteredProducts((prev) => {
-        return [...prev].sort((a, b) => {
-          return Date.parse(a.createdAt) - Date.parse(b.createdAt);
-        });
-      });
-    } else if (sort === "desc") {
-      setFilteredProducts((prev) =>
-        [...prev].sort((a, b) => b.price - a.price)
-      );
-    } else if (sort === "asc") {
-      setFilteredProducts((prev) =>
-        [...prev].sort((a, b) => a.price - b.price)
-      );
-    } else {
-      setFilteredProducts((prev) => {
-        return [...prev].sort((a, b) => {
-          return Date.parse(b.createdAt) - Date.parse(a.createdAt);
-        });
-      });
-    }
-  }, [sort]);
-
   return (
     <Container>
       {category
-        ? filteredProducts.map((item, key) => <Product item={item} key={key} />)
+        ? products.map((item, key) => <Product item={item} key={key} />)
         : products.length > 0 &&
           products
             .slice(0, 20)

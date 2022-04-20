@@ -24,3 +24,7 @@ button {
 ul {
   list-style: none; 
 }
+
+.App {
+  overflow-x: hidden;
+}

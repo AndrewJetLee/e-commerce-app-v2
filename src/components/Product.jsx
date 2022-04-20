@@ -8,7 +8,6 @@ const Product = ({ item }) => {
     <Container>
       <Wrapper>
         <Image src={`https://${item.imageUrl}`} />
-
         <Info>
           <button
             className="searchButton"
@@ -66,13 +65,14 @@ const Info = styled.div`
   cursor: pointer;
   button {
     background-color: #030364;
-    padding: 14px 54px;
+    padding: 14px 60px;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.167s ease;
     color: white;
     font-weight: 500;
+    border-radius: 2px;
     cursor: pointer;
     .icon {
       font-size: 20px;
