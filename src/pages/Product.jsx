@@ -13,6 +13,7 @@ import { editCart } from "../redux/apiCalls";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import AssignmentReturnOutlinedIcon from "@mui/icons-material/AssignmentReturnOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -154,7 +155,7 @@ const Product = () => {
                     ADD TO CART
                   </AddToCart>
                   <FavoriteButton>
-                    <FavoriteBorderOutlinedIcon className="favorite icon"/>
+                    <FavoriteIcon className="favorite icon" sx={{ "&:hover": { fill: "#757575" } }}/>
                   </FavoriteButton>
                 </SelectionBottom>
                 <ShippingInfo>
@@ -410,12 +411,19 @@ const AddToCart = styled.button`
 `;
 
 const FavoriteButton = styled.button`
-  background-color: lightgray;
+  background-color: #eee;
   border-radius: 50%;
   padding: 7px;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  .favorite {
+    fill: #eee;
+    stroke: #757575;
+    font-weight: 600;
+    stroke-width: 2;
+  }
 `;
 
 const ShippingInfo = styled.div`
