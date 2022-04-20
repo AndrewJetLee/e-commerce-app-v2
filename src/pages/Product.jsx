@@ -8,8 +8,12 @@ import { useParams } from "react-router-dom";
 import { publicRequest, asosRequest } from "../requestMethods";
 import { addToCart } from "../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
-import { mobile } from "../responsive";
+import { mobile, tablet } from "../responsive";
 import { editCart } from "../redux/apiCalls";
+import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
+import AssignmentReturnOutlinedIcon from "@mui/icons-material/AssignmentReturnOutlined";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -38,8 +42,13 @@ const Product = () => {
   }, []);
 
   useEffect(() => {
-    product.media && setActiveImage(product.media.images[0].url);
+    product.media && setActiveImage(`https://${product.media.images[0].url}`);
   }, [product]);
+
+  const handleClickImage = (e) => {
+    console.log(e.target.src);
+    setActiveImage(e.target.src);
+  };
 
   const handleClickCounter = (action) => {
     if (action === "add") {
@@ -72,11 +81,15 @@ const Product = () => {
           <Top>
             <Left>
               <ProductImages>
-                {product.media?.images.map((image, i) => <ProductImage src={`https://${image.url}`}></ProductImage>)}
+                {product.media?.images.map((image, i) => (
+                  <ProductImage
+                    active={`https://${image.url}` === activeImage}
+                    onClick={handleClickImage}
+                    src={`https://${image.url}`}
+                  ></ProductImage>
+                ))}
               </ProductImages>
-              <ActiveProductImage
-                src={`https://${activeImage}`}
-              ></ActiveProductImage>
+              <ActiveProductImage src={activeImage}></ActiveProductImage>
             </Left>
 
             <Right>
@@ -141,12 +154,20 @@ const Product = () => {
                   <AddToCart onClick={handleClickAddToCart}>
                     ADD TO CART
                   </AddToCart>
+                  <FavoriteButton>
+                    <FavoriteIcon className="favorite icon" sx={{ "&:hover": { fill: "#757575" } }}/>
+                  </FavoriteButton>
                 </SelectionBottom>
-                <AdditionalInfo>
-                  <Tags>
-                    <span>TAGS:</span> COTTON, JACKETS, SHIRT
-                  </Tags>
-                </AdditionalInfo>
+                <ShippingInfo>
+                  <DeliveryInfo>
+                    <LocalShippingOutlinedIcon className="icon" /> Free Delivery
+                  </DeliveryInfo>
+                  <ReturnInfo>
+                    <AssignmentReturnOutlinedIcon className="icon" /> Free
+                    Returns
+                  </ReturnInfo>
+                  <OtherInfo>Ts&Cs apply.</OtherInfo>
+                </ShippingInfo>
               </Selection>
             </Right>
           </Top>
@@ -168,7 +189,7 @@ const Product = () => {
               ></Brand>
             </BottomMiddle>
             <BottomRight>
-              <h3>Size & Fit</h3>
+              <h3>Size and Fit</h3>
               <SizeAndFit
                 dangerouslySetInnerHTML={{ __html: product.info?.sizeAndFit }}
               ></SizeAndFit>
@@ -201,10 +222,12 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  width: 50%;
+  max-width: 50%;
+  min-width: 600px;
   display: flex;
   flex-direction: column;
-  ${mobile({ flexDirection: "column", width: "100vw", marginLeft: "0" })};
+  margin-top: 30px;
+  ${mobile({ flexDirection: "column", minWidth: "100%", marginLeft: "0" })};
 `;
 
 const Top = styled.section`
@@ -215,7 +238,7 @@ const Top = styled.section`
 `;
 
 const Left = styled.div`
-  flex: 1;
+  flex: 0.9;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -229,24 +252,37 @@ const ActiveProductImage = styled.img`
 `;
 
 const ProductImages = styled.div`
-  width: 100px;
+  flex: 1;
+  min-width: 20%;
   display: flex;
+  flex-direction: column;
   position: relative;
-  z-index: 200000000;
+  ${mobile({ display: "none" })};
+  ${tablet({ display: "none" })};
 `;
 
 const ProductImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  width: 80%;
+  height: 80%;
+  object-fit: cover;
+  margin-top: 15px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: filter 0.3s ease-in-out;
+  :hover {
+    filter: brightness(70%);
+  }
+  filter: ${(props) => props.active && "brightness(70%)"};
 `;
 
 const Right = styled.div`
-  flex: 1;
+  flex: 0.7;
   display: flex;
   flex-direction: column;
   margin-left: 50px;
   line-height: 1.5;
+  ${mobile({ marginLeft: "0", padding: "10px" })};
+  
 `;
 
 const Info = styled.div`
@@ -290,9 +326,12 @@ const Color = styled.div`
   margin-top: 20px;
   display: flex;
   align-items: center;
+  margin-bottom: 15px;
 `;
 
-const ColorText = styled.span``;
+const ColorText = styled.span`
+  font-size: 14px;
+`;
 
 const Size = styled.div`
   display: flex;
@@ -308,6 +347,7 @@ const SizeSelect = styled.select`
   width: 100%;
   font-size: 14px;
   padding: 4px;
+  margin-top: 5px;
 `;
 
 const SizeGuide = styled.a`
@@ -318,8 +358,8 @@ const SizeGuide = styled.a`
 const SelectionBottom = styled.div`
   display: flex;
   align-items: center;
-  border-bottom: 1px solid lightgrey;
   padding: 20px 0;
+  justify-content: space-between;
 `;
 const Quantity = styled.div`
   display: flex;
@@ -344,7 +384,6 @@ const AddRemoveWrapper = styled.div`
   height: 100%; 
   .icon {
     font-size: 14px; 
-    
   }
 `;
 
@@ -365,17 +404,60 @@ const RemoveWrapper = styled(AddWrapper)`
 `;
 
 const AddToCart = styled.button`
-  padding: 8px 50px;
   background-color: #757575;
   color: white;
   font-weight: 500;
   font-size: 16px;
+  border-radius: 1px;
+  height: 40px;
+  width: 60%;
+  text-align: center;
   cursor: pointer;
+  :hover {
+    filter: brightness(80%);
+  }
 `;
 
-const AdditionalInfo = styled.div`
+const FavoriteButton = styled.button`
+  background-color: #eee;
+  border-radius: 50%;
+  padding: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  .favorite {
+    fill: #eee;
+    stroke: #757575;
+    font-weight: 600;
+    stroke-width: 2;
+  }
+`;
+
+const ShippingInfo = styled.div`
   font-size: 12px;
-  padding: 20px 0;
+  padding: 12px;
+  border: solid 1px rgb(238, 238, 238);
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+`;
+
+const DeliveryInfo = styled.span`
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  .icon {
+    margin-right: 8px;
+    color: rgb(71, 71, 71);
+  }
+`;
+
+const ReturnInfo = styled(DeliveryInfo)``;
+
+const OtherInfo = styled.span`
+  display: flex;
+  justify-content: center;
 `;
 
 const Categories = styled.div`
@@ -390,6 +472,7 @@ const Tags = styled(Categories)``;
 const Bottom = styled.section`
   display: flex;
   font-size: 14px;
+  margin-top: 30px;
   h3 {
     color: #949393;
     font-weight: 600;
@@ -397,6 +480,8 @@ const Bottom = styled.section`
     font-size: 15px;
     margin: 6px 0;
   }
+  ${mobile({ padding: "10px", flexDirection: "column" })};
+
 `;
 
 const BottomLeft = styled.div`
@@ -416,18 +501,21 @@ const BottomMiddle = styled.div`
   flex: 1;
 `;
 
-const ProductCode = styled.div``;
+const ProductCode = styled.div`
+  margin-bottom: 20px;
+`;
 
-const Brand = styled.div``;
+const Brand = styled(ProductCode)``;
 
 const BottomRight = styled.div`
   width: 200px;
   flex: 1;
   padding-left: 50px;
+  ${mobile({ paddingLeft: "0" })};
 `;
 
-const SizeAndFit = styled.div``;
+const SizeAndFit = styled(ProductCode)``;
 
-const WashInfo = styled.div``;
+const WashInfo = styled(ProductCode)``;
 
-const Materials = styled.div``;
+const Materials = styled(ProductCode)``;
