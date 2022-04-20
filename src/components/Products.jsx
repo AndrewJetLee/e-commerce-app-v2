@@ -50,7 +50,7 @@ export default Products;
 const Container = styled.div`
   display: grid;
   width: 98%;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   grid-template-rows: 1fr 1fr;
   gap: 10px;
   margin-left: 60px;
