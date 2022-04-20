@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import { publicRequest, asosRequest } from "../requestMethods";
 import { addToCart } from "../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
-import { mobile } from "../responsive";
+import { mobile, tablet } from "../responsive";
 import { editCart } from "../redux/apiCalls";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import AssignmentReturnOutlinedIcon from "@mui/icons-material/AssignmentReturnOutlined";
@@ -227,7 +227,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 30px;
-  ${mobile({ flexDirection: "column", width: "100vw", marginLeft: "0" })};
+  ${mobile({ flexDirection: "column", minWidth: "100%", marginLeft: "0" })};
 `;
 
 const Top = styled.section`
@@ -248,7 +248,7 @@ const Left = styled.div`
 const ActiveProductImage = styled.img`
   height: 100%;
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
 `;
 
 const ProductImages = styled.div`
@@ -257,6 +257,8 @@ const ProductImages = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  ${mobile({ display: "none" })};
+  ${tablet({ display: "none" })};
 `;
 
 const ProductImage = styled.img`
@@ -279,6 +281,8 @@ const Right = styled.div`
   flex-direction: column;
   margin-left: 50px;
   line-height: 1.5;
+  ${mobile({ marginLeft: "0", padding: "10px" })};
+  
 `;
 
 const Info = styled.div`
@@ -325,7 +329,9 @@ const Color = styled.div`
   margin-bottom: 15px;
 `;
 
-const ColorText = styled.span``;
+const ColorText = styled.span`
+  font-size: 14px;
+`;
 
 const Size = styled.div`
   display: flex;
@@ -398,12 +404,14 @@ const RemoveWrapper = styled(AddWrapper)`
 `;
 
 const AddToCart = styled.button`
-  padding: 8px 60px;
   background-color: #757575;
   color: white;
   font-weight: 500;
   font-size: 16px;
   border-radius: 1px;
+  height: 40px;
+  width: 60%;
+  text-align: center;
   cursor: pointer;
   :hover {
     filter: brightness(80%);
@@ -472,6 +480,8 @@ const Bottom = styled.section`
     font-size: 15px;
     margin: 6px 0;
   }
+  ${mobile({ padding: "10px", flexDirection: "column" })};
+
 `;
 
 const BottomLeft = styled.div`
@@ -501,6 +511,7 @@ const BottomRight = styled.div`
   width: 200px;
   flex: 1;
   padding-left: 50px;
+  ${mobile({ paddingLeft: "0" })};
 `;
 
 const SizeAndFit = styled(ProductCode)``;
