@@ -6,16 +6,18 @@ import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { asosRequest } from "../requestMethods";
 import { useParams, useSearchParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const ProductList = () => {
   let { category } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const q = searchParams.get("q");
   const [filter, setFilter] = useState({});
-  const [sort, setSort] = useState("newest");
+  const [sort, setSort] = useState("freshness");
   const [list, setList] = useState([]);
   const [categoryTitle, setCategoryTitle] = useState("");
+  const sortRef = useRef(sort);
+
 
   useEffect(() => {
     getList();
@@ -78,17 +80,23 @@ const ProductList = () => {
             <label>Sort products: </label>
             <Sort>
               <select onChange={handleSort} name="sort" id="sort">
-                <option value="newest" selected>
+                <option value="freshness" selected>
                   Newest
                 </option>
-                <option value="oldest">Oldest</option>
-                <option value="asc">Price(asc)</option>
-                <option value="desc">Price(desc)</option>
+                <option value="priceasc">Price(asc)</option>
+                <option value="pricedesc">Price(desc)</option>
               </select>
             </Sort>
           </SortContainer>
         </Top>
-        <Products list={list} query={q} category={category} filters={filter} sort={sort} />
+        <Products
+          sortRef={sortRef}
+          list={list}
+          query={q}
+          category={category}
+          filters={filter}
+          sort={sort}
+        />
       </Content>
       <Footer />
     </Container>
