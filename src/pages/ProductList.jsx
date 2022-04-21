@@ -17,7 +17,6 @@ const ProductList = () => {
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState("");
   const sortRef = useRef(sort);
-  const filterRef = useRef(filter);
 
   const handleFilter = (e) => {
     const value = e.target.value;
@@ -42,7 +41,6 @@ const ProductList = () => {
         </Title>
         <Top>
           <FilterContainer>
-            <label>Filter products: </label>
             <Filter>
               <select onChange={handleFilter} name="color" id="color">
                 <option hidden selected>
@@ -65,19 +63,50 @@ const ProductList = () => {
                 <option value="XL">XL</option>
               </select>
             </Filter>
-          </FilterContainer>
-          <SortContainer>
-            <label>Sort products: </label>
-            <Sort>
+            <Filter>
+              <select onChange={handleFilter} name="color" id="color">
+                <option hidden selected>
+                  Category
+                </option>
+                <option value="white">White</option>
+                <option value="black">Black</option>
+                <option value="cream">Cream</option>
+                <option value="green">Green</option>
+              </select>
+            </Filter>
+            <Filter>
+              <select onChange={handleFilter} name="color" id="color">
+                <option hidden selected>
+                  Price Range
+                </option>
+                <option value="white">White</option>
+                <option value="black">Black</option>
+                <option value="cream">Cream</option>
+                <option value="green">Green</option>
+              </select>
+            </Filter>
+            <Filter>
+              <select onChange={handleFilter} name="color" id="color">
+                <option hidden selected>
+                  Sex
+                </option>
+                <option value="white">Men</option>
+                <option value="white">Women</option>
+              </select>
+            </Filter>
+            <Filter>
               <select onChange={handleSort} name="sort" id="sort">
-                <option value="freshness" selected>
+                <option hidden selected>
+                  Sort
+                </option>
+                <option value="freshness">
                   Newest
                 </option>
                 <option value="priceasc">Price(asc)</option>
                 <option value="pricedesc">Price(desc)</option>
               </select>
-            </Sort>
-          </SortContainer>
+            </Filter>
+          </FilterContainer>
         </Top>
         <Products
           sort={sort}
@@ -85,7 +114,6 @@ const ProductList = () => {
           query={q}
           category={category}
           filter={filter}
-          filterRef={filterRef}
         />
       </Content>
       <Footer />
@@ -115,13 +143,17 @@ const Top = styled.div`
 
 const Title = styled.h1`
   padding: 30px 20px;
+  padding-bottom: 15px;
   text-transform: uppercase;
+
+  text-align: center;
   ${mobile({ textAlign: "center" })};
 `;
 const FilterContainer = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
   margin: 0 15px;
   label {
     margin-right: 10px;
@@ -130,18 +162,17 @@ const FilterContainer = styled.div`
 `;
 
 const Filter = styled.div`
+  width: 200px;
   margin: 20px;
+  max-height: 100%;
+  min-height: 18px;
   ${mobile({ margin: "5px" })};
   select {
     text-align: center;
-    border-color: #949393;
+    border-color: lightgrey;
     padding: 10px;
+    width: 100%;
+    border-left: none; 
+    border-right: none;
   }
 `;
-
-const SortContainer = styled(FilterContainer)`
-  justify-content: flex-end;
-  ${mobile({ justifyContent: "center", marginTop: 0 })};
-`;
-
-const Sort = styled(Filter)``;

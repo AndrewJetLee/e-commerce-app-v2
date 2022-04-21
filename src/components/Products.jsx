@@ -5,15 +5,7 @@ import { useState, useEffect } from "react";
 import { publicRequest, asosRequest } from "../requestMethods";
 import { Skeleton } from "@mui/material";
 
-const Products = ({
-  query,
-  category,
-  filter,
-  filterRef,
-  sort,
-  type,
-  sortRef,
-}) => {
+const Products = ({ query, category, filter, sortRef, sort, type }) => {
   const [products, setProducts] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [requestUrl, setRequestUrl] = useState("");
@@ -23,7 +15,6 @@ const Products = ({
     const getProducts = async () => {
       try {
         toggleLoading(true);
-
         if (query) {
           await getProductsWithQuery();
         } else if (category) {
@@ -38,7 +29,6 @@ const Products = ({
             `/v2/list/?categoryId=50060&limit=24&store=US&offset=0`
           );
         }
-
         toggleLoading(false);
       } catch (err) {
         console.log(err);
@@ -52,7 +42,9 @@ const Products = ({
   }, [sort]);
 
   useEffect(() => {
-    Object.keys(filter).length > 0 && filterProducts();
+    if (type !== "home") {
+      Object.keys(filter).length > 0 && filterProducts();
+    }
   }, [filter]);
 
   const getProductsWithQuery = async () => {
@@ -102,11 +94,10 @@ const Products = ({
   const filterProducts = async () => {
     setFiltered(products);
     try {
-      setFiltered(
-        products.filter(
-          (product, i) => product.colour.toLowerCase() === filter.color
-        )
+      let filtered = products.filter(
+        (product, i) => product.colour.toLowerCase() === filter.color
       );
+      setFiltered(filtered);
     } catch (err) {
       console.log(err);
     }
