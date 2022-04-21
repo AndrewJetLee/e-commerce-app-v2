@@ -13,7 +13,7 @@ const ProductList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const q = searchParams.get("q");
   const [filter, setFilter] = useState({});
-  const [sort, setSort] = useState("freshness");
+  const [sort, setSort] = useState("");
   const [list, setList] = useState([]);
   const [categoryTitle, setCategoryTitle] = useState("");
   const sortRef = useRef(sort);
@@ -69,8 +69,8 @@ const ProductList = () => {
                 <option hidden selected>
                   Size
                 </option>
-                <option value="S">S</option>
-                <option value="M">M</option>
+                <option value="small">S</option>
+                <option value="medium">M</option>
                 <option value="L">L</option>
                 <option value="XL">XL</option>
               </select>
@@ -91,10 +91,9 @@ const ProductList = () => {
         </Top>
         <Products
           sortRef={sortRef}
-          list={list}
           query={q}
           category={category}
-          filters={filter}
+          filter={filter}
           sort={sort}
         />
       </Content>

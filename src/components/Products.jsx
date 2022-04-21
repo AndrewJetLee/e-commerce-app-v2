@@ -5,21 +5,13 @@ import { useState, useEffect } from "react";
 import { publicRequest, asosRequest } from "../requestMethods";
 import { Skeleton } from "@mui/material";
 
-const Products = ({ query, category, filters, sort, list, type, sortRef }) => {
+const Products = ({ query, category, filter, sort, list, type, sortRef }) => {
   const [products, setProducts] = useState([]);
+  const [filtered, setFiltered] = useState([]);
   const [requestUrl, setRequestUrl] = useState("");
   const [loading, toggleLoading] = useState(false);
 
-  // if there is a category passed in,
-  // make a request with that category
-
-  // if there is a query passed in
-  // make a request with that query
-
-  // If the sort value is different from the original sort vaalue (prev sort value)
-  // send a request with the sort included
-
-  // type ? home, category, search
+  // when filter is changed, add that query to the request?
 
   useEffect(() => {
     const getProducts = async () => {
@@ -33,6 +25,7 @@ const Products = ({ query, category, filters, sort, list, type, sortRef }) => {
           const res = await asosRequest.get(
             `/v2/list/?categoryId=50060&limit=24&store=US&offset=0`
           );
+          setFiltered(res.data.products);
           setProducts(res.data.products);
           setRequestUrl(
             `/v2/list/?categoryId=50060&limit=24&store=US&offset=0`
@@ -47,8 +40,26 @@ const Products = ({ query, category, filters, sort, list, type, sortRef }) => {
   }, [category, query]);
 
   useEffect(() => {
-    sortProducts();
+    sort && sortProducts();
   }, [sort]);
+
+  useEffect(() => {
+    const filterProducts = async () => {
+      toggleLoading(true);
+      setFiltered(products);
+      try {
+        setFiltered(
+          products.filter(
+            (product, i) => product.colour.toLowerCase() === filter.color
+          )
+        );
+        toggleLoading(false);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    filterProducts();
+  }, [filter]);
 
   const getProductsWithQuery = async () => {
     toggleLoading(true);
@@ -56,6 +67,7 @@ const Products = ({ query, category, filters, sort, list, type, sortRef }) => {
       const res = await asosRequest.get(
         `/v2/list?q=${query}&categoryId=50060&limit=24&store=US&offset=0`
       );
+      setFiltered(res.data.products);
       setProducts(res.data.products);
       setRequestUrl(
         `/v2/list?q=${query}&categoryId=50060&limit=24&store=US&offset=0`
@@ -72,6 +84,7 @@ const Products = ({ query, category, filters, sort, list, type, sortRef }) => {
       const res = await asosRequest.get(
         `/v2/list?categoryId=${category}&limit=20&store=US&offset=0`
       );
+      setFiltered(res.data.products);
       setProducts(res.data.products);
       setRequestUrl(
         `/v2/list?categoryId=${category}&limit=20&store=US&offset=0`
@@ -87,6 +100,7 @@ const Products = ({ query, category, filters, sort, list, type, sortRef }) => {
       if (sortRef !== sort) {
         toggleLoading(true);
         const res = await asosRequest.get(`${requestUrl}&sort=${sort}`);
+        setFiltered(res.data.products);
         setProducts(res.data.products);
       }
       toggleLoading(false);
@@ -100,7 +114,7 @@ const Products = ({ query, category, filters, sort, list, type, sortRef }) => {
       {loading &&
         Array(20)
           .fill("")
-          .map(() => (
+          .map((item, i) => (
             <Skeleton
               variant="rectangular"
               width={300}
@@ -108,6 +122,7 @@ const Products = ({ query, category, filters, sort, list, type, sortRef }) => {
               sx={{
                 marginBottom: "30px",
               }}
+              key={i}
             />
           ))}
       {type === "home" && !loading
@@ -116,7 +131,7 @@ const Products = ({ query, category, filters, sort, list, type, sortRef }) => {
             .map((item, key) => <Product item={item} key={key} />)
         : (category || query) &&
           !loading &&
-          products?.map((item, key) => <Product item={item} key={key} />)}
+          filtered?.map((item, key) => <Product item={item} key={key} />)}
     </Container>
   );
 };
