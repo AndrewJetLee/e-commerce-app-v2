@@ -21,18 +21,6 @@ const ProductList = () => {
     getList();
   }, []);
 
-  // useEffect(() => {
-  //   const sortList = async () => {
-  //     debugger;
-  //     const res = await asosRequest.get(
-  //       `/v2/list?categoryId=${category}&store=US&offset=0&sort=${sort}`
-  //     );
-  //     setCategoryTitle(res.data.categoryName);
-  //     setList(res.data.products);
-  //   };
-  //   sortList();
-  // }, [sort, category]);
-
   const getList = async () => {
     const res = await asosRequest.get(
       `/v2/list?categoryId=${category}&limit=20&store=US&offset=0`

@@ -9,10 +9,6 @@ const Products = ({ query, category, filters, sort, list }) => {
   const [requestUrl, setRequestUrl] = useState("");
 
   useEffect(() => {
-    setProducts(list);
-  }, [list]);
-
-  useEffect(() => {
     const getProducts = async () => {
       try {
         if (query) {
