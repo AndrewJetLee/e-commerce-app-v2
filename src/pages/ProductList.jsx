@@ -13,13 +13,25 @@ const ProductList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const q = searchParams.get("q");
   const [filter, setFilter] = useState({});
-  const [sort, setSort] = useState("newest");
+  const [sort, setSort] = useState("freshness");
   const [list, setList] = useState([]);
   const [categoryTitle, setCategoryTitle] = useState("");
 
   useEffect(() => {
     getList();
   }, []);
+
+  // useEffect(() => {
+  //   const sortList = async () => {
+  //     debugger;
+  //     const res = await asosRequest.get(
+  //       `/v2/list?categoryId=${category}&store=US&offset=0&sort=${sort}`
+  //     );
+  //     setCategoryTitle(res.data.categoryName);
+  //     setList(res.data.products);
+  //   };
+  //   sortList();
+  // }, [sort, category]);
 
   const getList = async () => {
     const res = await asosRequest.get(
@@ -78,17 +90,22 @@ const ProductList = () => {
             <label>Sort products: </label>
             <Sort>
               <select onChange={handleSort} name="sort" id="sort">
-                <option value="newest" selected>
+                <option value="freshness" selected>
                   Newest
                 </option>
-                <option value="oldest">Oldest</option>
-                <option value="asc">Price(asc)</option>
-                <option value="desc">Price(desc)</option>
+                <option value="priceasc">Price(asc)</option>
+                <option value="pricedesc">Price(desc)</option>
               </select>
             </Sort>
           </SortContainer>
         </Top>
-        <Products list={list} query={q} category={category} filters={filter} sort={sort} />
+        <Products
+          list={list}
+          query={q}
+          category={category}
+          filters={filter}
+          sort={sort}
+        />
       </Content>
       <Footer />
     </Container>

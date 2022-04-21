@@ -6,25 +6,39 @@ import { publicRequest, asosRequest } from "../requestMethods";
 
 const Products = ({ query, category, filters, sort, list }) => {
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [requestUrl, setRequestUrl] = useState("");
+
+  useEffect(() => {
+    setProducts(list);
+  }, [list]);
 
   useEffect(() => {
     const getProducts = async () => {
       try {
         if (query) {
           const res = await asosRequest.get(
-            `/v2/list?q=${query}&=categoryId=50060&limit=24&store=US&offset=0`
+            `/v2/list?q=${query}&categoryId=50060&limit=24&store=US&offset=0`
           );
           setProducts(res.data.products);
+          setRequestUrl(
+            `/v2/list?q=${query}&categoryId=50060&limit=24&store=US&offset=0`
+          );
+        } else if (list && category) {
+          const res = await asosRequest.get(
+            `/v2/list?categoryId=${category}&limit=20&store=US&offset=0`
+          );
+          setProducts(res.data.products);
+          setRequestUrl(
+            `/v2/list?categoryId=${category}&limit=20&store=US&offset=0`
+          );
         } else {
-          if (list && category) {
-            setProducts(list);
-          } else {
-            const res = await asosRequest.get(
-              `/v2/list/?categoryId=50060&limit=24&store=US&offset=0`
-            );
-            setProducts(res.data.products);
-          }
+          const res = await asosRequest.get(
+            `/v2/list/?categoryId=50060&limit=24&store=US&offset=0`
+          );
+          setProducts(res.data.products);
+          setRequestUrl(
+            `/v2/list/?categoryId=50060&limit=24&store=US&offset=0`
+          );
         }
       } catch (err) {
         console.log(err);
@@ -33,11 +47,28 @@ const Products = ({ query, category, filters, sort, list }) => {
     getProducts();
   }, [category, query, list]);
 
+  useEffect(() => {
+    const sortProducts = async () => {
+      try {
+        if (query) {
+          const res = await asosRequest.get(`${requestUrl}&sort=${sort}`);
+          setProducts(res.data.products);
+        } else if (list && category) {
+          const res = await asosRequest.get(`${requestUrl}&sort=${sort}`);
+          setProducts(res.data.products);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    sortProducts();
+  }, [sort]);
+
   return (
     <Container>
       {category
-        ? products.map((item, key) => <Product item={item} key={key} />)
-        : products.length > 0 &&
+        ? products?.map((item, key) => <Product item={item} key={key} />)
+        : products?.length > 0 &&
           products
             .slice(0, 20)
             .map((item, key) => <Product item={item} key={key} />)}
