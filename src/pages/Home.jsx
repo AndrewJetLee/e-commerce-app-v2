@@ -17,7 +17,7 @@ const Home = () => {
       <Carousel />
       <Categories />
       <Separator item={SeparatorItems[1]}/>
-      <Products />
+      <Products type="home"/>
       <Separator item={SeparatorItems[2]}/>
       <About />
       <Footer />

@@ -6,7 +6,7 @@ import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { asosRequest } from "../requestMethods";
 import { useParams, useSearchParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const ProductList = () => {
   let { category } = useParams();
@@ -16,6 +16,8 @@ const ProductList = () => {
   const [sort, setSort] = useState("freshness");
   const [list, setList] = useState([]);
   const [categoryTitle, setCategoryTitle] = useState("");
+  const sortRef = useRef(sort);
+
 
   useEffect(() => {
     getList();
@@ -88,6 +90,7 @@ const ProductList = () => {
           </SortContainer>
         </Top>
         <Products
+          sortRef={sortRef}
           list={list}
           query={q}
           category={category}
