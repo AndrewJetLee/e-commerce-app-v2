@@ -8,7 +8,11 @@ const CategoryItem = ({ item }) => {
   return (
     <Container
       item={item}
-      onClick={() => navigate(`/products/${item.category}`)}
+      onClick={() => navigate(`/products/${item.category}`, {
+        state: {
+          categoryName: item.title
+        }
+      })}
     >
       <img className="itemImg" src={item.img} alt="" />
       <ItemInfo>

@@ -5,22 +5,29 @@ import { useState, useEffect } from "react";
 import { publicRequest, asosRequest } from "../requestMethods";
 import { Skeleton } from "@mui/material";
 
-const Products = ({ query, category, filter, sort, list, type, sortRef }) => {
+const Products = ({
+  query,
+  category,
+  filter,
+  filterRef,
+  sort,
+  type,
+  sortRef,
+}) => {
   const [products, setProducts] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [requestUrl, setRequestUrl] = useState("");
   const [loading, toggleLoading] = useState(false);
 
-  // when filter is changed, add that query to the request?
-
   useEffect(() => {
     const getProducts = async () => {
       try {
         toggleLoading(true);
+
         if (query) {
-          getProductsWithQuery();
+          await getProductsWithQuery();
         } else if (category) {
-          getProductsWithCategory();
+          await getProductsWithCategory();
         } else {
           const res = await asosRequest.get(
             `/v2/list/?categoryId=50060&limit=24&store=US&offset=0`
@@ -31,6 +38,7 @@ const Products = ({ query, category, filter, sort, list, type, sortRef }) => {
             `/v2/list/?categoryId=50060&limit=24&store=US&offset=0`
           );
         }
+
         toggleLoading(false);
       } catch (err) {
         console.log(err);
@@ -44,25 +52,10 @@ const Products = ({ query, category, filter, sort, list, type, sortRef }) => {
   }, [sort]);
 
   useEffect(() => {
-    const filterProducts = async () => {
-      toggleLoading(true);
-      setFiltered(products);
-      try {
-        setFiltered(
-          products.filter(
-            (product, i) => product.colour.toLowerCase() === filter.color
-          )
-        );
-        toggleLoading(false);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    filterProducts();
+    Object.keys(filter).length > 0 && filterProducts();
   }, [filter]);
 
   const getProductsWithQuery = async () => {
-    toggleLoading(true);
     try {
       const res = await asosRequest.get(
         `/v2/list?q=${query}&categoryId=50060&limit=24&store=US&offset=0`
@@ -72,7 +65,6 @@ const Products = ({ query, category, filter, sort, list, type, sortRef }) => {
       setRequestUrl(
         `/v2/list?q=${query}&categoryId=50060&limit=24&store=US&offset=0`
       );
-      toggleLoading(false);
     } catch (err) {
       console.log(err);
     }
@@ -80,7 +72,6 @@ const Products = ({ query, category, filter, sort, list, type, sortRef }) => {
 
   const getProductsWithCategory = async () => {
     try {
-      toggleLoading(true);
       const res = await asosRequest.get(
         `/v2/list?categoryId=${category}&limit=20&store=US&offset=0`
       );
@@ -89,7 +80,6 @@ const Products = ({ query, category, filter, sort, list, type, sortRef }) => {
       setRequestUrl(
         `/v2/list?categoryId=${category}&limit=20&store=US&offset=0`
       );
-      toggleLoading(false);
     } catch (err) {
       console.log(err);
     }
@@ -102,8 +92,21 @@ const Products = ({ query, category, filter, sort, list, type, sortRef }) => {
         const res = await asosRequest.get(`${requestUrl}&sort=${sort}`);
         setFiltered(res.data.products);
         setProducts(res.data.products);
+        toggleLoading(false);
       }
-      toggleLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const filterProducts = async () => {
+    setFiltered(products);
+    try {
+      setFiltered(
+        products.filter(
+          (product, i) => product.colour.toLowerCase() === filter.color
+        )
+      );
     } catch (err) {
       console.log(err);
     }

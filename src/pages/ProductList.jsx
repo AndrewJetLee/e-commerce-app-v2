@@ -5,31 +5,19 @@ import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { asosRequest } from "../requestMethods";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 
 const ProductList = () => {
-  let { category } = useParams();
+  const { category } = useParams();
+  const location = useLocation();
+  console.log(location);
   const [searchParams, setSearchParams] = useSearchParams();
   const q = searchParams.get("q");
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState("");
-  const [list, setList] = useState([]);
-  const [categoryTitle, setCategoryTitle] = useState("");
   const sortRef = useRef(sort);
-
-
-  useEffect(() => {
-    getList();
-  }, []);
-
-  const getList = async () => {
-    const res = await asosRequest.get(
-      `/v2/list?categoryId=${category}&limit=20&store=US&offset=0`
-    );
-    setCategoryTitle(res.data.categoryName);
-    setList(res.data.products);
-  };
+  const filterRef = useRef(filter);
 
   const handleFilter = (e) => {
     const value = e.target.value;
@@ -49,7 +37,9 @@ const ProductList = () => {
       <Navbar />
       <Announcement />
       <Content>
-        <Title>{category ? categoryTitle : `Showing results for: ${q}`}</Title>
+        <Title>
+          {category ? location.state.categoryName : `Showing results for: ${q}`}
+        </Title>
         <Top>
           <FilterContainer>
             <label>Filter products: </label>
@@ -90,11 +80,12 @@ const ProductList = () => {
           </SortContainer>
         </Top>
         <Products
+          sort={sort}
           sortRef={sortRef}
           query={q}
           category={category}
           filter={filter}
-          sort={sort}
+          filterRef={filterRef}
         />
       </Content>
       <Footer />
