@@ -7,6 +7,7 @@ import { mobile } from "../responsive";
 import { asosRequest } from "../requestMethods";
 import { useParams, useSearchParams, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import { Slider } from "@mui/material";
 
 const ProductList = () => {
   const { category } = useParams();
@@ -53,17 +54,6 @@ const ProductList = () => {
               </select>
             </Filter>
             <Filter>
-              <select onChange={handleFilter} name="size" id="size">
-                <option hidden selected>
-                  Size
-                </option>
-                <option value="small">S</option>
-                <option value="medium">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-              </select>
-            </Filter>
-            <Filter>
               <select onChange={handleFilter} name="color" id="color">
                 <option hidden selected>
                   Category
@@ -79,12 +69,14 @@ const ProductList = () => {
                 <option hidden selected>
                   Price Range
                 </option>
+                <option></option>
                 <option value="white">White</option>
                 <option value="black">Black</option>
                 <option value="cream">Cream</option>
                 <option value="green">Green</option>
               </select>
             </Filter>
+
             <Filter>
               <select onChange={handleFilter} name="color" id="color">
                 <option hidden selected>
@@ -99,9 +91,7 @@ const ProductList = () => {
                 <option hidden selected>
                   Sort
                 </option>
-                <option value="freshness">
-                  Newest
-                </option>
+                <option value="freshness">Newest</option>
                 <option value="priceasc">Price(asc)</option>
                 <option value="pricedesc">Price(desc)</option>
               </select>
@@ -172,7 +162,7 @@ const Filter = styled.div`
     border-color: lightgrey;
     padding: 10px;
     width: 100%;
-    border-left: none; 
+    border-left: none;
     border-right: none;
   }
 `;
