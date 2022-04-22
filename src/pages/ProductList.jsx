@@ -7,7 +7,7 @@ import { mobile } from "../responsive";
 import { asosRequest } from "../requestMethods";
 import { useParams, useSearchParams, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import { Slider } from "@mui/material";
+import Slider from "../components/Slider";
 
 const ProductList = () => {
   const { category } = useParams();
@@ -18,6 +18,7 @@ const ProductList = () => {
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState("");
   const sortRef = useRef(sort);
+  
 
   const handleFilter = (e) => {
     const value = e.target.value;
@@ -65,18 +66,11 @@ const ProductList = () => {
               </select>
             </Filter>
             <Filter>
-              <select onChange={handleFilter} name="color" id="color">
-                <option hidden selected>
-                  Price Range
-                </option>
-                <option></option>
-                <option value="white">White</option>
-                <option value="black">Black</option>
-                <option value="cream">Cream</option>
-                <option value="green">Green</option>
-              </select>
+              <div onChange={handleFilter} name="color" id="color">
+                Price Range
+              </div>
+              <Slider/>
             </Filter>
-
             <Filter>
               <select onChange={handleFilter} name="color" id="color">
                 <option hidden selected>
