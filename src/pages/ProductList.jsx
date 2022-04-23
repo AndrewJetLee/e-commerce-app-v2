@@ -5,31 +5,21 @@ import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { asosRequest } from "../requestMethods";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import Slider from "../components/Slider";
 
 const ProductList = () => {
-  let { category } = useParams();
+  const { category } = useParams();
+  const location = useLocation();
+  console.log(location);
   const [searchParams, setSearchParams] = useSearchParams();
   const q = searchParams.get("q");
   const [filter, setFilter] = useState({});
-  const [sort, setSort] = useState("freshness");
-  const [list, setList] = useState([]);
-  const [categoryTitle, setCategoryTitle] = useState("");
+  const [sex, setSex] = useState("men");
+  const [sort, setSort] = useState("");
   const sortRef = useRef(sort);
-
-
-  useEffect(() => {
-    getList();
-  }, []);
-
-  const getList = async () => {
-    const res = await asosRequest.get(
-      `/v2/list?categoryId=${category}&limit=20&store=US&offset=0`
-    );
-    setCategoryTitle(res.data.categoryName);
-    setList(res.data.products);
-  };
+  
 
   const handleFilter = (e) => {
     const value = e.target.value;
@@ -49,10 +39,11 @@ const ProductList = () => {
       <Navbar />
       <Announcement />
       <Content>
-        <Title>{category ? categoryTitle : `Showing results for: ${q}`}</Title>
+        <Title>
+          {category ? location.state.categoryName : `Showing results for: ${q}`}
+        </Title>
         <Top>
           <FilterContainer>
-            <label>Filter products: </label>
             <Filter>
               <select onChange={handleFilter} name="color" id="color">
                 <option hidden selected>
@@ -65,37 +56,50 @@ const ProductList = () => {
               </select>
             </Filter>
             <Filter>
-              <select onChange={handleFilter} name="size" id="size">
+              <select onChange={handleFilter} name="color" id="color">
                 <option hidden selected>
-                  Size
+                  Category
                 </option>
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
+                <option value="white">White</option>
+                <option value="black">Black</option>
+                <option value="cream">Cream</option>
+                <option value="green">Green</option>
               </select>
             </Filter>
-          </FilterContainer>
-          <SortContainer>
-            <label>Sort products: </label>
-            <Sort>
-              <select onChange={handleSort} name="sort" id="sort">
-                <option value="freshness" selected>
-                  Newest
+            {/* <Filter>
+              <div onChange={handleFilter} name="color" id="color">
+                Price Range
+              </div>
+              <Slider/>
+            </Filter> */}
+            <Filter>
+              <select onChange={handleFilter} name="sex" id="sex">
+                <option hidden selected>
+                  Sex
                 </option>
+                <option value="men">Men</option>
+                <option value="women">Women</option>
+              </select>
+            </Filter>
+            <Filter>
+              <select onChange={handleSort} name="sort" id="sort">
+                <option hidden selected>
+                  Sort
+                </option>
+                <option value="freshness">Newest</option>
                 <option value="priceasc">Price(asc)</option>
                 <option value="pricedesc">Price(desc)</option>
               </select>
-            </Sort>
-          </SortContainer>
+            </Filter>
+          </FilterContainer>
         </Top>
         <Products
+          sort={sort}
           sortRef={sortRef}
-          list={list}
           query={q}
           category={category}
-          filters={filter}
-          sort={sort}
+          filter={filter}
+          sex={sex}
         />
       </Content>
       <Footer />
@@ -125,13 +129,17 @@ const Top = styled.div`
 
 const Title = styled.h1`
   padding: 30px 20px;
+  padding-bottom: 15px;
   text-transform: uppercase;
+
+  text-align: center;
   ${mobile({ textAlign: "center" })};
 `;
 const FilterContainer = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
   margin: 0 15px;
   label {
     margin-right: 10px;
@@ -140,18 +148,17 @@ const FilterContainer = styled.div`
 `;
 
 const Filter = styled.div`
+  width: 200px;
   margin: 20px;
+  max-height: 100%;
+  min-height: 18px;
   ${mobile({ margin: "5px" })};
   select {
     text-align: center;
-    border-color: #949393;
+    border-color: lightgrey;
     padding: 10px;
+    width: 100%;
+    border-left: none;
+    border-right: none;
   }
 `;
-
-const SortContainer = styled(FilterContainer)`
-  justify-content: flex-end;
-  ${mobile({ justifyContent: "center", marginTop: 0 })};
-`;
-
-const Sort = styled(Filter)``;
