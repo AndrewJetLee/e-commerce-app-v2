@@ -16,6 +16,7 @@ const ProductList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const q = searchParams.get("q");
   const [filter, setFilter] = useState({});
+  const [sex, setSex] = useState("men");
   const [sort, setSort] = useState("");
   const sortRef = useRef(sort);
   
@@ -65,19 +66,19 @@ const ProductList = () => {
                 <option value="green">Green</option>
               </select>
             </Filter>
-            <Filter>
+            {/* <Filter>
               <div onChange={handleFilter} name="color" id="color">
                 Price Range
               </div>
               <Slider/>
-            </Filter>
+            </Filter> */}
             <Filter>
-              <select onChange={handleFilter} name="color" id="color">
+              <select onChange={handleFilter} name="sex" id="sex">
                 <option hidden selected>
                   Sex
                 </option>
-                <option value="white">Men</option>
-                <option value="white">Women</option>
+                <option value="men">Men</option>
+                <option value="women">Women</option>
               </select>
             </Filter>
             <Filter>
@@ -98,6 +99,7 @@ const ProductList = () => {
           query={q}
           category={category}
           filter={filter}
+          sex={sex}
         />
       </Content>
       <Footer />
