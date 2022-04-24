@@ -63,7 +63,6 @@ const ProductList = () => {
                 <option value="new">New Arrivals</option>
                 <option value="activewear">Activewear</option>
                 <option value="accessories">Accessories</option>
-                <option value="green">Green</option>
               </select>
             </Filter>
             {/* <Filter>
