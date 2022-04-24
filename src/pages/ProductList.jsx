@@ -12,11 +12,10 @@ import Slider from "../components/Slider";
 const ProductList = () => {
   const { category } = useParams();
   const location = useLocation();
-  console.log(location);
   const [searchParams, setSearchParams] = useSearchParams();
   const q = searchParams.get("q");
   const [filter, setFilter] = useState({});
-  const [sex, setSex] = useState("men");
+  const [sex, setSex] = useState("");
   const [sort, setSort] = useState("");
   const sortRef = useRef(sort);
 
@@ -55,13 +54,13 @@ const ProductList = () => {
               </select>
             </Filter>
             <Filter>
-              <select onChange={handleFilter} name="color" id="color">
+              <select onChange={handleFilter} name="category" id="category">
                 <option hidden selected>
                   Category
                 </option>
-                <option value="new">New Arrivals</option>
-                <option value="activewear">Activewear</option>
-                <option value="accessories">Accessories</option>
+                <option value="13500">New Arrivals</option>
+                <option value="26090">Activewear</option>
+                <option value="50062">Accessories</option>
               </select>
             </Filter>
             {/* <Filter>
