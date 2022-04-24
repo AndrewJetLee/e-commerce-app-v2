@@ -60,9 +60,9 @@ const ProductList = () => {
                 <option hidden selected>
                   Category
                 </option>
-                <option value="white">White</option>
-                <option value="black">Black</option>
-                <option value="cream">Cream</option>
+                <option value="new">New Arrivals</option>
+                <option value="activewear">Activewear</option>
+                <option value="accessories">Accessories</option>
                 <option value="green">Green</option>
               </select>
             </Filter>
