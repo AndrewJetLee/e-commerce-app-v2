@@ -19,7 +19,6 @@ const ProductList = () => {
   const [sex, setSex] = useState("men");
   const [sort, setSort] = useState("");
   const sortRef = useRef(sort);
-  
 
   const handleFilter = (e) => {
     const value = e.target.value;
@@ -153,6 +152,17 @@ const Filter = styled.div`
   min-height: 18px;
   ${mobile({ margin: "5px" })};
   select {
+    outline: 0;
+    width: 100%;
+    height: 100%;
+    color: black;
+    cursor: pointer;
+    position: relative;
+    display: block;
+    width: 15em;
+    overflow: hidden;
+    border-radius: 0.25em;
+    padding-bottom: 10px;
     text-align: center;
     border-color: lightgrey;
     padding: 10px;
