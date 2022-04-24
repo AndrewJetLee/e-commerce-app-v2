@@ -8,8 +8,10 @@ import { Skeleton } from "@mui/material";
 const Products = ({ query, category, filter, sortRef, sort, type }) => {
   const [products, setProducts] = useState([]);
   const [filtered, setFiltered] = useState([]);
-  const [requestUrl, setRequestUrl] = useState("");
   const [loading, toggleLoading] = useState(false);
+  const [categoryId, setCategoryId] = useState(category);
+  const baseUrl = "/v2/list/?limit=24&store=US&offset=0";
+
 
   useEffect(() => {
     const getProducts = async () => {
@@ -21,13 +23,10 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
           await getProductsWithCategory();
         } else {
           const res = await asosRequest.get(
-            `/v2/list/?categoryId=50060&limit=24&store=US&offset=0`
+            `/v2/list/?categoryId=${categoryId}&limit=24&store=US&offset=0`
           );
           setFiltered(res.data.products);
           setProducts(res.data.products);
-          setRequestUrl(
-            `/v2/list/?categoryId=50060&limit=24&store=US&offset=0`
-          );
         }
         toggleLoading(false);
       } catch (err) {
@@ -50,13 +49,10 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
   const getProductsWithQuery = async () => {
     try {
       const res = await asosRequest.get(
-        `/v2/list?q=${query}&categoryId=50060&limit=24&store=US&offset=0`
+        `/v2/list?q=${query}&?categoryId=${categoryId}&limit=24&store=US&offset=0`
       );
       setFiltered(res.data.products);
       setProducts(res.data.products);
-      setRequestUrl(
-        `/v2/list?q=${query}&categoryId=50060&limit=24&store=US&offset=0`
-      );
     } catch (err) {
       console.log(err);
     }
@@ -65,13 +61,10 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
   const getProductsWithCategory = async () => {
     try {
       const res = await asosRequest.get(
-        `/v2/list?categoryId=${category}&limit=20&store=US&offset=0`
+        `/v2/list?categoryId=${categoryId}&limit=20&store=US&offset=0`
       );
       setFiltered(res.data.products);
       setProducts(res.data.products);
-      setRequestUrl(
-        `/v2/list?categoryId=${category}&limit=20&store=US&offset=0`
-      );
     } catch (err) {
       console.log(err);
     }
@@ -81,7 +74,7 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
     try {
       if (sortRef !== sort) {
         toggleLoading(true);
-        const res = await asosRequest.get(`${requestUrl}&sort=${sort}`);
+        const res = await asosRequest.get(`/v2/list?categoryId=${categoryId}&limit=20&store=US&offset=0&sort=${sort}`);
         setFiltered(res.data.products);
         setProducts(res.data.products);
         toggleLoading(false);
@@ -94,10 +87,33 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
   const filterProducts = async () => {
     setFiltered(products);
     try {
-      let filtered = products.filter(
-        (product, i) => product.colour.toLowerCase() === filter.color
-      );
-      setFiltered(filtered);
+      toggleLoading(true);
+      // if (filter.sex) {
+      //   if (filter.sex === "men") {
+      //     const res = await asosRequest.get(`${requestUrl}&categoryId=${filter.category}`);
+      //     setFiltered(res.data.products);
+      //     setProducts(res.data.products);
+      //   }
+      //   if (filter.sex === "women") {
+      //     const res = await asosRequest.get(`${requestUrl}&categoryId=${filter.category}`);
+      //     setFiltered(res.data.products);
+      //     setProducts(res.data.products);
+      //   }
+      // }
+     
+      if (filter.category) {
+        const res = await asosRequest.get(`/v2/list?categoryId=${filter.category}&limit=20&store=US&offset=0`);
+        setCategoryId(filter.category)
+        setFiltered(res.data.products);
+        setProducts(res.data.products);
+      }
+      if (filter.color) {
+        let filtered = products.filter(
+          (product, i) => product.colour.toLowerCase() === filter.color
+        );
+        setFiltered(filtered);
+      }
+      toggleLoading(false);
     } catch (err) {
       console.log(err);
     }

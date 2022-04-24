@@ -32,7 +32,6 @@ const Product = () => {
         const res = await asosRequest.get(
           `/v3/detail?id=${id}&lang=en-US&store=US&sizeSchema=US&currency=USD`
         );
-        console.log(res.data);
         setProduct(res.data);
       } catch (err) {
         console.log(err);

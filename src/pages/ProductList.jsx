@@ -12,14 +12,12 @@ import Slider from "../components/Slider";
 const ProductList = () => {
   const { category } = useParams();
   const location = useLocation();
-  console.log(location);
   const [searchParams, setSearchParams] = useSearchParams();
   const q = searchParams.get("q");
   const [filter, setFilter] = useState({});
-  const [sex, setSex] = useState("men");
+  const [sex, setSex] = useState("");
   const [sort, setSort] = useState("");
   const sortRef = useRef(sort);
-  
 
   const handleFilter = (e) => {
     const value = e.target.value;
@@ -56,14 +54,13 @@ const ProductList = () => {
               </select>
             </Filter>
             <Filter>
-              <select onChange={handleFilter} name="color" id="color">
+              <select onChange={handleFilter} name="category" id="category">
                 <option hidden selected>
                   Category
                 </option>
-                <option value="white">White</option>
-                <option value="black">Black</option>
-                <option value="cream">Cream</option>
-                <option value="green">Green</option>
+                <option value="13500">New Arrivals</option>
+                <option value="26090">Activewear</option>
+                <option value="50062">Accessories</option>
               </select>
             </Filter>
             {/* <Filter>
@@ -154,6 +151,17 @@ const Filter = styled.div`
   min-height: 18px;
   ${mobile({ margin: "5px" })};
   select {
+    outline: 0;
+    width: 100%;
+    height: 100%;
+    color: black;
+    cursor: pointer;
+    position: relative;
+    display: block;
+    width: 15em;
+    overflow: hidden;
+    border-radius: 0.25em;
+    padding-bottom: 10px;
     text-align: center;
     border-color: lightgrey;
     padding: 10px;
