@@ -10,8 +10,10 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
   const [filtered, setFiltered] = useState([]);
   const [loading, toggleLoading] = useState(false);
   const [categoryId, setCategoryId] = useState(category);
+  const [title, setTitle] = useState("");
   const baseUrl = "/v2/list/?limit=24&store=US&offset=0";
 
+  // Have CaategoryId state be on product list so that the title can change depending on the caa
 
   useEffect(() => {
     const getProducts = async () => {
@@ -23,8 +25,9 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
           await getProductsWithCategory();
         } else {
           const res = await asosRequest.get(
-            `/v2/list/?categoryId=${categoryId}&limit=24&store=US&offset=0`
+            `/v2/list/?categoryId=50060&limit=24&store=US&offset=0`
           );
+          setTitle(res.data.categoryName);
           setFiltered(res.data.products);
           setProducts(res.data.products);
         }
@@ -51,6 +54,7 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
       const res = await asosRequest.get(
         `/v2/list?q=${query}&?categoryId=${categoryId}&limit=24&store=US&offset=0`
       );
+      setTitle(res.data.categoryName);
       setFiltered(res.data.products);
       setProducts(res.data.products);
     } catch (err) {
@@ -63,6 +67,7 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
       const res = await asosRequest.get(
         `/v2/list?categoryId=${categoryId}&limit=20&store=US&offset=0`
       );
+      setTitle(res.data.categoryName);
       setFiltered(res.data.products);
       setProducts(res.data.products);
     } catch (err) {
@@ -74,7 +79,10 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
     try {
       if (sortRef !== sort) {
         toggleLoading(true);
-        const res = await asosRequest.get(`/v2/list?categoryId=${categoryId}&limit=20&store=US&offset=0&sort=${sort}`);
+        const res = await asosRequest.get(
+          `/v2/list?categoryId=${categoryId}&limit=20&store=US&offset=0&sort=${sort}`
+        );
+        setTitle(res.data.categoryName);
         setFiltered(res.data.products);
         setProducts(res.data.products);
         toggleLoading(false);
@@ -100,10 +108,13 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
       //     setProducts(res.data.products);
       //   }
       // }
-     
+
       if (filter.category) {
-        const res = await asosRequest.get(`/v2/list?categoryId=${filter.category}&limit=20&store=US&offset=0`);
-        setCategoryId(filter.category)
+        const res = await asosRequest.get(
+          `/v2/list?categoryId=${filter.category}&limit=20&store=US&offset=0`
+        );
+        setTitle(res.data.categoryName);
+        setCategoryId(filter.category);
         setFiltered(res.data.products);
         setProducts(res.data.products);
       }
@@ -120,29 +131,35 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
   };
 
   return (
-    <Container>
-      {loading &&
-        Array(20)
-          .fill("")
-          .map((item, i) => (
-            <Skeleton
-              variant="rectangular"
-              width={300}
-              height={380}
-              sx={{
-                marginBottom: "30px",
-              }}
-              key={i}
-            />
-          ))}
-      {type === "home" && !loading
-        ? products
-            .slice(0, 20)
-            .map((item, key) => <Product item={item} key={key} />)
-        : (category || query) &&
-          !loading &&
-          filtered?.map((item, key) => <Product item={item} key={key} />)}
-    </Container>
+    <>
+      {type !== "home" && (
+        <Title> {category ? title : `Showing results for: ${query}`}</Title>
+      )}
+
+      <Container>
+        {loading &&
+          Array(20)
+            .fill("")
+            .map((item, i) => (
+              <Skeleton
+                variant="rectangular"
+                width={300}
+                height={380}
+                sx={{
+                  marginBottom: "30px",
+                }}
+                key={i}
+              />
+            ))}
+        {type === "home" && !loading
+          ? products
+              .slice(0, 20)
+              .map((item, key) => <Product item={item} key={key} />)
+          : (category || query) &&
+            !loading &&
+            filtered?.map((item, key) => <Product item={item} key={key} />)}
+      </Container>
+    </>
   );
 };
 
@@ -159,4 +176,13 @@ const Container = styled.div`
     gridTemplateColumns: "repeat(2, 1fr)",
   })}
   ${mobile({ display: "flex", flexDirection: "column" })};
+`;
+
+const Title = styled.h1`
+  position: relative; 
+  top: -150px;
+  padding-bottom: 15px;
+  text-transform: uppercase;
+  text-align: center;
+  ${mobile({ textAlign: "center" })};
 `;

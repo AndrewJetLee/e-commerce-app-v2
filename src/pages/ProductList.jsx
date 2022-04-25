@@ -37,9 +37,6 @@ const ProductList = () => {
       <Navbar />
       <Announcement />
       <Content>
-        <Title>
-          {category ? location.state.categoryName : `Showing results for: ${q}`}
-        </Title>
         <Top>
           <FilterContainer>
             <Filter>
@@ -120,18 +117,11 @@ const Top = styled.div`
   align-items: center;
   width: 100%;
   justify-content: space-around;
-  margin-bottom: 30px;
-  ${mobile({ flexDirection: "column", marginTop: 0 })};
+  margin-top: 100px;
+  ${mobile({ flexDirection: "column" })};
 `;
 
-const Title = styled.h1`
-  padding: 30px 20px;
-  padding-bottom: 15px;
-  text-transform: uppercase;
 
-  text-align: center;
-  ${mobile({ textAlign: "center" })};
-`;
 const FilterContainer = styled.div`
   width: 100%;
   display: flex;
