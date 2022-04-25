@@ -13,8 +13,6 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
   const [title, setTitle] = useState("");
   const baseUrl = "/v2/list/?limit=24&store=US&offset=0";
 
-  // Have CaategoryId state be on product list so that the title can change depending on the caa
-
   useEffect(() => {
     const getProducts = async () => {
       try {
@@ -24,9 +22,7 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
         } else if (category) {
           await getProductsWithCategory();
         } else {
-          const res = await asosRequest.get(
-            `/v2/list/?categoryId=50060&limit=24&store=US&offset=0`
-          );
+          const res = await asosRequest.get(`${baseUrl}&categoryId=50060`);
           setTitle(res.data.categoryName);
           setFiltered(res.data.products);
           setProducts(res.data.products);
@@ -51,8 +47,21 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
 
   const getProductsWithQuery = async () => {
     try {
+      if (categoryId) {
+        const res = await asosRequest.get(
+          `${baseUrl}&categoryId=${categoryId}&q=${query}`
+        );
+        setTitle(res.data.categoryName);
+        setFiltered(res.data.products);
+        setProducts(res.data.products);
+      } else {
+        const res = await asosRequest.get(`${baseUrl}&q=${query}`);
+        setTitle(res.data.categoryName);
+        setFiltered(res.data.products);
+        setProducts(res.data.products);
+      }
       const res = await asosRequest.get(
-        `/v2/list?q=${query}&?categoryId=${categoryId}&limit=24&store=US&offset=0`
+        `${baseUrl}&categoryId=${categoryId}&q=${query}`
       );
       setTitle(res.data.categoryName);
       setFiltered(res.data.products);
@@ -64,9 +73,7 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
 
   const getProductsWithCategory = async () => {
     try {
-      const res = await asosRequest.get(
-        `/v2/list?categoryId=${categoryId}&limit=20&store=US&offset=0`
-      );
+      const res = await asosRequest.get(`${baseUrl}&categoryId=${categoryId}`);
       setTitle(res.data.categoryName);
       setFiltered(res.data.products);
       setProducts(res.data.products);
@@ -78,14 +85,26 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
   const sortProducts = async () => {
     try {
       if (sortRef !== sort) {
-        toggleLoading(true);
-        const res = await asosRequest.get(
-          `/v2/list?categoryId=${categoryId}&limit=20&store=US&offset=0&sort=${sort}`
-        );
-        setTitle(res.data.categoryName);
-        setFiltered(res.data.products);
-        setProducts(res.data.products);
-        toggleLoading(false);
+        if (categoryId) {
+          toggleLoading(true);
+          const res = await asosRequest.get(
+            `${baseUrl}&categoryId=${categoryId}&sort=${sort}`
+          );
+          setTitle(res.data.categoryName);
+          setFiltered(res.data.products);
+          setProducts(res.data.products);
+          toggleLoading(false);
+        } else {
+          toggleLoading(true);
+          const res = await asosRequest.get(
+            `${baseUrl}&q=${query}&sort=${sort}`
+          );
+
+          setTitle(res.data.categoryName);
+          setFiltered(res.data.products);
+          setProducts(res.data.products);
+          toggleLoading(false);
+        }
       }
     } catch (err) {
       console.log(err);
@@ -179,7 +198,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  position: relative; 
+  position: relative;
   top: -150px;
   padding-bottom: 15px;
   text-transform: uppercase;
