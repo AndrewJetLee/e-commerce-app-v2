@@ -99,7 +99,6 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
           const res = await asosRequest.get(
             `${baseUrl}&q=${query}&sort=${sort}`
           );
-
           setTitle(res.data.categoryName);
           setFiltered(res.data.products);
           setProducts(res.data.products);
@@ -115,19 +114,6 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
     setFiltered(products);
     try {
       toggleLoading(true);
-      // if (filter.sex) {
-      //   if (filter.sex === "men") {
-      //     const res = await asosRequest.get(`${requestUrl}&categoryId=${filter.category}`);
-      //     setFiltered(res.data.products);
-      //     setProducts(res.data.products);
-      //   }
-      //   if (filter.sex === "women") {
-      //     const res = await asosRequest.get(`${requestUrl}&categoryId=${filter.category}`);
-      //     setFiltered(res.data.products);
-      //     setProducts(res.data.products);
-      //   }
-      // }
-
       if (filter.category) {
         const res = await asosRequest.get(
           `/v2/list?categoryId=${filter.category}&limit=20&store=US&offset=0`
