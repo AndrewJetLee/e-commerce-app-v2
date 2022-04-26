@@ -10,7 +10,6 @@ import { useState, useEffect, useRef } from "react";
 
 const ProductList = () => {
   const { category } = useParams();
-  const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const q = searchParams.get("q");
   const [filter, setFilter] = useState({});
@@ -46,7 +45,6 @@ const ProductList = () => {
                 <option value="black">Black</option>
                 <option value="gray">Gray</option>
                 <option value="blue">Blue</option>
-                <option value="green">Green</option>
               </select>
             </Filter>
             <Filter>
@@ -57,16 +55,8 @@ const ProductList = () => {
                 <option value="27108">New Arrivals</option>
                 <option value="26090">Activewear</option>
                 <option value="50062">Accessories</option>
-                <option value="50062">Mens Collection</option>
-                <option value="50062">Womens Collection</option>
               </select>
             </Filter>
-            {/* <Filter>
-              <div onChange={handleFilter} name="color" id="color">
-                Price Range
-              </div>
-              <Slider/>
-            </Filter> */}
             <Filter>
               <select onChange={handleSort} name="sort" id="sort">
                 <option hidden selected>

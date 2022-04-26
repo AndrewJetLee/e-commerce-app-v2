@@ -29,6 +29,13 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
     }
   }, [filter]);
 
+  const setAll = (res) => {
+    setTitle(res.data.categoryName);
+    setFiltered(res.data.products);
+    setProducts(res.data.products);
+    res.data.itemCount > (offset + 45) ? setHasNextPage(true) :  setHasNextPage(false);
+  }
+
   const getProducts = async () => {
     try {
       toggleLoading(true);
@@ -38,9 +45,7 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
         await getProductsWithCategory();
       } else {
         const res = await asosRequest.get(`${baseUrl}&categoryId=50060`);
-        setTitle(res.data.categoryName);
-        setFiltered(res.data.products);
-        setProducts(res.data.products);
+        setAll(res);
       }
       toggleLoading(false);
     } catch (err) {
@@ -54,24 +59,15 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
         const res = await asosRequest.get(
           `${baseUrl}&categoryId=${categoryId}&q=${query}`
         );
-        setTitle(res.data.categoryName);
-        setFiltered(res.data.products);
-        setProducts(res.data.products);
-        res.data.itemCount > (offset + 45) ? setHasNextPage(true) :  setHasNextPage(false);
+        setAll(res);
       } else {
         const res = await asosRequest.get(`${baseUrl}&q=${query}`);
-        setTitle(res.data.categoryName);
-        setFiltered(res.data.products);
-        setProducts(res.data.products);
-        res.data.itemCount > (offset + 45) ? setHasNextPage(true) :  setHasNextPage(false);
+        setAll(res);
       }
       const res = await asosRequest.get(
         `${baseUrl}&categoryId=${categoryId}&q=${query}`
       );
-      setTitle(res.data.categoryName);
-      setFiltered(res.data.products);
-      setProducts(res.data.products);
-      res.data.itemCount > (offset + 45) ? setHasNextPage(true) :  setHasNextPage(false);
+      setAll(res);
     } catch (err) {
       console.log(err);
     }
@@ -80,10 +76,7 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
   const getProductsWithCategory = async () => {
     try {
       const res = await asosRequest.get(`${baseUrl}&categoryId=${categoryId}`);
-      setTitle(res.data.categoryName);
-      setFiltered(res.data.products);
-      setProducts(res.data.products);
-      res.data.itemCount > (offset + 45) ? setHasNextPage(true) :  setHasNextPage(false);
+      setAll(res);
     } catch (err) {
       console.log(err);
     }
@@ -97,20 +90,14 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
           const res = await asosRequest.get(
             `${baseUrl}&categoryId=${categoryId}&sort=${sort}`
           );
-          setTitle(res.data.categoryName);
-          setFiltered(res.data.products);
-          setProducts(res.data.products);
-          res.data.itemCount > (offset + 45) ? setHasNextPage(true) :  setHasNextPage(false);
+          setAll(res);
           toggleLoading(false);
         } else {
           toggleLoading(true);
           const res = await asosRequest.get(
             `${baseUrl}&q=${query}&sort=${sort}`
           );
-          setTitle(res.data.categoryName);
-          setFiltered(res.data.products);
-          setProducts(res.data.products);
-          res.data.itemCount > (offset + 45) ? setHasNextPage(true) :  setHasNextPage(false);
+          setAll(res);
           toggleLoading(false);
         }
       }
@@ -127,11 +114,8 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
         const res = await asosRequest.get(
           `${baseUrl}&categoryId=${filter.category}&sort=${sort}`
         );
-        setTitle(res.data.categoryName);
+        setAll(res);
         setCategoryId(filter.category);
-        setFiltered(res.data.products);
-        setProducts(res.data.products);
-        res.data.itemCount > (offset + 45) ? setHasNextPage(true) :  setHasNextPage(false);
       }
       if (filter.color) {
         let filtered = products.filter(
