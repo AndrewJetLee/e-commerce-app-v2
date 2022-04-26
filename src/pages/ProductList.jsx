@@ -93,6 +93,7 @@ const Container = styled.div`
 const Content = styled.div`
   width: 100%;
   padding: 0 20px;
+  margin-bottom: 30px;
 `;
 
 const Top = styled.div`

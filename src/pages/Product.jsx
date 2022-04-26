@@ -415,7 +415,7 @@ const AddToCart = styled.button`
   width: 60%;
   text-align: center;
   cursor: pointer;
-  transition: filter 0.2s ease-in-out;s 
+  transition: filter 0.2s ease-in-out;
   :hover {
     filter: brightness(80%);
   }

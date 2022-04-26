@@ -33,8 +33,10 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
     setTitle(res.data.categoryName);
     setFiltered(res.data.products);
     setProducts(res.data.products);
-    res.data.itemCount > (offset + 45) ? setHasNextPage(true) :  setHasNextPage(false);
-  }
+    res.data.itemCount > offset + 45
+      ? setHasNextPage(true)
+      : setHasNextPage(false);
+  };
 
   const getProducts = async () => {
     try {
@@ -129,14 +131,18 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
     }
   };
 
-  const handleLoadMore = async () => {
-    setOffset(offset + 45);
-    const res = await asosRequest.get(
-      `${baseUrl}&categoryId=${categoryId}${query ? `&q=${query}` : ""}${sort ? `&sort=${sort}` : ""}`
-    );
-    setFiltered([...filtered, ...res.data.products]);
-    setProducts([...products, res.data.products]);
-  }
+  useEffect(() => {
+    const handleLoadMore = async () => {
+      const res = await asosRequest.get(
+        `${baseUrl}&categoryId=${categoryId}${query ? `&q=${query}` : ""}${
+          sort ? `&sort=${sort}` : ""
+        }`
+      );
+      setFiltered([...filtered, ...res.data.products]);
+      setProducts([...products, res.data.products]);
+    };
+    handleLoadMore();
+  }, [offset]);
 
   return (
     <>
@@ -166,13 +172,12 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
           : (category || query) &&
             !loading &&
             filtered?.map((item, key) => <Product item={item} key={key} />)}
-        
       </Container>
       {type !== "home" && hasNextPage && (
-          <LoadWrapper onClick={handleLoadMore}>
-            <LoadMore>LOAD MORE</LoadMore>
-          </LoadWrapper>
-        )}
+        <LoadWrapper onClick={() => setOffset(offset + 45)}>
+          <LoadMore>LOAD MORE</LoadMore>
+        </LoadWrapper>
+      )}
     </>
   );
 };
@@ -205,6 +210,7 @@ const LoadWrapper = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
+  margin-top: 30px;
 `;
 
 const LoadMore = styled.button`
@@ -215,4 +221,8 @@ const LoadMore = styled.button`
   font-size: 16px;
   margin-bottom: 32px;
   cursor: pointer;
+  transition: filter 0.2s ease-in-out;
+  :hover {
+    filter: brightness(80%);
+  }
 `;
