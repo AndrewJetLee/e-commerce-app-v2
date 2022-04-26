@@ -1,35 +1,52 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 const Alert = ({ type, message, status }) => {
-  return <Container status={status}>{ type === "success" ? <CheckCircleOutlineIcon className="check icon"/> : <ErrorOutlineIcon className="error icon"/>} <p>{message}</p></Container>;
+  return (
+    <Container type={type} status={status}>
+      {type === "success" ? (
+        <CheckCircleOutlineIcon className="check icon" />
+      ) : (
+        <ErrorOutlineIcon className="error icon" />
+      )}
+      <span>{message}</span>
+    </Container>
+  );
 };
 
 export default Alert;
 
 const Container = styled.div`
-  padding: 5px;
-  width: 200px; 
-  position: fixed; 
+  padding: 8px 14px; 
+  position: fixed;
   top: 80px;
-  right: 20px;
+  right: 40px;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  border: solid;
+  z-index: 1000;
+  background-color: ${(props) => (props.type === "success" ? "green" : "red")};
+  font-size: 15px;
+  color: white;
+  border-radius: 1px;
+  .icon {
+      margin-right: 8px;
+  }
   .check {
-      color: green;
+    color: white;
   }
   .error {
-      color: red; 
+    color: white;
   }
-  transition-property: opacity, transform; 
-  transition-duration: 0.2s; 
-  opacity: 0; 
-  ${props => props.status && css`
-    opacity: 1;
-    transform: translateY(40px);
-  `}
-`
+  transition-property: opacity, transform;
+  transition-duration: 0.2s;
+  opacity: 0;
+  ${(props) =>
+    props.status &&
+    css`
+      opacity: 1;
+      transform: translateY(40px);
+    `}
+`;

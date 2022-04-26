@@ -60,7 +60,7 @@ const Product = () => {
 
   const handleClickAddToCart = () => {
     if (!user.currentUser) {
-      setAlertStatus(true);
+      handleAlert();
       return;
     }
     let payload = {
@@ -73,8 +73,15 @@ const Product = () => {
       title: product.name,
     };
     addToCart(dispatch, payload, user.currentUser.accessToken);
-    setAlertStatus(true);
+    handleAlert()
   };
+
+  const handleAlert = () => {
+    setAlertStatus(true);
+    setTimeout(() => {
+      setAlertStatus(false);
+    }, 3000)
+  }
 
   return (
     <>
@@ -84,7 +91,7 @@ const Product = () => {
         {!user.currentUser ? (
           <Alert
             type="error"
-            message="You must be logged in to add items to cart!"
+            message="Must be logged in to add to cart!"
             status={alertStatus}
           ></Alert>
         ) : (
