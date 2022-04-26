@@ -7,7 +7,6 @@ import { mobile } from "../responsive";
 import { asosRequest } from "../requestMethods";
 import { useParams, useSearchParams, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import Slider from "../components/Slider";
 
 const ProductList = () => {
   const { category } = useParams();
@@ -15,7 +14,6 @@ const ProductList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const q = searchParams.get("q");
   const [filter, setFilter] = useState({});
-  const [sex, setSex] = useState("");
   const [sort, setSort] = useState("");
   const sortRef = useRef(sort);
 
@@ -37,9 +35,6 @@ const ProductList = () => {
       <Navbar />
       <Announcement />
       <Content>
-        <Title>
-          {category ? location.state.categoryName : `Showing results for: ${q}`}
-        </Title>
         <Top>
           <FilterContainer>
             <Filter>
@@ -49,7 +44,8 @@ const ProductList = () => {
                 </option>
                 <option value="white">White</option>
                 <option value="black">Black</option>
-                <option value="cream">Cream</option>
+                <option value="gray">Gray</option>
+                <option value="blue">Blue</option>
                 <option value="green">Green</option>
               </select>
             </Filter>
@@ -58,9 +54,11 @@ const ProductList = () => {
                 <option hidden selected>
                   Category
                 </option>
-                <option value="13500">New Arrivals</option>
+                <option value="27108">New Arrivals</option>
                 <option value="26090">Activewear</option>
                 <option value="50062">Accessories</option>
+                <option value="50062">Mens Collection</option>
+                <option value="50062">Womens Collection</option>
               </select>
             </Filter>
             {/* <Filter>
@@ -69,15 +67,6 @@ const ProductList = () => {
               </div>
               <Slider/>
             </Filter> */}
-            <Filter>
-              <select onChange={handleFilter} name="sex" id="sex">
-                <option hidden selected>
-                  Sex
-                </option>
-                <option value="men">Men</option>
-                <option value="women">Women</option>
-              </select>
-            </Filter>
             <Filter>
               <select onChange={handleSort} name="sort" id="sort">
                 <option hidden selected>
@@ -96,7 +85,6 @@ const ProductList = () => {
           query={q}
           category={category}
           filter={filter}
-          sex={sex}
         />
       </Content>
       <Footer />
@@ -120,18 +108,11 @@ const Top = styled.div`
   align-items: center;
   width: 100%;
   justify-content: space-around;
-  margin-bottom: 30px;
-  ${mobile({ flexDirection: "column", marginTop: 0 })};
+  margin-top: 100px;
+  ${mobile({ flexDirection: "column" })};
 `;
 
-const Title = styled.h1`
-  padding: 30px 20px;
-  padding-bottom: 15px;
-  text-transform: uppercase;
 
-  text-align: center;
-  ${mobile({ textAlign: "center" })};
-`;
 const FilterContainer = styled.div`
   width: 100%;
   display: flex;
