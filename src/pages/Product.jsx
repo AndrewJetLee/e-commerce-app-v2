@@ -12,8 +12,8 @@ import { mobile, tablet } from "../responsive";
 import { editCart } from "../redux/apiCalls";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import AssignmentReturnOutlinedIcon from "@mui/icons-material/AssignmentReturnOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import Alert from "../components/Alert";
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,6 @@ const Product = () => {
   const user = useSelector((state) => state.user);
   const { id } = useParams();
   const [product, setProduct] = useState({});
-  const [color, setColor] = useState("");
   const [size, setSize] = useState("");
   const [count, setCount] = useState(1);
   const [activeImage, setActiveImage] = useState(null);
@@ -60,13 +59,13 @@ const Product = () => {
 
   const handleClickAddToCart = () => {
     let payload = {
-      productId: product._id,
-      price: product.price,
+      productId: product.id,
+      price: product.price.current.value,
       quantity: count,
-      color,
+      color: product.variants[0].colour,
       size,
-      image: product.image,
-      title: product.title,
+      image: activeImage,
+      title: product.name,
     };
     addToCart(dispatch, payload, user.currentUser.accessToken);
   };
@@ -122,7 +121,12 @@ const Product = () => {
                         </SizeGuide>
                       )}
                     </SizeLeft>
-                    <SizeSelect>
+                    <SizeSelect onChange={(e) => {
+                      setSize(e.target.value)
+                    }}>
+                      <option value="">
+                        Select size
+                      </option>
                       {product.variants?.map((variant, i) =>
                         variant.isInStock ? (
                           <option key={i} value={variant.displaySizeText}>

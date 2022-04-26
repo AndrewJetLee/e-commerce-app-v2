@@ -7,18 +7,18 @@ const Product = ({ item }) => {
   return (
     <Container>
       <Wrapper>
-        <Image src={`https://${item.imageUrl}`} />
+        <Image src={`https://${item?.imageUrl}`} />
         <Info>
           <button
             className="searchButton"
-            onClick={() => navigate(`/product/${item.id}`)}
+            onClick={() => navigate(`/product/${item?.id}`)}
           >
             VIEW
           </button>
         </Info>
       </Wrapper>
-      <Title>{item.name}</Title>
-      <Price>{item.price.current.text}</Price>
+      <Title>{item?.name}</Title>
+      <Price>{item.price?.current.text}</Price>
     </Container>
   );
 };
