@@ -52,9 +52,11 @@ const ProductList = () => {
                 <option hidden selected>
                   Category
                 </option>
-                <option value="27108">New Arrivals</option>
+                <option value="13500">Trending</option>
                 <option value="26090">Activewear</option>
                 <option value="50062">Accessories</option>
+                <option value="27110">Men's Collection</option>
+                <option value="27108">Women's Collection</option>
               </select>
             </Filter>
             <Filter>

@@ -82,6 +82,7 @@ const Product = () => {
               <ProductImages>
                 {product.media?.images.map((image, i) => (
                   <ProductImage
+                    key={i}
                     active={`https://${image.url}` === activeImage}
                     onClick={handleClickImage}
                     src={`https://${image.url}`}
@@ -226,7 +227,8 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 30px;
-  ${mobile({ flexDirection: "column", minWidth: "100%", marginLeft: "0" })};
+  ${mobile({ flexDirection: "column", minWidth: "100%", marginLeft: "0", marginTop: "0" })};
+ 
 `;
 
 const Top = styled.section`
@@ -242,6 +244,7 @@ const Left = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 20px;
+  ${mobile({ marginTop: "0" })};
 `;
 
 const ActiveProductImage = styled.img`
@@ -412,6 +415,7 @@ const AddToCart = styled.button`
   width: 60%;
   text-align: center;
   cursor: pointer;
+  transition: filter 0.2s ease-in-out;s 
   :hover {
     filter: brightness(80%);
   }
@@ -448,7 +452,7 @@ const DeliveryInfo = styled.span`
   padding: 4px;
   .icon {
     margin-right: 8px;
-    color: rgb(71, 71, 71);
+    color: #636262;
   }
 `;
 
@@ -473,7 +477,7 @@ const Bottom = styled.section`
   font-size: 14px;
   margin-top: 30px;
   h3 {
-    color: #949393;
+    color: #636262;
     font-weight: 600;
     text-transform: uppercase;
     font-size: 15px;

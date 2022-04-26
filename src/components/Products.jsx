@@ -44,7 +44,7 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
       } else if (category) {
         await getProductsWithCategory();
       } else {
-        const res = await asosRequest.get(`${baseUrl}&categoryId=50060`);
+        const res = await asosRequest.get(`${baseUrl}&categoryId=13500`);
         setAll(res);
       }
       toggleLoading(false);
@@ -161,7 +161,7 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
             ))}
         {type === "home" && !loading
           ? products
-              .slice(0, 20)
+              .slice(0, 10)
               .map((item, key) => <Product item={item} key={key} />)
           : (category || query) &&
             !loading &&
