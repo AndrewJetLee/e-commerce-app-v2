@@ -12,7 +12,7 @@ import { mobile, tablet } from "../responsive";
 import { editCart } from "../redux/apiCalls";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import AssignmentReturnOutlinedIcon from "@mui/icons-material/AssignmentReturnOutlined";
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import Alert from "../components/Alert";
 
 const Product = () => {
@@ -24,6 +24,7 @@ const Product = () => {
   const [size, setSize] = useState("");
   const [count, setCount] = useState(1);
   const [activeImage, setActiveImage] = useState(null);
+  const [alertStatus, setAlertStatus] = useState(false);
 
   useEffect(() => {
     const getProduct = async () => {
@@ -58,6 +59,10 @@ const Product = () => {
   };
 
   const handleClickAddToCart = () => {
+    if (!user.currentUser) {
+      setAlertStatus(true);
+      return;
+    }
     let payload = {
       productId: product.id,
       price: product.price.current.value,
@@ -68,6 +73,7 @@ const Product = () => {
       title: product.name,
     };
     addToCart(dispatch, payload, user.currentUser.accessToken);
+    setAlertStatus(true);
   };
 
   return (
@@ -75,6 +81,20 @@ const Product = () => {
       <Navbar />
       <Announcement />
       <Container>
+        {!user.currentUser ? (
+          <Alert
+            type="error"
+            message="You must be logged in to add items to cart!"
+            status={alertStatus}
+          ></Alert>
+        ) : (
+          <Alert
+            type="success"
+            message="Successfully added to cart!"
+            status={alertStatus}
+          ></Alert>
+        )}
+
         <Content>
           <Top>
             <Left>
@@ -121,12 +141,12 @@ const Product = () => {
                         </SizeGuide>
                       )}
                     </SizeLeft>
-                    <SizeSelect onChange={(e) => {
-                      setSize(e.target.value)
-                    }}>
-                      <option value="">
-                        Select size
-                      </option>
+                    <SizeSelect
+                      onChange={(e) => {
+                        setSize(e.target.value);
+                      }}
+                    >
+                      <option value="">Select size</option>
                       {product.variants?.map((variant, i) =>
                         variant.isInStock ? (
                           <option key={i} value={variant.displaySizeText}>
@@ -159,7 +179,10 @@ const Product = () => {
                     ADD TO CART
                   </AddToCart>
                   <FavoriteButton>
-                    <FavoriteIcon className="favorite icon" sx={{ "&:hover": { fill: "#757575" } }}/>
+                    <FavoriteIcon
+                      className="favorite icon"
+                      sx={{ "&:hover": { fill: "#757575" } }}
+                    />
                   </FavoriteButton>
                 </SelectionBottom>
                 <ShippingInfo>
@@ -231,8 +254,12 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 30px;
-  ${mobile({ flexDirection: "column", minWidth: "100%", marginLeft: "0", marginTop: "0" })};
- 
+  ${mobile({
+    flexDirection: "column",
+    minWidth: "100%",
+    marginLeft: "0",
+    marginTop: "0",
+  })};
 `;
 
 const Top = styled.section`
@@ -288,7 +315,6 @@ const Right = styled.div`
   margin-left: 50px;
   line-height: 1.5;
   ${mobile({ marginLeft: "0", padding: "10px" })};
-  
 `;
 
 const Info = styled.div`
@@ -488,7 +514,6 @@ const Bottom = styled.section`
     margin: 6px 0;
   }
   ${mobile({ padding: "10px", flexDirection: "column" })};
-
 `;
 
 const BottomLeft = styled.div`
