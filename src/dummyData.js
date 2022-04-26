@@ -25,19 +25,19 @@ export const CategoriesItemsRowOne = [
     id: 1,
     img: "/images/categories-new.jpg",
     title: "NEW ARRIVALS",
-    category: "13500",
+    category: "27108",
   },
   {
     id: 2,
     img: "/images/categories-mens.jpg",
     title: "MEN'S COLLECTION",
-    category: "13500",
+    category: "27110",
   },
   {
     id: 3,
     img: "/images/categories-womens.jpg",
     title: "WOMEN'S COLLECTION",
-    category: "13497",
+    category: "27108",
   },
 ];
 

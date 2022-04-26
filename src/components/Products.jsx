@@ -11,27 +11,11 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
   const [loading, toggleLoading] = useState(false);
   const [categoryId, setCategoryId] = useState(category);
   const [title, setTitle] = useState("");
-  const baseUrl = "/v2/list/?limit=24&store=US&offset=0";
+  const [offset, setOffset] = useState(0);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  let baseUrl = `/v2/list/?limit=45&store=US&offset=${offset}`;
 
   useEffect(() => {
-    const getProducts = async () => {
-      try {
-        toggleLoading(true);
-        if (query) {
-          await getProductsWithQuery();
-        } else if (category) {
-          await getProductsWithCategory();
-        } else {
-          const res = await asosRequest.get(`${baseUrl}&categoryId=50060`);
-          setTitle(res.data.categoryName);
-          setFiltered(res.data.products);
-          setProducts(res.data.products);
-        }
-        toggleLoading(false);
-      } catch (err) {
-        console.log(err);
-      }
-    };
     getProducts();
   }, [category, query]);
 
@@ -45,6 +29,25 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
     }
   }, [filter]);
 
+  const getProducts = async () => {
+    try {
+      toggleLoading(true);
+      if (query) {
+        await getProductsWithQuery();
+      } else if (category) {
+        await getProductsWithCategory();
+      } else {
+        const res = await asosRequest.get(`${baseUrl}&categoryId=50060`);
+        setTitle(res.data.categoryName);
+        setFiltered(res.data.products);
+        setProducts(res.data.products);
+      }
+      toggleLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const getProductsWithQuery = async () => {
     try {
       if (categoryId) {
@@ -54,11 +57,13 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
         setTitle(res.data.categoryName);
         setFiltered(res.data.products);
         setProducts(res.data.products);
+        res.data.itemCount > (offset + 45) ? setHasNextPage(true) :  setHasNextPage(false);
       } else {
         const res = await asosRequest.get(`${baseUrl}&q=${query}`);
         setTitle(res.data.categoryName);
         setFiltered(res.data.products);
         setProducts(res.data.products);
+        res.data.itemCount > (offset + 45) ? setHasNextPage(true) :  setHasNextPage(false);
       }
       const res = await asosRequest.get(
         `${baseUrl}&categoryId=${categoryId}&q=${query}`
@@ -66,6 +71,7 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
       setTitle(res.data.categoryName);
       setFiltered(res.data.products);
       setProducts(res.data.products);
+      res.data.itemCount > (offset + 45) ? setHasNextPage(true) :  setHasNextPage(false);
     } catch (err) {
       console.log(err);
     }
@@ -77,6 +83,7 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
       setTitle(res.data.categoryName);
       setFiltered(res.data.products);
       setProducts(res.data.products);
+      res.data.itemCount > (offset + 45) ? setHasNextPage(true) :  setHasNextPage(false);
     } catch (err) {
       console.log(err);
     }
@@ -93,6 +100,7 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
           setTitle(res.data.categoryName);
           setFiltered(res.data.products);
           setProducts(res.data.products);
+          res.data.itemCount > (offset + 45) ? setHasNextPage(true) :  setHasNextPage(false);
           toggleLoading(false);
         } else {
           toggleLoading(true);
@@ -102,6 +110,7 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
           setTitle(res.data.categoryName);
           setFiltered(res.data.products);
           setProducts(res.data.products);
+          res.data.itemCount > (offset + 45) ? setHasNextPage(true) :  setHasNextPage(false);
           toggleLoading(false);
         }
       }
@@ -116,16 +125,17 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
       toggleLoading(true);
       if (filter.category) {
         const res = await asosRequest.get(
-          `/v2/list?categoryId=${filter.category}&limit=20&store=US&offset=0`
+          `${baseUrl}&categoryId=${filter.category}&sort=${sort}`
         );
         setTitle(res.data.categoryName);
         setCategoryId(filter.category);
         setFiltered(res.data.products);
         setProducts(res.data.products);
+        res.data.itemCount > (offset + 45) ? setHasNextPage(true) :  setHasNextPage(false);
       }
       if (filter.color) {
         let filtered = products.filter(
-          (product, i) => product.colour.toLowerCase() === filter.color
+          (product, i) => product.colour?.toLowerCase() === filter.color
         );
         setFiltered(filtered);
       }
@@ -134,6 +144,15 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
       console.log(err);
     }
   };
+
+  const handleLoadMore = async () => {
+    setOffset(offset + 45);
+    const res = await asosRequest.get(
+      `${baseUrl}&categoryId=${categoryId}${query ? `&q=${query}` : ""}${sort ? `&sort=${sort}` : ""}`
+    );
+    setFiltered([...filtered, ...res.data.products]);
+    setProducts([...products, res.data.products]);
+  }
 
   return (
     <>
@@ -163,7 +182,13 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
           : (category || query) &&
             !loading &&
             filtered?.map((item, key) => <Product item={item} key={key} />)}
+        
       </Container>
+      {type !== "home" && hasNextPage && (
+          <LoadWrapper onClick={handleLoadMore}>
+            <LoadMore>LOAD MORE</LoadMore>
+          </LoadWrapper>
+        )}
     </>
   );
 };
@@ -190,4 +215,20 @@ const Title = styled.h1`
   text-transform: uppercase;
   text-align: center;
   ${mobile({ textAlign: "center" })};
+`;
+
+const LoadWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+`;
+
+const LoadMore = styled.button`
+  border: 1px solid rgb(196, 193, 188);
+  padding: 15px;
+  width: 300px;
+  font-weight: 500;
+  font-size: 16px;
+  margin-bottom: 32px;
+  cursor: pointer;
 `;

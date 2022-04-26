@@ -7,7 +7,6 @@ import { mobile } from "../responsive";
 import { asosRequest } from "../requestMethods";
 import { useParams, useSearchParams, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import Slider from "../components/Slider";
 
 const ProductList = () => {
   const { category } = useParams();
@@ -45,7 +44,8 @@ const ProductList = () => {
                 </option>
                 <option value="white">White</option>
                 <option value="black">Black</option>
-                <option value="cream">Cream</option>
+                <option value="gray">Gray</option>
+                <option value="blue">Blue</option>
                 <option value="green">Green</option>
               </select>
             </Filter>
