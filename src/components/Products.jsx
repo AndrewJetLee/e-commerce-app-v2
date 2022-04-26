@@ -141,7 +141,7 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
       setFiltered([...filtered, ...res.data.products]);
       setProducts([...products, res.data.products]);
     };
-    handleLoadMore();
+    type !== "home" && handleLoadMore();
   }, [offset]);
 
   return (

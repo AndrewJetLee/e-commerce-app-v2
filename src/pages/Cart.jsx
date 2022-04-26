@@ -8,10 +8,11 @@ import { useNavigate } from "react-router-dom";
 import StripeCheckout from "react-stripe-checkout";
 import { useState, useEffect } from "react";
 import { userRequest } from "../requestMethods";
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import LocalActivityOutlinedIcon from '@mui/icons-material/LocalActivityOutlined';
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import LocalActivityOutlinedIcon from "@mui/icons-material/LocalActivityOutlined";
 import { mobile, tablet } from "../responsive";
 import { deleteCart } from "../redux/apiCalls";
+import Alert from "../components/Alert";
 
 const KEY = process.env.REACT_APP_STRIPE;
 
@@ -22,18 +23,34 @@ const Cart = () => {
   const navigate = useNavigate();
   const [stripeToken, setStripeToken] = useState(null);
   const [editedCart, setEditedCart] = useState(cart);
+  const [alertStatus, setAlertStatus] = useState(false);
 
   const onToken = (token) => {
     setStripeToken(token);
   };
 
+  const handleAlert = () => {
+    setAlertStatus(true);
+    setTimeout(() => {
+      setAlertStatus(false);
+    }, 3000)
+  }
+
+
   const makeStripeRequest = async () => {
     try {
-      const res = await userRequest(user.currentUser.accessToken).post("/checkout/payment", {
-        tokenId: stripeToken.id,
-        amount: cart.total * 100,
-      });
-      await deleteCart(dispatch, user.currentUser._id, user.currentUser.accessToken);
+      const res = await userRequest(user.currentUser.accessToken).post(
+        "/checkout/payment",
+        {
+          tokenId: stripeToken.id,
+          amount: cart.total * 100,
+        }
+      );
+      await deleteCart(
+        dispatch,
+        user.currentUser._id,
+        user.currentUser.accessToken
+      );
       navigate("/success", { state: { stripeData: res.data, products: cart } });
     } catch (err) {
       console.log(err);
@@ -46,12 +63,11 @@ const Cart = () => {
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
-  const handleUpdateCart =  () => {
-    alert("Successfully Updated Cart")
-    window.location.reload();
-  }
+  const handleUpdateCart = () => {
+    handleAlert();
+  };
 
   useEffect(() => {
     stripeToken && makeStripeRequest();
@@ -62,18 +78,19 @@ const Cart = () => {
       <Navbar />
       <Announcement />
       <Container>
+        <Alert type="success" message="Successfully updated cart!" status={alertStatus}></Alert>
         {!cart.products.length ? (
           <EmptyCartContainer>
             <EmptyCartContent>
-             <ShoppingCartOutlinedIcon className="cartIcon"/>
-             <EmptyCartText>
-              Your cart is currently empty.
-             </EmptyCartText>
-             <ReturnButton onClick={() => {
-               navigate("/products/new")
-             }}>
+              <ShoppingCartOutlinedIcon className="cartIcon" />
+              <EmptyCartText>Your cart is currently empty.</EmptyCartText>
+              <ReturnButton
+                onClick={() => {
+                  navigate("/products/new");
+                }}
+              >
                 RETURN TO SHOP
-             </ReturnButton>
+              </ReturnButton>
             </EmptyCartContent>
           </EmptyCartContainer>
         ) : (
@@ -105,21 +122,33 @@ const Cart = () => {
             <Bottom>
               <Items>
                 <HorizontalSeparator></HorizontalSeparator>
-                {cart.products.map((item) => (
-                  <CartItem editedCart={editedCart} setEditedCart={setEditedCart} cart={cart} item={item} />
+                {cart.products.map((item, i) => (
+                  <CartItem
+                    key={i}
+                    editedCart={editedCart}
+                    setEditedCart={setEditedCart}
+                    cart={cart}
+                    item={item}
+                  />
                 ))}
                 <CartOptions>
                   <CouponInputWrapper>
-                  <LocalActivityOutlinedIcon className="couponIcon"/>
-                    <input type="text" placeholder="Coupon code"/>
+                    <LocalActivityOutlinedIcon className="couponIcon" />
+                    <input type="text" placeholder="Coupon code" />
                     <ApplyCouponButton>Apply Coupon</ApplyCouponButton>
                   </CouponInputWrapper>
-       
-                  <EmptyCartButton onClick={() => {
-                    handleDeleteCart(user.currentUser._id)
-                  }}>Empty Cart</EmptyCartButton>
-                  <UpdateCartButton onClick={handleUpdateCart}>Update Cart</UpdateCartButton>
-              </CartOptions>
+
+                  <EmptyCartButton
+                    onClick={() => {
+                      handleDeleteCart(user.currentUser._id);
+                    }}
+                  >
+                    Empty Cart
+                  </EmptyCartButton>
+                  <UpdateCartButton onClick={handleUpdateCart}>
+                    Update Cart
+                  </UpdateCartButton>
+                </CartOptions>
               </Items>
 
               <Summary>
@@ -171,14 +200,14 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  min-height: 100vh; 
+  min-height: 100vh;
 `;
 
 const Content = styled.main`
   width: 75%;
   min-height: 80vh;
   padding: 20px;
-  font-size: 14px; 
+  font-size: 14px;
   ${mobile({
     width: "100%",
   })}
@@ -206,14 +235,14 @@ const LeftButton = styled.button`
   cursor: pointer;
   ${mobile({
     padding: "4px",
-    fontSize: "12px"
+    fontSize: "12px",
   })}
 `;
 const CenterLinks = styled.div`
-  display: flex; 
-   ${mobile({
+  display: flex;
+  ${mobile({
     flexDirection: "column",
-    fontSize: "12px"
+    fontSize: "12px",
   })}
 `;
 const CenterLink = styled.a`
@@ -229,14 +258,14 @@ const RightButton = styled.button`
   cursor: pointer;
   ${mobile({
     padding: "4px",
-    fontSize: "12px"
+    fontSize: "12px",
   })}
 `;
 
 const Bottom = styled.div`
   display: flex;
   ${tablet({
-    flexDirection: "column"
+    flexDirection: "column",
   })}
 `;
 
@@ -247,7 +276,7 @@ const HorizontalSeparator = styled.span`
   position: absolute;
   z-index: 1000;
   ${mobile({
-    display: "none"
+    display: "none",
   })}
 `;
 
@@ -256,7 +285,7 @@ const Items = styled.div`
   position: relative;
   ${mobile({
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
   })}
 `;
 
@@ -265,34 +294,31 @@ const CartOptions = styled.div`
   justify-content: space-between;
   font-size: 13px;
   margin-top: 50px;
-`
+`;
 const CouponInputWrapper = styled.div`
-   font-size: inherit;
-   border-bottom: 1px solid lightgrey; 
-   padding: 10px;
-   display: flex; 
-   align-items: center;
-   .couponIcon {
-     color: gray;
-     font-size: 18px;
-     margin-right: 4px;
-   }
-`
+  font-size: inherit;
+  border-bottom: 1px solid lightgrey;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  .couponIcon {
+    color: gray;
+    font-size: 18px;
+    margin-right: 4px;
+  }
+`;
 const ApplyCouponButton = styled.button`
   font-size: inherit;
   font-weight: 500;
-  cursor: pointer; 
-`
-const EmptyCartButton = styled.button`  
+  cursor: pointer;
+`;
+const EmptyCartButton = styled.button`
   font-size: inherit;
   font-weight: 500;
-  text-decoration: underline; 
-  cursor: pointer; 
-`
-const UpdateCartButton = styled(EmptyCartButton)`
-
-`
-
+  text-decoration: underline;
+  cursor: pointer;
+`;
+const UpdateCartButton = styled(EmptyCartButton)``;
 
 const Summary = styled.div`
   flex: 1;
@@ -307,7 +333,7 @@ const Summary = styled.div`
   padding-bottom: 30px;
   ${tablet({
     maxWidth: "100%",
-    marginLeft: 0
+    marginLeft: 0,
   })}
 `;
 
@@ -335,36 +361,36 @@ const CheckoutButton = styled(RightButton)`
 `;
 
 const EmptyCartContainer = styled.div`
-  width: 100%; 
-  height: 50vh; 
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  margin-top: auto; 
-  margin-bottom: auto; 
-`
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+  margin-bottom: auto;
+`;
 const EmptyCartContent = styled.div`
-  display: flex; 
-  flex-direction: column; 
-  align-items: center; 
-  width: 70%; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
   .cartIcon {
-    color: orange; 
-    font-size: 60px; 
+    color: orange;
+    font-size: 60px;
   }
   * {
-    margin-bottom: 25px; 
+    margin-bottom: 25px;
   }
-`
+`;
 
 const EmptyCartText = styled.span`
-  font-weight: 500; 
+  font-weight: 500;
   font-size: 20px;
-`
+`;
 const ReturnButton = styled.button`
   background-color: black;
-  color: white; 
-  padding: 8px 24px; 
-  font-size: 12px; 
-  cursor: pointer; 
-`
+  color: white;
+  padding: 8px 24px;
+  font-size: 12px;
+  cursor: pointer;
+`;
