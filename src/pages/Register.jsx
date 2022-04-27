@@ -28,13 +28,25 @@ const Register = () => {
 
   const [success, toggleSuccess] = useState(false);
 
-  const validateName = (name) => {
+  const validateFirstName = (name) => {
     const nameFormat = /^[a-z ,.'-]+$/;
     if (name.match(nameFormat)) {
+      toggleFirstNameError(false);
       return true;
     }
+    toggleFirstNameError(true);
     return false;
-  }
+  };
+
+  const validateLastName = (name) => {
+    const nameFormat = /^[a-z ,.'-]+$/;
+    if (name.match(nameFormat)) {
+      toggleLastNameError(false);
+      return true;
+    }
+    toggleLastNameError(true);
+    return false;
+  };
 
   const validateEmail = (email) => {
     const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -85,7 +97,9 @@ const Register = () => {
     const validEmail = validateEmail(values.email);
     const validPassword = validatePassword(values.password);
     const validUsername = validateUsername(values.username);
-    if (validEmail && validPassword && validUsername) {
+    const validNames =
+      validateFirstName(values.firstName) && validateLastName(values.lastName);
+    if (validEmail && validPassword && validUsername && validNames) {
       try {
         await register(dispatch, values);
         toggleSuccess(true);
@@ -135,9 +149,12 @@ const Register = () => {
               placeholder="First Name"
               value={values.firstName}
               name="firstName"
-              onChange={handleChange}
+              onChange={(e) => validateFirstName(e.target.value)}
               setValues={setValues}
             />
+            <InputErrorMessage error={firstNameError}>
+              First name is required.
+            </InputErrorMessage>
           </InputWrapper>
           <InputWrapper>
             <input
@@ -145,9 +162,12 @@ const Register = () => {
               placeholder="Last Name"
               value={values.lastName}
               name="lastName"
-              onChange={handleChange}
+              onChange={(e) => validateLastName(e.target.value)}
               setValues={setValues}
             />
+            <InputErrorMessage error={lastNameError}>
+              Last name is required.
+            </InputErrorMessage>
           </InputWrapper>
           <InputWrapper>
             <input
