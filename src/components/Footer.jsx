@@ -43,7 +43,7 @@ const Footer = () => {
       </Top>
       <Bottom>
         <Left>
-          <Logo>AJL.</Logo>
+          <Logo src="logo.jpg"/>
           <Description>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry lorem Ipsum is simply dummy text of industry lorem ipsum is
@@ -183,10 +183,12 @@ const Left = styled.div`
    })};
 `;
 
-const Logo = styled.h1`
-  font-size: 32px;
+const Logo = styled.img`
+  width: 60px;
+  height: 60px;
   position: relative;
   top: -12px;
+
 `;
 
 const Description = styled.p`

@@ -27,7 +27,7 @@ const Navbar = () => {
     <Container>
       <Content>
         <Left>
-          <Logo onClick={() => navigate("/")}>AJL.</Logo>
+          <Logo src="/logo.jpg" onClick={() => navigate("/")} />
         </Left>
         <Center>
           <SearchBar>
@@ -93,10 +93,15 @@ const Center = styled.div`
   align-items: center;
 `;
 
-const Logo = styled.h2`
-  font-size: 36px;
+const Logo = styled.img`
   cursor: pointer;
-  ${mobile({ fontSize: "24px" })};
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  ${mobile({
+    height: "30px",
+    width: "30px",
+  })};
 `;
 const SearchBar = styled.form`
   display: flex;

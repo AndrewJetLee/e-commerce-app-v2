@@ -12,8 +12,8 @@ import { mobile, tablet } from "../responsive";
 import { editCart } from "../redux/apiCalls";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import AssignmentReturnOutlinedIcon from "@mui/icons-material/AssignmentReturnOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import Alert from "../components/Alert";
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -21,10 +21,10 @@ const Product = () => {
   const user = useSelector((state) => state.user);
   const { id } = useParams();
   const [product, setProduct] = useState({});
-  const [color, setColor] = useState("");
   const [size, setSize] = useState("");
   const [count, setCount] = useState(1);
   const [activeImage, setActiveImage] = useState(null);
+  const [alertStatus, setAlertStatus] = useState(false);
 
   useEffect(() => {
     const getProduct = async () => {
@@ -59,29 +59,56 @@ const Product = () => {
   };
 
   const handleClickAddToCart = () => {
+    if (!user.currentUser) {
+      handleAlert();
+      return;
+    }
     let payload = {
-      productId: product._id,
-      price: product.price,
+      productId: product.id,
+      price: product.price.current.value,
       quantity: count,
-      color,
+      color: product.variants[0].colour,
       size,
-      image: product.image,
-      title: product.title,
+      image: activeImage,
+      title: product.name,
     };
     addToCart(dispatch, payload, user.currentUser.accessToken);
+    handleAlert()
   };
+
+  const handleAlert = () => {
+    setAlertStatus(true);
+    setTimeout(() => {
+      setAlertStatus(false);
+    }, 3000)
+  }
 
   return (
     <>
       <Navbar />
       <Announcement />
       <Container>
+        {!user.currentUser ? (
+          <Alert
+            type="error"
+            message="Must be logged in to add to cart!"
+            status={alertStatus}
+          ></Alert>
+        ) : (
+          <Alert
+            type="success"
+            message="Successfully added to cart!"
+            status={alertStatus}
+          ></Alert>
+        )}
+
         <Content>
           <Top>
             <Left>
               <ProductImages>
                 {product.media?.images.map((image, i) => (
                   <ProductImage
+                    key={i}
                     active={`https://${image.url}` === activeImage}
                     onClick={handleClickImage}
                     src={`https://${image.url}`}
@@ -121,7 +148,12 @@ const Product = () => {
                         </SizeGuide>
                       )}
                     </SizeLeft>
-                    <SizeSelect>
+                    <SizeSelect
+                      onChange={(e) => {
+                        setSize(e.target.value);
+                      }}
+                    >
+                      <option value="">Select size</option>
                       {product.variants?.map((variant, i) =>
                         variant.isInStock ? (
                           <option key={i} value={variant.displaySizeText}>
@@ -154,7 +186,10 @@ const Product = () => {
                     ADD TO CART
                   </AddToCart>
                   <FavoriteButton>
-                    <FavoriteIcon className="favorite icon" sx={{ "&:hover": { fill: "#757575" } }}/>
+                    <FavoriteIcon
+                      className="favorite icon"
+                      sx={{ "&:hover": { fill: "#757575" } }}
+                    />
                   </FavoriteButton>
                 </SelectionBottom>
                 <ShippingInfo>
@@ -226,7 +261,12 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 30px;
-  ${mobile({ flexDirection: "column", minWidth: "100%", marginLeft: "0" })};
+  ${mobile({
+    flexDirection: "column",
+    minWidth: "100%",
+    marginLeft: "0",
+    marginTop: "0",
+  })};
 `;
 
 const Top = styled.section`
@@ -242,6 +282,7 @@ const Left = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 20px;
+  ${mobile({ marginTop: "0" })};
 `;
 
 const ActiveProductImage = styled.img`
@@ -281,7 +322,6 @@ const Right = styled.div`
   margin-left: 50px;
   line-height: 1.5;
   ${mobile({ marginLeft: "0", padding: "10px" })};
-  
 `;
 
 const Info = styled.div`
@@ -412,6 +452,7 @@ const AddToCart = styled.button`
   width: 60%;
   text-align: center;
   cursor: pointer;
+  transition: filter 0.2s ease-in-out;
   :hover {
     filter: brightness(80%);
   }
@@ -448,7 +489,7 @@ const DeliveryInfo = styled.span`
   padding: 4px;
   .icon {
     margin-right: 8px;
-    color: rgb(71, 71, 71);
+    color: #636262;
   }
 `;
 
@@ -473,14 +514,13 @@ const Bottom = styled.section`
   font-size: 14px;
   margin-top: 30px;
   h3 {
-    color: #949393;
+    color: #636262;
     font-weight: 600;
     text-transform: uppercase;
     font-size: 15px;
     margin: 6px 0;
   }
   ${mobile({ padding: "10px", flexDirection: "column" })};
-
 `;
 
 const BottomLeft = styled.div`

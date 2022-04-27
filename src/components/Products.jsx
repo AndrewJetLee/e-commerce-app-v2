@@ -29,6 +29,15 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
     }
   }, [filter]);
 
+  const setAll = (res) => {
+    setTitle(res.data.categoryName);
+    setFiltered(res.data.products);
+    setProducts(res.data.products);
+    res.data.itemCount > offset + 45
+      ? setHasNextPage(true)
+      : setHasNextPage(false);
+  };
+
   const getProducts = async () => {
     try {
       toggleLoading(true);
@@ -37,10 +46,8 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
       } else if (category) {
         await getProductsWithCategory();
       } else {
-        const res = await asosRequest.get(`${baseUrl}&categoryId=50060`);
-        setTitle(res.data.categoryName);
-        setFiltered(res.data.products);
-        setProducts(res.data.products);
+        const res = await asosRequest.get(`${baseUrl}&categoryId=13500`);
+        setAll(res);
       }
       toggleLoading(false);
     } catch (err) {
@@ -54,24 +61,15 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
         const res = await asosRequest.get(
           `${baseUrl}&categoryId=${categoryId}&q=${query}`
         );
-        setTitle(res.data.categoryName);
-        setFiltered(res.data.products);
-        setProducts(res.data.products);
-        res.data.itemCount > (offset + 45) ? setHasNextPage(true) :  setHasNextPage(false);
+        setAll(res);
       } else {
         const res = await asosRequest.get(`${baseUrl}&q=${query}`);
-        setTitle(res.data.categoryName);
-        setFiltered(res.data.products);
-        setProducts(res.data.products);
-        res.data.itemCount > (offset + 45) ? setHasNextPage(true) :  setHasNextPage(false);
+        setAll(res);
       }
       const res = await asosRequest.get(
         `${baseUrl}&categoryId=${categoryId}&q=${query}`
       );
-      setTitle(res.data.categoryName);
-      setFiltered(res.data.products);
-      setProducts(res.data.products);
-      res.data.itemCount > (offset + 45) ? setHasNextPage(true) :  setHasNextPage(false);
+      setAll(res);
     } catch (err) {
       console.log(err);
     }
@@ -80,10 +78,7 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
   const getProductsWithCategory = async () => {
     try {
       const res = await asosRequest.get(`${baseUrl}&categoryId=${categoryId}`);
-      setTitle(res.data.categoryName);
-      setFiltered(res.data.products);
-      setProducts(res.data.products);
-      res.data.itemCount > (offset + 45) ? setHasNextPage(true) :  setHasNextPage(false);
+      setAll(res);
     } catch (err) {
       console.log(err);
     }
@@ -97,20 +92,14 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
           const res = await asosRequest.get(
             `${baseUrl}&categoryId=${categoryId}&sort=${sort}`
           );
-          setTitle(res.data.categoryName);
-          setFiltered(res.data.products);
-          setProducts(res.data.products);
-          res.data.itemCount > (offset + 45) ? setHasNextPage(true) :  setHasNextPage(false);
+          setAll(res);
           toggleLoading(false);
         } else {
           toggleLoading(true);
           const res = await asosRequest.get(
             `${baseUrl}&q=${query}&sort=${sort}`
           );
-          setTitle(res.data.categoryName);
-          setFiltered(res.data.products);
-          setProducts(res.data.products);
-          res.data.itemCount > (offset + 45) ? setHasNextPage(true) :  setHasNextPage(false);
+          setAll(res);
           toggleLoading(false);
         }
       }
@@ -127,11 +116,8 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
         const res = await asosRequest.get(
           `${baseUrl}&categoryId=${filter.category}&sort=${sort}`
         );
-        setTitle(res.data.categoryName);
+        setAll(res);
         setCategoryId(filter.category);
-        setFiltered(res.data.products);
-        setProducts(res.data.products);
-        res.data.itemCount > (offset + 45) ? setHasNextPage(true) :  setHasNextPage(false);
       }
       if (filter.color) {
         let filtered = products.filter(
@@ -145,14 +131,18 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
     }
   };
 
-  const handleLoadMore = async () => {
-    setOffset(offset + 45);
-    const res = await asosRequest.get(
-      `${baseUrl}&categoryId=${categoryId}${query ? `&q=${query}` : ""}${sort ? `&sort=${sort}` : ""}`
-    );
-    setFiltered([...filtered, ...res.data.products]);
-    setProducts([...products, res.data.products]);
-  }
+  useEffect(() => {
+    const handleLoadMore = async () => {
+      const res = await asosRequest.get(
+        `${baseUrl}&categoryId=${categoryId}${query ? `&q=${query}` : ""}${
+          sort ? `&sort=${sort}` : ""
+        }`
+      );
+      setFiltered([...filtered, ...res.data.products]);
+      setProducts([...products, res.data.products]);
+    };
+    type !== "home" && handleLoadMore();
+  }, [offset]);
 
   return (
     <>
@@ -177,18 +167,17 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
             ))}
         {type === "home" && !loading
           ? products
-              .slice(0, 20)
+              .slice(0, 10)
               .map((item, key) => <Product item={item} key={key} />)
           : (category || query) &&
             !loading &&
             filtered?.map((item, key) => <Product item={item} key={key} />)}
-        
       </Container>
       {type !== "home" && hasNextPage && (
-          <LoadWrapper onClick={handleLoadMore}>
-            <LoadMore>LOAD MORE</LoadMore>
-          </LoadWrapper>
-        )}
+        <LoadWrapper onClick={() => setOffset(offset + 45)}>
+          <LoadMore>LOAD MORE</LoadMore>
+        </LoadWrapper>
+      )}
     </>
   );
 };
@@ -221,6 +210,7 @@ const LoadWrapper = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
+  margin-top: 30px;
 `;
 
 const LoadMore = styled.button`
@@ -231,4 +221,8 @@ const LoadMore = styled.button`
   font-size: 16px;
   margin-bottom: 32px;
   cursor: pointer;
+  transition: filter 0.2s ease-in-out;
+  :hover {
+    filter: brightness(80%);
+  }
 `;

@@ -10,7 +10,6 @@ import { useState, useEffect, useRef } from "react";
 
 const ProductList = () => {
   const { category } = useParams();
-  const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const q = searchParams.get("q");
   const [filter, setFilter] = useState({});
@@ -39,37 +38,30 @@ const ProductList = () => {
           <FilterContainer>
             <Filter>
               <select onChange={handleFilter} name="color" id="color">
-                <option hidden selected>
+                <option hidden defaultValue>
                   Color
                 </option>
                 <option value="white">White</option>
                 <option value="black">Black</option>
                 <option value="gray">Gray</option>
                 <option value="blue">Blue</option>
-                <option value="green">Green</option>
               </select>
             </Filter>
             <Filter>
               <select onChange={handleFilter} name="category" id="category">
-                <option hidden selected>
+                <option hidden defaultValue>
                   Category
                 </option>
-                <option value="27108">New Arrivals</option>
+                <option value="50060">Best Sellers</option>
                 <option value="26090">Activewear</option>
                 <option value="50062">Accessories</option>
-                <option value="50062">Mens Collection</option>
-                <option value="50062">Womens Collection</option>
+                <option value="27110">Men's Collection</option>
+                <option value="27108">Women's Collection</option>
               </select>
             </Filter>
-            {/* <Filter>
-              <div onChange={handleFilter} name="color" id="color">
-                Price Range
-              </div>
-              <Slider/>
-            </Filter> */}
             <Filter>
               <select onChange={handleSort} name="sort" id="sort">
-                <option hidden selected>
+                <option hidden defaultValue>
                   Sort
                 </option>
                 <option value="freshness">Newest</option>
@@ -101,6 +93,7 @@ const Container = styled.div`
 const Content = styled.div`
   width: 100%;
   padding: 0 20px;
+  margin-bottom: 30px;
 `;
 
 const Top = styled.div`

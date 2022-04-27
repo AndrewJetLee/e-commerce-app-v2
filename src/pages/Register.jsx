@@ -7,8 +7,8 @@ import { tablet } from "../responsive";
 import { register } from "../redux/apiCalls";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -20,8 +20,69 @@ const Register = () => {
     username: "",
     password: "",
   });
+  const [firstNameError, toggleFirstNameError] = useState(null);
+  const [lastNameError, toggleLastNameError] = useState(null);
+  const [emailError, toggleEmailError] = useState(null);
+  const [usernameError, toggleUsernameError] = useState(null);
+  const [passwordError, togglePasswordError] = useState(null);
 
   const [success, toggleSuccess] = useState(false);
+
+  const validateFirstName = (name) => {
+    const nameFormat = /^[a-z ,.'-]+$/;
+    if (name.match(nameFormat)) {
+      toggleFirstNameError(false);
+      return true;
+    }
+    toggleFirstNameError(true);
+    return false;
+  };
+
+  const validateLastName = (name) => {
+    const nameFormat = /^[a-z ,.'-]+$/;
+    if (name.match(nameFormat)) {
+      toggleLastNameError(false);
+      return true;
+    }
+    toggleLastNameError(true);
+    return false;
+  };
+
+  const validateEmail = (email) => {
+    const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (email.match(mailFormat)) {
+      toggleEmailError(false);
+      return true;
+    }
+    toggleEmailError(true);
+    return false;
+  };
+
+  const validatePassword = (password) => {
+    //Must be between 8 to 15 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character
+    const passwordFormat =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+    if (password.match(passwordFormat)) {
+      togglePasswordError(false);
+      return true;
+    } else {
+      togglePasswordError(true);
+      return false;
+    }
+  };
+
+  const validateUsername = (username) => {
+    // Must contain only alphanumeric, underscore, dot and between 8 - 20 characters
+    const usernameFormat =
+      /^(?=.{6,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
+    if (username.match(usernameFormat)) {
+      toggleUsernameError(false);
+      return true;
+    } else {
+      toggleUsernameError(true);
+      return false;
+    }
+  };
 
   const handleChange = (e) => {
     let value = e.target.value;
@@ -33,11 +94,20 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await register(dispatch, values);
-      toggleSuccess(true);
-    } catch (err) {
-      console.log(err);
+    const validEmail = validateEmail(values.email);
+    const validPassword = validatePassword(values.password);
+    const validUsername = validateUsername(values.username);
+    const validNames =
+      validateFirstName(values.firstName) && validateLastName(values.lastName);
+    if (validEmail && validPassword && validUsername && validNames) {
+      try {
+        await register(dispatch, values);
+        toggleSuccess(true);
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      console.log("Invalid inputs");
     }
   };
 
@@ -47,15 +117,23 @@ const Register = () => {
         <SuccessModal>
           <Message>
             <Top>
-              <CheckCircleOutlineIcon className="checkIconOutline"/>
+              <CheckCircleOutlineIcon className="checkIconOutline" />
               <span className="title">REGISTRATION SUCCESS</span>
             </Top>
             <Bottom>
-              <div className="text"><CheckCircleIcon className="checkIcon"/> Congratulations, your account has been successfully created.</div>
-              <button onClick={() => {
-                toggleSuccess(false);
-                navigate("/login");
-              }} className="continue">CONTINUE</button>
+              <div className="text">
+                <CheckCircleIcon className="checkIcon" /> Congratulations, your
+                account has been successfully created.
+              </div>
+              <button
+                onClick={() => {
+                  toggleSuccess(false);
+                  navigate("/login");
+                }}
+                className="continue"
+              >
+                CONTINUE
+              </button>
             </Bottom>
           </Message>
         </SuccessModal>
@@ -63,7 +141,7 @@ const Register = () => {
       <Navbar />
       <Announcement />
       <Content>
-        <Form>
+        <Form onChange={handleChange}>
           <Title>CREATE ACCOUNT</Title>
           <InputWrapper>
             <input
@@ -71,9 +149,12 @@ const Register = () => {
               placeholder="First Name"
               value={values.firstName}
               name="firstName"
-              onChange={handleChange}
+              onChange={(e) => validateFirstName(e.target.value)}
               setValues={setValues}
             />
+            <InputErrorMessage error={firstNameError}>
+              First name is required.
+            </InputErrorMessage>
           </InputWrapper>
           <InputWrapper>
             <input
@@ -81,9 +162,12 @@ const Register = () => {
               placeholder="Last Name"
               value={values.lastName}
               name="lastName"
-              onChange={handleChange}
+              onChange={(e) => validateLastName(e.target.value)}
               setValues={setValues}
             />
+            <InputErrorMessage error={lastNameError}>
+              Last name is required.
+            </InputErrorMessage>
           </InputWrapper>
           <InputWrapper>
             <input
@@ -91,9 +175,14 @@ const Register = () => {
               placeholder="Email"
               value={values.email}
               name="email"
-              onChange={handleChange}
+              onChange={(e) => {
+                validateEmail(e.target.value);
+              }}
               setValues={setValues}
             />
+            <InputErrorMessage error={emailError}>
+              Please enter a valid email address
+            </InputErrorMessage>
           </InputWrapper>
           <InputWrapper>
             <input
@@ -101,9 +190,12 @@ const Register = () => {
               placeholder="Username"
               value={values.username}
               name="username"
-              onChange={handleChange}
+              onChange={(e) => validateUsername(e.target.value)}
               setValues={setValues}
             />
+            <InputErrorMessage error={usernameError}>
+              Username must contain at least 8 - 20 alphanumeric characters
+            </InputErrorMessage>
           </InputWrapper>
           <InputWrapper>
             <input
@@ -111,9 +203,18 @@ const Register = () => {
               placeholder="Password"
               value={values.password}
               name="password"
-              onChange={handleChange}
+              onChange={(e) => {
+                validatePassword(e.target.value);
+              }}
               setValues={setValues}
             />
+            <InputErrorMessage error={passwordError}>
+              <span>
+                Password must have at least 8 to 15 characters and include at
+                least 1 lowercase letter, 1 uppercase letter and 1 special
+                character (!@#$%^&*)
+              </span>
+            </InputErrorMessage>
           </InputWrapper>
 
           <Submit onClick={handleSubmit}>CREATE</Submit>
@@ -134,12 +235,10 @@ const Content = styled.div`
   align-items: center;
   width: 100%;
   height: 85vh;
-  border: solid;
 `;
 
 const Form = styled.form`
   width: 60%;
-  height: 60%;
   max-width: 650px;
   display: flex;
   flex-direction: column;
@@ -164,11 +263,17 @@ const Submit = styled.button`
   font-weight: 500;
   border-radius: 5px;
   font-size: 16px;
+  transition: opacity 0.167s ease-in-out;
+  cursor: pointer;
+  :hover {
+    opacity: 0.9;
+  }
 `;
 
 const InputWrapper = styled.div`
   width: 80%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   margin-bottom: 12px;
   input {
@@ -194,7 +299,7 @@ const SuccessModal = styled.div`
   z-index: 100;
   display: flex;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
 `;
 
 const Message = styled.div`
@@ -204,48 +309,63 @@ const Message = styled.div`
   opacity: 1;
   display: flex;
   flex-direction: column;
-  line-height: 1.5; 
+  line-height: 1.5;
 `;
 
 const Top = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center; 
-  justify-content: center; 
-  height: 60%; 
+  align-items: center;
+  justify-content: center;
+  height: 60%;
   .checkIconOutline {
-    color: green; 
+    color: green;
     font-size: 70px;
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
   }
   .title {
     font-size: 24px;
-    font-weight: 500;  
+    font-weight: 500;
   }
-`
+`;
 const Bottom = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
   justify-content: space-around;
-  height: 100%; 
+  height: 100%;
   .text {
     color: green;
-    width: 80%; 
-    background-color: #cde7cd; 
-    margin-bottom: 50px; 
-    padding: 15px; 
-    border-radius: 3px; 
+    width: 80%;
+    background-color: #cde7cd;
+    margin-bottom: 50px;
+    padding: 15px;
+    border-radius: 3px;
     .checkIcon {
-      font-size: 16px; 
+      font-size: 16px;
     }
   }
   .continue {
-    border: solid 1px gray; 
-    padding: 12px 30px; 
-    border-radius: 20px; 
-    color: gray; 
-    font-weight: 500; 
-    cursor: pointer; 
+    border: solid 1px gray;
+    padding: 12px 30px;
+    border-radius: 20px;
+    color: gray;
+    font-weight: 500;
+    cursor: pointer;
   }
-`
+`;
+
+const InputErrorMessage = styled.div`
+  color: red;
+  display: ${(props) => (props.error ? "flex" : "none")};
+  padding: 8px;
+  align-items: center;
+  white-space: pre-wrap;
+  font-size: 14px;
+  line-height: 1.5;
+  width: 100%;
+  .errorIcon {
+    margin-right: 8px;
+    font-size: 30px;
+  }
+`;
