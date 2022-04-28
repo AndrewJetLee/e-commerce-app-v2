@@ -1,21 +1,22 @@
 export const carouselItems = [
   {
     id: 1,
-    img: "/images/test1.png",
-    title: "STR8 BUSSIN COLLECTION",
+    img: "/images/test3.png",
+    title: "Biggest Deals!",
     desc: "DON'T LOOK BROKE IN FRONT OF YOUR FRIENDS!",
+    category: "13500"
   },
   {
     id: 2,
-    img: "/images/slide-image-2.jpg",
-    title: "WOMENS STYLE",
+    img: "/images/test4.png",
+    title: "Men's Collection",
     desc: "QUEENS GET 30% OFF!",
   },
 
   {
     id: 3,
-    img: "/images/slide-image-3.jpg",
-    title: "ACCESSORIES",
+    img: "/images/test2.png",
+    title: "Women's Collection",
     desc: "ADD MORE FLAIR TO YOUR OUTFIT!",
   },
 ];

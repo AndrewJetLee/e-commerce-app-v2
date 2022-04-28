@@ -53,6 +53,7 @@ const Carousel = () => {
               <SlideImage src={item.img} alt=""></SlideImage>
             </SlideImageContainer>
             <SlideInfoContainer>
+              <SlideInfoCollection>2022 New Collection</SlideInfoCollection>
               <SlideInfoTitle>{item.title}</SlideInfoTitle>
               <SlideInfoDescription>{item.desc}</SlideInfoDescription>
               <SlideInfoButton onClick={() => handleClickShop(item.id)}>Shop Now</SlideInfoButton>
@@ -93,7 +94,7 @@ const Arrow = styled.div`
   margin: auto;
   z-index: 100;
   cursor: pointer;
-  opacity: 0.7;
+  opacity: 0.3;
 `;
 
 const Slides = styled.div`
@@ -110,6 +111,7 @@ const Slide = styled.div`
   width: 100vw;
   display: flex;
   position: relative;
+  background-color: #F4F4F4;
 `;
 
 const SlideImageContainer = styled.div`
@@ -121,41 +123,47 @@ const SlideImageContainer = styled.div`
 const SlideImage = styled.img`
   height: 100%;
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
 `;
 
 const SlideInfoContainer = styled.div`
-  height: 50%;
-  width: auto;
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 40%;
   margin-left: auto;
   margin-right: auto;
-  color: white;
 `;
 
 const SlideInfoTitle = styled.h1`
-  font-size: 50px;
+  font-size: 70px;
   margin-bottom: 30px;
+  font-weight: 600;
+  width: 80%;
+  line-height: 1.1;
+  color: ${props => props.theme.colors.fc};
 `;
 
 const SlideInfoDescription = styled.span`
-  font-size: 24px;
+  font-size: 16px;
   line-height: 1.5;
   margin-bottom: 30px;
+  color: ${props => props.theme.colors.fclight};
 `;
 
+const SlideInfoCollection = styled.span`
+  font-size: 16px;
+  color: ${props => props.theme.colors.fclight};
+`
+
 const SlideInfoButton = styled.button`
-  height: 50px;
+  height: 40px;
   width: 200px;
-  background-color: white;
-  font-size: 20px;
+  background-color:  ${props => props.theme.colors.fc};
+  color: white;
+  border-radius: 20px;
+  font-size: 18px;
   font-weight: 500;
+  text-transform: uppercase; 
   cursor: pointer; 
 `;

@@ -31,7 +31,7 @@ const Container = styled.div`
   background-color: white;
   position: relative;
   cursor: pointer;
-  height: 500px;
+  height: 600px;
   margin: 5px;
   .itemImg {
     width: 100%;
