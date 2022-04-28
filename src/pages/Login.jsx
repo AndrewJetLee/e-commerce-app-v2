@@ -14,12 +14,12 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
- 
+
   const { isFetching, error } = useSelector((state) => state.user);
 
   const handleClick = (e) => {
     e.preventDefault();
-    login(dispatch, { username, password});
+    login(dispatch, { username, password });
   };
 
   return (
@@ -29,14 +29,27 @@ const Login = () => {
       <Content>
         <Form>
           <Title>LOGIN</Title>
-          <Input setValue={setUsername} placeholder="Username" type="text"/>
-          <Input setValue={setPassword} placeholder="Password" type="password"/>
-          <Submit onClick={handleClick} disabled={isFetching}>SIGN IN</Submit>
-          { error && <Error>Something went wrong. Please confirm your information and try again. </Error>}
+          <Input setValue={setUsername} placeholder="Username" type="text" />
+          <Input
+            setValue={setPassword}
+            placeholder="Password"
+            type="password"
+          />
+          <Submit onClick={handleClick} disabled={isFetching}>
+            SIGN IN
+          </Submit>
+          {error && (
+            <Error>
+              Something went wrong. Please confirm your information and try
+              again.{" "}
+            </Error>
+          )}
         </Form>
         <Links>
           <LinkItem>Forgot your password?</LinkItem>
-          <LinkItem onClick={() => navigate("/register")}>Create account</LinkItem>
+          <LinkItem onClick={() => navigate("/register")}>
+            Create account
+          </LinkItem>
         </Links>
       </Content>
       <Footer />
@@ -65,7 +78,7 @@ const Form = styled.form`
   align-items: center;
   margin-bottom: 10px;
   ${tablet({
-    width: "100%"
+    width: "100%",
   })}
 `;
 
@@ -77,16 +90,21 @@ const Title = styled.span`
 `;
 
 const Submit = styled.button`
-  background-color: darkblue;
+  background-color: #0e185f;
   color: white;
   width: 80%;
   height: 50px;
   font-weight: 500;
   border-radius: 5px;
   font-size: 16px;
+  transition: opacity 0.167s ease-in-out;
+  cursor: pointer;
   :disabled {
-    color: darkblue;
-    cursor: not-allowed; 
+    color: #0e185f;
+    cursor: not-allowed;
+  }
+  :hover {
+    opacity: 0.9;
   }
 `;
 
@@ -98,10 +116,13 @@ const Links = styled.div`
 const LinkItem = styled.a`
   margin: 10px 0;
   cursor: pointer;
-  color: darkblue;
+  color: #0e185f;
+  :hover {
+    text-decoration: underline;
+  }
 `;
 
 const Error = styled.span`
-  color: red; 
-  margin-top: 20px; 
-`
+  color: red;
+  margin-top: 20px;
+`;
