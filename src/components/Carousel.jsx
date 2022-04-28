@@ -72,7 +72,6 @@ export default Carousel;
 
 const Container = styled.div`
   height: 90vh;
-  width: 100%;
   position: relative;
   overflow: hidden;
   margin-bottom: 20px;
@@ -118,6 +117,7 @@ const SlideImageContainer = styled.div`
   flex: 1;
   height: 100%;
   width: 100vw;
+  margin-left: 200px;
 `;
 
 const SlideImage = styled.img`

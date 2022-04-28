@@ -5,6 +5,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { logout } from "../redux/userSlice";
+import {
+  FacebookOutlined,
+  LinkedIn,
+  GitHub,
+  MailOutline,
+  Phone,
+  Room,
+  ArrowForward,
+} from "@mui/icons-material/";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import PersonIcon from "@mui/icons-material/Person";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -26,44 +38,70 @@ const Navbar = () => {
   return (
     <Container>
       <Content>
-        <Left>
-          <Logo src="/logo.jpg" onClick={() => navigate("/")} />
-        </Left>
-        <Center>
-          <SearchBar>
-            <button onClick={handleSubmit}>
-              <Search className="navbarSearchIcon" />
-            </button>
-            <input
-              onChange={(e) => setQuery(e.target.value)}
-              type="text"
-              placeholder="Search for products and more"
-              onKeyPress={handleKeypress}
-            />
-          </SearchBar>
-        </Center>
-        <Right>
-          <Register onClick={() => navigate("/register")}>REGISTER</Register>
-          {user ? (
-            <SignOut
-              onClick={() => {
-                dispatch(logout());
-                navigate("/");
-              }}
-            >
-              SIGN OUT
-            </SignOut>
-          ) : (
-            <SignIn onClick={() => navigate("/login")}>SIGN IN</SignIn>
-          )}
+        <Top>
+          <TopWrapper>
+          <Socials>
+            <FacebookOutlined className="social icon"></FacebookOutlined>
+          </Socials>
+          <Account>
+            <PersonIcon />
+             My Account
+            <KeyboardArrowDownIcon />
+          </Account>
+          </TopWrapper>
+        </Top>
+        <Middle>
+          <Left>
+            <Logo src="/logo.jpg" onClick={() => navigate("/")} />
+          </Left>
+          <Center>
+            <SearchBar>
+              <button onClick={handleSubmit}>
+                <Search className="navbarSearchIcon" />
+              </button>
+              <input
+                onChange={(e) => setQuery(e.target.value)}
+                type="text"
+                placeholder="Search for products and more"
+                onKeyPress={handleKeypress}
+              />
+            </SearchBar>
+          </Center>
+          <Right>
+            <Register onClick={() => navigate("/register")}>REGISTER</Register>
+            {user ? (
+              <SignOut
+                onClick={() => {
+                  dispatch(logout());
+                  navigate("/");
+                }}
+              >
+                SIGN OUT
+              </SignOut>
+            ) : (
+              <SignIn onClick={() => navigate("/login")}>SIGN IN</SignIn>
+            )}
 
-          <VerticalSeparator></VerticalSeparator>
-          <Cart onClick={() => navigate("/cart")}>
-            CART
-            <ShoppingCartOutlined className="navbarCartIcon" />
-            {cartQuantity > 0 ? <span>{cartQuantity}</span> : null}
-          </Cart>
-        </Right>
+            <VerticalSeparator></VerticalSeparator>
+            <FavoriteBorderIcon className="favorite icon"></FavoriteBorderIcon>
+            <Cart onClick={() => navigate("/cart")}>
+              <ShoppingCartOutlined className="navbarCartIcon" />
+              {cartQuantity > 0 ? <span>{cartQuantity}</span> : null}
+            </Cart>
+          </Right>
+        </Middle>
+        <Bottom>
+          <Tabs>
+            <Tab>HOME</Tab>
+            <Tab>ABOUT US</Tab>
+            <Tab>NEW COLLECTION</Tab>
+            <Tab>SALE</Tab>
+            <Tab>MENSWEAR</Tab>
+            <Tab>WOMENSWEAR</Tab>
+            <Tab>LATEST BLOGS</Tab>
+            <Tab>CONTACT US</Tab>
+          </Tabs>
+        </Bottom>
       </Content>
     </Container>
   );
@@ -72,17 +110,54 @@ const Navbar = () => {
 export default Navbar;
 
 const Container = styled.div`
-  height: 80px;
+  display: flex;
+  justify-content: center;
   ${mobile({ height: "50px" })};
 `;
 
-const Content = styled.div`
+const Content = styled.main`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   height: 100%;
-  padding: 0 40px;
+  width: 100%;
+  flex-direction: column;
   ${mobile({ padding: "10px 0" })};
 `;
+
+const Top = styled.section`
+  display: flex;
+  width: 100%;
+  background-color: #bd9a58e1;
+  height: 35px;
+  color: white;
+  justify-content: center;
+`;
+
+const TopWrapper = styled.div`
+ display: flex;
+ width: 90%;
+ justify-content: space-between;
+ align-items: center;
+`
+
+const Socials = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Account = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Middle = styled.section`
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  padding: 20px 0;
+`;
+
 const Left = styled.div`
   display: flex;
   align-items: center;
@@ -147,6 +222,9 @@ const Right = styled.div`
   align-items: center;
   justify-content: flex-end;
   flex: 1;
+  .favorite {
+    margin-left: 20px;
+  }
 `;
 
 const Register = styled.button`
@@ -194,4 +272,26 @@ const VerticalSeparator = styled.span`
   width: 1px;
   height: 32px;
   background: #2b2b29;
+`;
+
+const Bottom = styled.section`
+  display: flex;
+  align-items: center;
+  border-top: solid 1px lightgray;
+  width: 100%;
+  justify-content: center;
+`;
+const Tabs = styled.ul`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  font-weight: 500;
+  width: 90%;
+`;
+
+const Tab = styled.li`
+  padding: 12px;
+  border: solid 3px rgba(0, 0, 0, 0);
+  color: #bd9a58e1;
 `;
