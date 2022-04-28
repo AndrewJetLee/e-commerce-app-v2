@@ -1,7 +1,7 @@
 export const carouselItems = [
   {
     id: 1,
-    img: "/images/slide-image-1.jpg",
+    img: "/images/test1.png",
     title: "STR8 BUSSIN COLLECTION",
     desc: "DON'T LOOK BROKE IN FRONT OF YOUR FRIENDS!",
   },

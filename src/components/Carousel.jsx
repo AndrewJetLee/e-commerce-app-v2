@@ -106,7 +106,7 @@ const Slides = styled.div`
 `;
 
 const Slide = styled.div`
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   display: flex;
   position: relative;
@@ -121,7 +121,7 @@ const SlideImageContainer = styled.div`
 const SlideImage = styled.img`
   height: 100%;
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
 `;
 
 const SlideInfoContainer = styled.div`
