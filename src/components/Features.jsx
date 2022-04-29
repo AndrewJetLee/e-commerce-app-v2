@@ -41,7 +41,7 @@ const Container = styled.section`
   justify-content: center;
   width: 100%;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  margin-bottom: 30px;
+  margin-bottom: 80px;
 `;
 
 const Wrapper = styled.div`
@@ -53,6 +53,7 @@ const Wrapper = styled.div`
       font-weight: 400;
       color: ${props => props.theme.colors.primary};
       margin-right: 15px;
+      stroke-width: .5;
   }
 `;
 
