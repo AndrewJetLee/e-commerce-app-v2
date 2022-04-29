@@ -36,7 +36,6 @@ const Navbar = () => {
   };
 
   const handleClickTab = (e) => {
-    console.log(e.target.getAttribute("name"));
     setActiveTab(e.target.getAttribute("name"));
   };
 
@@ -52,15 +51,15 @@ const Navbar = () => {
               <Email className="social icon email"></Email>
             </Socials>
             <Account>
-              <PersonIcon className="account icon person"/>
+              <PersonIcon className="account icon person" />
               My Account
-              <KeyboardArrowDownIcon className="account icon down"/>
+              <KeyboardArrowDownIcon className="account icon down" />
             </Account>
           </TopWrapper>
         </Top>
         <Middle>
           <Left>
-            <Logo src="/logo.jpg" onClick={() => navigate("/")} />
+            <Logo src="/logo.png" onClick={() => navigate("/")} />
           </Left>
           <Center>
             <SearchBar>
@@ -97,7 +96,7 @@ const Navbar = () => {
             </Favorite>
             <Cart onClick={() => navigate("/cart")}>
               <ShoppingCartOutlined className="cart icon" />
-             <Badge>{cartQuantity}</Badge> 
+              <Badge>{cartQuantity}</Badge>
             </Cart>
           </Right>
         </Middle>
@@ -205,8 +204,8 @@ const Center = styled.div`
 
 const Logo = styled.img`
   cursor: pointer;
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
   object-fit: cover;
   ${mobile({
     height: "30px",
@@ -288,39 +287,25 @@ const Cart = styled(Register)`
   .icon {
     margin-left: 4px;
   }
-  /* span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    position: absolute;
-    background-color: royalblue;
-    right: 0;
-    top: 0;
-    color: white;
-    font-size: 10px;
-  } */
 `;
 
 const Favorite = styled(Cart)`
   margin: 0;
-`
+`;
 
 const Badge = styled.span`
   display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    position: absolute;
-    background-color: #bd9a58e1;
-    right: 0;
-    top: 0;
-    color: white;
-    font-size: 10px;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: #bd9a58e1;
+  right: 0;
+  top: 0;
+  color: white;
+  font-size: 10px;
 `;
 
 const VerticalSeparator = styled.span`
@@ -336,6 +321,7 @@ const Bottom = styled.section`
   width: 100%;
   justify-content: center;
 `;
+
 const Tabs = styled.ul`
   display: flex;
   justify-content: space-between;
@@ -348,14 +334,14 @@ const Tabs = styled.ul`
 const Tab = styled.li`
   padding: 12px;
   border: solid 3px rgba(0, 0, 0, 0);
-  cursor: pointer; 
-  transition: color 0.167s ease-in-out, border-bottom 0.167s ease-in-out;   
+  cursor: pointer;
+  transition: color 0.167s ease-in-out, border-bottom 0.167s ease-in-out;
   ${(props) =>
-    props.activeTab === props.name && css`
+    props.activeTab === props.name &&
+    css`
       color: #bd9a58e1;
-      border-bottom: solid 3px #bd9a58e1; 
-    `
-  }
+      border-bottom: solid 3px #bd9a58e1;
+    `}
   :hover {
     color: #bd9a58e1;
   }
