@@ -5,7 +5,7 @@ import Announcement from "../components/Announcement";
 import { useState } from "react";
 import { tablet } from "../responsive";
 import { register } from "../redux/apiCalls";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -28,6 +28,8 @@ const Register = () => {
 
   const [success, toggleSuccess] = useState(false);
 
+  const { isFetching } = useSelector((state) => state.user);
+
   const validateFirstName = (name) => {
     const nameFormat = /^[a-z ,.'-]+$/;
     if (name.match(nameFormat)) {
@@ -39,8 +41,7 @@ const Register = () => {
   };
 
   const validateLastName = (name) => {
-    const nameFormat = /^[a-z ,.'-]+$/;
-    if (name.match(nameFormat)) {
+    if (name.length > 1) {
       toggleLastNameError(false);
       return true;
     }
@@ -99,6 +100,7 @@ const Register = () => {
     const validUsername = validateUsername(values.username);
     const validNames =
       validateFirstName(values.firstName) && validateLastName(values.lastName);
+    console.log(validNames);
     if (validEmail && validPassword && validUsername && validNames) {
       try {
         await register(dispatch, values);
@@ -217,7 +219,9 @@ const Register = () => {
             </InputErrorMessage>
           </InputWrapper>
 
-          <Submit onClick={handleSubmit}>CREATE</Submit>
+          <Submit disabled={isFetching} onClick={handleSubmit}>
+            CREATE
+          </Submit>
         </Form>
       </Content>
       <Footer />
@@ -256,7 +260,7 @@ const Title = styled.span`
 `;
 
 const Submit = styled.button`
-  background-color: darkblue;
+  background-color: #0E185F;
   color: white;
   width: 80%;
   height: 50px;
@@ -267,6 +271,10 @@ const Submit = styled.button`
   cursor: pointer;
   :hover {
     opacity: 0.9;
+  }
+  :disabled {
+    color: #0E185F;
+    cursor: not-allowed; 
   }
 `;
 

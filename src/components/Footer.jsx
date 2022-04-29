@@ -111,6 +111,9 @@ const Top = styled.div`
     padding: "30px",
     flexDirection: "column"
   })};
+  .social {
+    
+  }
 `;
 
 const Subscribe = styled.div`
