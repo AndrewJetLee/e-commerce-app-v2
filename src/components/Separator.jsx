@@ -31,7 +31,7 @@ const Content = styled.div`
     text-align: center;  
 `
 const VerticalLine = styled.span`
-    border-right: 1px solid #f57250; 
+    border-right: 1px solid ${props => props.theme.colors.primary}; 
     height: 25px; 
 `
 
