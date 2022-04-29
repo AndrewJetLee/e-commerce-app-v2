@@ -162,7 +162,7 @@ const Top = styled.section`
 
 const TopWrapper = styled.div`
   display: flex;
-  width: 90%;
+  width: 85%;
   justify-content: space-between;
   align-items: center;
 `;
@@ -188,7 +188,7 @@ const Account = styled.div`
 const Middle = styled.section`
   display: flex;
   justify-content: space-between;
-  width: 90%;
+  width: 85%;
   padding: 20px 0;
 `;
 
@@ -328,7 +328,7 @@ const Tabs = styled.ul`
   align-items: center;
   height: 100%;
   font-weight: 500;
-  width: 90%;
+  width: 85%;
 `;
 
 const Tab = styled.li`
