@@ -53,7 +53,7 @@ const Carousel = () => {
               <SlideImage src={item.img} alt=""></SlideImage>
             </SlideImageContainer>
             <SlideInfoContainer>
-              <SlideInfoCollection>2022 New Collection</SlideInfoCollection>
+              <SlideInfoCollection>2022 NEW COLLECTION</SlideInfoCollection>
               <SlideInfoTitle>{item.title}</SlideInfoTitle>
               <SlideInfoDescription>{item.desc}</SlideInfoDescription>
               <SlideInfoButton onClick={() => handleClickShop(item.id)}>Shop Now</SlideInfoButton>
@@ -71,7 +71,7 @@ const Carousel = () => {
 export default Carousel;
 
 const Container = styled.div`
-  height: 90vh;
+  height: 81vh;
   position: relative;
   overflow: hidden;
   margin-bottom: 20px;
@@ -108,8 +108,9 @@ const Slides = styled.div`
 
 const Slide = styled.div`
   height: 100%;
-  width: 100vw;
+  min-width: 100vw;
   display: flex;
+  flex: 1;
   position: relative;
   background-color: #F4F4F4;
 `;
@@ -117,13 +118,13 @@ const Slide = styled.div`
 const SlideImageContainer = styled.div`
   flex: 1;
   height: 100%;
-  width: 100vw;
   margin-left: 200px;
+  min-width: 800px;
 `;
 
 const SlideImage = styled.img`
-  height: 100%;
   width: 100%;
+  height: 100%;
   object-fit: cover;
 `;
 
