@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { ShoppingCartOutlined, Search } from "@mui/icons-material/";
 import { mobile } from "../responsive";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,10 +9,7 @@ import {
   FacebookOutlined,
   LinkedIn,
   GitHub,
-  MailOutline,
-  Phone,
-  Room,
-  ArrowForward,
+  Email,
 } from "@mui/icons-material/";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PersonIcon from "@mui/icons-material/Person";
@@ -22,8 +19,10 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cartQuantity = useSelector((state) => state.cart.quantity);
+  const favoritesQuantity = useSelector((state) => state.cart.favorites);
   const user = useSelector((state) => state.user.currentUser);
   const [query, setQuery] = useState("");
+  const [activeTab, setActiveTab] = useState("home");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,19 +34,28 @@ const Navbar = () => {
       handleSubmit();
     }
   };
+
+  const handleClickTab = (e) => {
+    console.log(e.target.getAttribute("name"));
+    setActiveTab(e.target.getAttribute("name"));
+  };
+
   return (
     <Container>
       <Content>
         <Top>
           <TopWrapper>
-          <Socials>
-            <FacebookOutlined className="social icon"></FacebookOutlined>
-          </Socials>
-          <Account>
-            <PersonIcon />
-             My Account
-            <KeyboardArrowDownIcon />
-          </Account>
+            <Socials>
+              <FacebookOutlined className="social icon facebook"></FacebookOutlined>
+              <LinkedIn className="social icon linkedin"></LinkedIn>
+              <GitHub className="social icon github"></GitHub>
+              <Email className="social icon email"></Email>
+            </Socials>
+            <Account>
+              <PersonIcon className="account icon person"/>
+              My Account
+              <KeyboardArrowDownIcon className="account icon down"/>
+            </Account>
           </TopWrapper>
         </Top>
         <Middle>
@@ -83,23 +91,42 @@ const Navbar = () => {
             )}
 
             <VerticalSeparator></VerticalSeparator>
-            <FavoriteBorderIcon className="favorite icon"></FavoriteBorderIcon>
+            <Favorite>
+              <FavoriteBorderIcon className="favorite icon"></FavoriteBorderIcon>
+              <Badge>{favoritesQuantity}</Badge>
+            </Favorite>
             <Cart onClick={() => navigate("/cart")}>
-              <ShoppingCartOutlined className="navbarCartIcon" />
-              {cartQuantity > 0 ? <span>{cartQuantity}</span> : null}
+              <ShoppingCartOutlined className="cart icon" />
+             <Badge>{cartQuantity}</Badge> 
             </Cart>
           </Right>
         </Middle>
         <Bottom>
-          <Tabs>
-            <Tab>HOME</Tab>
-            <Tab>ABOUT US</Tab>
-            <Tab>NEW COLLECTION</Tab>
-            <Tab>SALE</Tab>
-            <Tab>MENSWEAR</Tab>
-            <Tab>WOMENSWEAR</Tab>
-            <Tab>LATEST BLOGS</Tab>
-            <Tab>CONTACT US</Tab>
+          <Tabs onClick={handleClickTab}>
+            <Tab activeTab={activeTab} name="home">
+              HOME
+            </Tab>
+            <Tab activeTab={activeTab} name="about">
+              ABOUT US
+            </Tab>
+            <Tab activeTab={activeTab} name="new">
+              NEW COLLECTION
+            </Tab>
+            <Tab activeTab={activeTab} name="sale">
+              SALE
+            </Tab>
+            <Tab activeTab={activeTab} name="mens">
+              MENSWEAR
+            </Tab>
+            <Tab activeTab={activeTab} name="womens">
+              WOMENSWEAR
+            </Tab>
+            <Tab activeTab={activeTab} name="blogs">
+              LATEST BLOGS
+            </Tab>
+            <Tab activeTab={activeTab} name="contact">
+              CONTACT US
+            </Tab>
           </Tabs>
         </Bottom>
       </Content>
@@ -135,20 +162,28 @@ const Top = styled.section`
 `;
 
 const TopWrapper = styled.div`
- display: flex;
- width: 90%;
- justify-content: space-between;
- align-items: center;
-`
+  display: flex;
+  width: 90%;
+  justify-content: space-between;
+  align-items: center;
+`;
 
 const Socials = styled.div`
   display: flex;
   align-items: center;
+  .icon {
+    margin-right: 4px;
+    cursor: pointer;
+  }
 `;
 
 const Account = styled.div`
   display: flex;
   align-items: center;
+  font-size: 14px;
+  .icon {
+    margin: 0 4px;
+  }
 `;
 
 const Middle = styled.section`
@@ -224,6 +259,7 @@ const Right = styled.div`
   flex: 1;
   .favorite {
     margin-left: 20px;
+    cursor: pointer;
   }
 `;
 
@@ -249,10 +285,10 @@ const Cart = styled(Register)`
   margin-left: 15px;
   position: relative;
   ${mobile({ fontSize: "12px", margin: "0 4px" })};
-  .navbarCartIcon {
+  .icon {
     margin-left: 4px;
   }
-  span {
+  /* span {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -265,7 +301,26 @@ const Cart = styled(Register)`
     top: 0;
     color: white;
     font-size: 10px;
-  }
+  } */
+`;
+
+const Favorite = styled(Cart)`
+  margin: 0;
+`
+
+const Badge = styled.span`
+  display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    position: absolute;
+    background-color: #bd9a58e1;
+    right: 0;
+    top: 0;
+    color: white;
+    font-size: 10px;
 `;
 
 const VerticalSeparator = styled.span`
@@ -293,5 +348,15 @@ const Tabs = styled.ul`
 const Tab = styled.li`
   padding: 12px;
   border: solid 3px rgba(0, 0, 0, 0);
-  color: #bd9a58e1;
+  cursor: pointer; 
+  transition: color 0.167s ease-in-out, border-bottom 0.167s ease-in-out;   
+  ${(props) =>
+    props.activeTab === props.name && css`
+      color: #bd9a58e1;
+      border-bottom: solid 3px #bd9a58e1; 
+    `
+  }
+  :hover {
+    color: #bd9a58e1;
+  }
 `;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { Remove, Add, Close, ConstructionSharp } from "@mui/icons-material/";
+import { Remove, Add, Close } from "@mui/icons-material/";
 import { useSelector, useDispatch } from "react-redux";
 import { editCart, editCount } from "../redux/apiCalls";
 import { mobile, tablet } from "../responsive";
