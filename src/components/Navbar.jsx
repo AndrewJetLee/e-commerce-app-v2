@@ -3,7 +3,7 @@ import { ShoppingCartOutlined, Search } from "@mui/icons-material/";
 import { mobile } from "../responsive";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { logout } from "../redux/userSlice";
 import { setActiveTab } from "../redux/navSlice";
 import {
@@ -37,8 +37,16 @@ const Navbar = () => {
   };
 
   const handleClickTab = (e) => {
-    dispatch(setActiveTab(e.target.getAttribute("name")))
+    dispatch(setActiveTab(e.target.getAttribute("name")));
+    if (e.target.getAttribute("name") === "home") navigate("/"); 
+    if (e.target.getAttribute("name") === "new") navigate("/products/13500"); 
   };
+
+  // useEffect(() => {
+  //   if (activeTab === "home") navigate("/");
+  //   if (activeTab === "new") navigate("/products/13500");
+  //   if (activeTab === "sale") navigate("/products/28235");
+  // }, [activeTab])
 
   return (
     <Container>

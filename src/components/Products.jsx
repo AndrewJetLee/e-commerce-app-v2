@@ -13,7 +13,7 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
   const [title, setTitle] = useState("");
   const [offset, setOffset] = useState(0);
   const [hasNextPage, setHasNextPage] = useState(false);
-  let baseUrl = `/v2/list/?limit=45&store=US&offset=${offset}`;
+  let baseUrl = `/v2/list/?limit=44&store=US&offset=${offset}`;
 
   useEffect(() => {
     getProducts();
@@ -189,6 +189,8 @@ const Container = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
 const Wrapper = styled.div`

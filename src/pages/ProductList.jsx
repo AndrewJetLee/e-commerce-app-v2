@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import Products from "../components/Products";
 import Footer from "../components/Footer";
-import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { asosRequest } from "../requestMethods";
