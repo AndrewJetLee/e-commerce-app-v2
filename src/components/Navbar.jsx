@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { logout } from "../redux/userSlice";
+import { setActiveTab } from "../redux/navSlice";
 import {
   FacebookOutlined,
   LinkedIn,
@@ -20,9 +21,9 @@ const Navbar = () => {
   const navigate = useNavigate();
   const cartQuantity = useSelector((state) => state.cart.quantity);
   const favoritesQuantity = useSelector((state) => state.cart.favorites);
+  const activeTab = useSelector((state) => state.nav.activeTab);
   const user = useSelector((state) => state.user.currentUser);
   const [query, setQuery] = useState("");
-  const [activeTab, setActiveTab] = useState("home");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,7 +37,7 @@ const Navbar = () => {
   };
 
   const handleClickTab = (e) => {
-    setActiveTab(e.target.getAttribute("name"));
+    dispatch(setActiveTab(e.target.getAttribute("name")))
   };
 
   return (
