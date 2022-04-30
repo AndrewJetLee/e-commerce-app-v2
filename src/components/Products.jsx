@@ -5,11 +5,10 @@ import { useState, useEffect } from "react";
 import { publicRequest, asosRequest } from "../requestMethods";
 import { Skeleton } from "@mui/material";
 
-const Products = ({ query, category, filter, sortRef, sort, type }) => {
+const Products = ({ query, categoryId, setCategoryId, filter, sortRef, sort, type }) => {
   const [products, setProducts] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [loading, toggleLoading] = useState(false);
-  const [categoryId, setCategoryId] = useState(category);
   const [title, setTitle] = useState("");
   const [offset, setOffset] = useState(0);
   const [hasNextPage, setHasNextPage] = useState(false);
@@ -17,7 +16,7 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
 
   useEffect(() => {
     getProducts();
-  }, [category, query]);
+  }, [categoryId, query]);
 
   useEffect(() => {
     sort && sortProducts();
@@ -43,7 +42,7 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
       toggleLoading(true);
       if (query) {
         await getProductsWithQuery();
-      } else if (category) {
+      } else if (categoryId) {
         await getProductsWithCategory();
       } else {
         const res = await asosRequest.get(`${baseUrl}&categoryId=28235`);
@@ -147,7 +146,7 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
   return (
     <>
       {type !== "home" && (
-        <Title> {category ? title : `Showing results for: ${query}`}</Title>
+        <Title> {categoryId ? title : `Showing results for: ${query}`}</Title>
       )}
       <Container>
         <Wrapper>
@@ -169,7 +168,7 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
             ? products
                 .slice(0, 8)
                 .map((item, key) => <Product item={item} key={key} />)
-            : (category || query) &&
+            : (categoryId || query) &&
               !loading &&
               filtered?.map((item, key) => <Product item={item} key={key} />)}
         </Wrapper>

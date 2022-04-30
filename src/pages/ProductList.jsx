@@ -14,6 +14,11 @@ const ProductList = () => {
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState("");
   const sortRef = useRef(sort);
+  const [categoryId, setCategoryId] = useState(category);
+
+  useEffect(() => {
+    setCategoryId(category);
+  }, [category])
 
   const handleFilter = (e) => {
     const value = e.target.value;
@@ -75,6 +80,8 @@ const ProductList = () => {
           query={q}
           category={category}
           filter={filter}
+          categoryId={categoryId}
+          setCategoryId={setCategoryId}
         />
       </Content>
       <Footer />

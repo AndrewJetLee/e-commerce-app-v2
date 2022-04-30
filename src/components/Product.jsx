@@ -5,15 +5,31 @@ const Product = ({ item }) => {
   const navigate = useNavigate();
 
   const getDiscountPercentage = (previousPrice, currentPrice) => {
-    return Math.floor(100 * (previousPrice - currentPrice) / previousPrice);
-  }
+    return Math.floor((100 * (previousPrice - currentPrice)) / previousPrice);
+  };
 
   return (
     <Container>
       <Wrapper>
-        {(item.price.isMarkedDown && item.price.rrp.value && item.price.current.value) && (
-          <DiscountBadge>-{getDiscountPercentage(item.price?.rrp.value, item.price?.current.value) }%</DiscountBadge>
-        )}
+        {item.price.isMarkedDown && item.price.rrp.value ? (
+          <DiscountBadge>
+            -
+            {getDiscountPercentage(
+              item.price?.rrp.value,
+              item.price?.current.value
+            )}
+            %
+          </DiscountBadge>
+        ) : item.price.isMarkedDown && item.price.previous.value ? (
+          <DiscountBadge>
+            -
+            {getDiscountPercentage(
+              item.price?.previous.value,
+              item.price?.current.value
+            )}
+            %
+          </DiscountBadge>
+        ) : null}
 
         <Image src={`https://${item?.imageUrl}`} />
         <Info>
@@ -26,9 +42,14 @@ const Product = ({ item }) => {
         </Info>
       </Wrapper>
       <Title>{item?.name}</Title>
-      {item.price.isMarkedDown ? (
+      {item.price.isMarkedDown && item.price.rrp.text ? (
         <Price>
           <RrpPrice>{item.price?.rrp.text}</RrpPrice>
+          <SalePrice>{item.price?.current.text}</SalePrice>
+        </Price>
+      ) : item.price.isMarkedDown && item.price.previous.text ? (
+        <Price>
+          <RrpPrice>{item.price?.previous.text}</RrpPrice>
           <SalePrice>{item.price?.current.text}</SalePrice>
         </Price>
       ) : (
@@ -42,7 +63,7 @@ export default Product;
 
 const Container = styled.div`
   width: 80%;
- 
+
   display: flex;
   flex-direction: column;
   align-items: center;

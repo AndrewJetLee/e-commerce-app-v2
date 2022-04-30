@@ -38,15 +38,15 @@ const Navbar = () => {
 
   const handleClickTab = (e) => {
     dispatch(setActiveTab(e.target.getAttribute("name")));
-    if (e.target.getAttribute("name") === "home") navigate("/"); 
-    if (e.target.getAttribute("name") === "new") navigate("/products/13500"); 
+    const tab = e.target.getAttribute("name"); 
+    if (tab === "home") navigate("/"); 
+    if (tab === "new") navigate("/products/13500"); 
+    if (tab === "sale") navigate("/products/28235"); 
+    if (tab === "mens") navigate("/products/27110"); 
+    if (tab === "womens") navigate("/products/27108"); 
+    if (tab === "blogs") navigate("/products/13500"); 
+    if (tab === "contact") navigate("/products/13500"); 
   };
-
-  // useEffect(() => {
-  //   if (activeTab === "home") navigate("/");
-  //   if (activeTab === "new") navigate("/products/13500");
-  //   if (activeTab === "sale") navigate("/products/28235");
-  // }, [activeTab])
 
   return (
     <Container>
