@@ -9,8 +9,16 @@ import Navbar from "../components/Navbar";
 import Separator from "../components/Separator";
 import SeparatorButton from "../components/SeparatorButton";
 import { SeparatorItems } from "../dummyData";
+import { useSelector, useDispatch } from "react-redux";
+import { setActiveTab } from "../redux/navSlice";
 
 const Home = () => {
+
+  const dispatch = useDispatch();
+  const { activeTab } = useSelector((state) => state.nav);
+  
+  if (activeTab !== "home") dispatch(setActiveTab("home"));
+
   return (
     <Container>
       <Navbar />
