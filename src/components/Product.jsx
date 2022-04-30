@@ -11,8 +11,8 @@ const Product = ({ item }) => {
   return (
     <Container>
       <Wrapper>
-        {item.price.isMarkedDown && (
-          <DiscountBadge>-{getDiscountPercentage(item.price?.rrp.value, item.price?.current.value)}%</DiscountBadge>
+        {(item.price.isMarkedDown && item.price.rrp.value && item.price.current.value) && (
+          <DiscountBadge>-{getDiscountPercentage(item.price?.rrp.value, item.price?.current.value) }%</DiscountBadge>
         )}
 
         <Image src={`https://${item?.imageUrl}`} />
@@ -42,6 +42,7 @@ export default Product;
 
 const Container = styled.div`
   width: 80%;
+ 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -105,9 +106,11 @@ const Info = styled.div`
 `;
 
 const Title = styled.span`
+  display: flex;
   font-weight: 500;
   font-size: 14px;
   text-align: center;
+  height: 100%;
 `;
 
 const Price = styled.div`
@@ -119,6 +122,7 @@ const Price = styled.div`
 const RrpPrice = styled.span`
   text-decoration: line-through;
   margin-right: 5px;
+  font-weight: 500;
 `;
 
 const SalePrice = styled.span`
@@ -132,6 +136,6 @@ const DiscountBadge = styled.span`
   left: 10px;
   font-size: 12px;
   background-color: ${(props) => props.theme.colors.primary};
-  padding: 4px;
+  padding: 2px 5px;
   color: white;
 `;

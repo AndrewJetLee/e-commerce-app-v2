@@ -149,35 +149,36 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
       {type !== "home" && (
         <Title> {category ? title : `Showing results for: ${query}`}</Title>
       )}
-
       <Container>
-        {loading &&
-          Array(20)
-            .fill("")
-            .map((item, i) => (
-              <Skeleton
-                variant="rectangular"
-                width={300}
-                height={380}
-                sx={{
-                  marginBottom: "30px",
-                }}
-                key={i}
-              />
-            ))}
-        {type === "home" && !loading
-          ? products
-              .slice(10, 20)
-              .map((item, key) => <Product item={item} key={key} />)
-          : (category || query) &&
-            !loading &&
-            filtered?.map((item, key) => <Product item={item} key={key} />)}
+        <Wrapper>
+          {loading &&
+            Array(20)
+              .fill("")
+              .map((item, i) => (
+                <Skeleton
+                  variant="rectangular"
+                  width={300}
+                  height={380}
+                  sx={{
+                    marginBottom: "30px",
+                  }}
+                  key={i}
+                />
+              ))}
+          {type === "home" && !loading
+            ? products
+                .slice(0, 8)
+                .map((item, key) => <Product item={item} key={key} />)
+            : (category || query) &&
+              !loading &&
+              filtered?.map((item, key) => <Product item={item} key={key} />)}
+        </Wrapper>
+        {type !== "home" && hasNextPage && (
+          <LoadWrapper onClick={() => setOffset(offset + 45)}>
+            <LoadMore>LOAD MORE</LoadMore>
+          </LoadWrapper>
+        )}
       </Container>
-      {type !== "home" && hasNextPage && (
-        <LoadWrapper onClick={() => setOffset(offset + 45)}>
-          <LoadMore>LOAD MORE</LoadMore>
-        </LoadWrapper>
-      )}
     </>
   );
 };
@@ -185,8 +186,14 @@ const Products = ({ query, category, filter, sortRef, sort, type }) => {
 export default Products;
 
 const Container = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+`;
+
+const Wrapper = styled.div`
   display: grid;
-  width: 98%;
+  width: 85%;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   grid-template-rows: 1fr 1fr;
   gap: 10px;

@@ -43,7 +43,7 @@ const Footer = () => {
       </Top>
       <Bottom>
         <Left>
-          <Logo src="logo.jpg"/>
+          <Logo src="logo.png"/>
           <Description>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry lorem Ipsum is simply dummy text of industry lorem ipsum is

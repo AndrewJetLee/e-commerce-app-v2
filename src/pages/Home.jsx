@@ -5,9 +5,9 @@ import Products from "../components/Products";
 import About from "../components/About";
 import Footer from "../components/Footer";
 import Features from "../components/Features";
-
 import Navbar from "../components/Navbar";
 import Separator from "../components/Separator";
+import SeparatorButton from "../components/SeparatorButton";
 import { SeparatorItems } from "../dummyData";
 
 const Home = () => {
@@ -20,7 +20,7 @@ const Home = () => {
 
       <Separator item={SeparatorItems[1]} />
       <Products type="home" />
-      <Separator item={SeparatorItems[2]} />
+      <SeparatorButton/>
       <About />
       <Footer />
     </Container>
