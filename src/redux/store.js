@@ -1,6 +1,7 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import cartReducer from "./cartSlice";
 import userReducer from "./userSlice";
+import navReducer from "./navSlice";
 import {
   persistStore,
   persistReducer,
@@ -17,7 +18,7 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  blacklist: ["user"],
+  blacklist: ["user", "nav"],
 };
 
 const userPersistConfig = {
@@ -26,7 +27,7 @@ const userPersistConfig = {
   blacklist: ["error"]
 }
 
-const rootReducer = combineReducers({ user: persistReducer(userPersistConfig, userReducer), cart: cartReducer });
+const rootReducer = combineReducers({ user: persistReducer(userPersistConfig, userReducer), cart: cartReducer, nav: navReducer });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

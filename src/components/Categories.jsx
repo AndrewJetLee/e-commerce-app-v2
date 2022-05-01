@@ -24,11 +24,17 @@ const Categories = () => {
 
 export default Categories;
 
-const Container = styled.div``;
-const Content = styled.div``;
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
+const Content = styled.div`
+  width: 85%;
+`;
 
 const Items = styled.div`
-  width: 98%;
+  width: 100%;
   display: flex;
   background-color: white;
   flex-wrap: wrap;
@@ -37,3 +43,4 @@ const Items = styled.div`
   margin-right: 20px;
   ${mobile({ flexDirection: "column", marginTop: 0 })};
 `;
+

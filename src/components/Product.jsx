@@ -4,9 +4,33 @@ import { useNavigate } from "react-router-dom";
 const Product = ({ item }) => {
   const navigate = useNavigate();
 
+  const getDiscountPercentage = (previousPrice, currentPrice) => {
+    return Math.floor((100 * (previousPrice - currentPrice)) / previousPrice);
+  };
+
   return (
     <Container>
       <Wrapper>
+        {item.price.isMarkedDown && item.price.rrp.value ? (
+          <DiscountBadge>
+            -
+            {getDiscountPercentage(
+              item.price?.rrp.value,
+              item.price?.current.value
+            )}
+            %
+          </DiscountBadge>
+        ) : item.price.isMarkedDown && item.price.previous.value ? (
+          <DiscountBadge>
+            -
+            {getDiscountPercentage(
+              item.price?.previous.value,
+              item.price?.current.value
+            )}
+            %
+          </DiscountBadge>
+        ) : null}
+
         <Image src={`https://${item?.imageUrl}`} />
         <Info>
           <button
@@ -18,7 +42,19 @@ const Product = ({ item }) => {
         </Info>
       </Wrapper>
       <Title>{item?.name}</Title>
-      <Price>{item.price?.current.text}</Price>
+      {item.price.isMarkedDown && item.price.rrp.text ? (
+        <Price>
+          <RrpPrice>{item.price?.rrp.text}</RrpPrice>
+          <SalePrice>{item.price?.current.text}</SalePrice>
+        </Price>
+      ) : item.price.isMarkedDown && item.price.previous.text ? (
+        <Price>
+          <RrpPrice>{item.price?.previous.text}</RrpPrice>
+          <SalePrice>{item.price?.current.text}</SalePrice>
+        </Price>
+      ) : (
+        <Price>{item.price?.current.text}</Price>
+      )}
     </Container>
   );
 };
@@ -27,6 +63,7 @@ export default Product;
 
 const Container = styled.div`
   width: 80%;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -64,7 +101,7 @@ const Info = styled.div`
   transition: all 0.3s ease;
   cursor: pointer;
   button {
-    background-color: #030364;
+    background-color: ${(props) => props.theme.colors.primary};
     padding: 14px 60px;
     display: flex;
     align-items: center;
@@ -90,13 +127,36 @@ const Info = styled.div`
 `;
 
 const Title = styled.span`
+  display: flex;
   font-weight: 500;
   font-size: 14px;
   text-align: center;
+  height: 100%;
 `;
 
-const Price = styled.span`
+const Price = styled.div`
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 10px;
+`;
+
+const RrpPrice = styled.span`
+  text-decoration: line-through;
+  margin-right: 5px;
+  font-weight: 500;
+`;
+
+const SalePrice = styled.span`
+  color: ${(props) => props.theme.colors.primary};
+  font-weight: 600;
+`;
+
+const DiscountBadge = styled.span`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 12px;
+  background-color: ${(props) => props.theme.colors.primary};
+  padding: 2px 5px;
+  color: white;
 `;

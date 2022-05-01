@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import Products from "../components/Products";
 import Footer from "../components/Footer";
-import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { asosRequest } from "../requestMethods";
@@ -15,6 +14,11 @@ const ProductList = () => {
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState("");
   const sortRef = useRef(sort);
+  const [categoryId, setCategoryId] = useState(category);
+
+  useEffect(() => {
+    setCategoryId(category);
+  }, [category])
 
   const handleFilter = (e) => {
     const value = e.target.value;
@@ -76,6 +80,8 @@ const ProductList = () => {
           query={q}
           category={category}
           filter={filter}
+          categoryId={categoryId}
+          setCategoryId={setCategoryId}
         />
       </Content>
       <Footer />

@@ -3,8 +3,9 @@ import { ShoppingCartOutlined, Search } from "@mui/icons-material/";
 import { mobile } from "../responsive";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { logout } from "../redux/userSlice";
+import { setActiveTab } from "../redux/navSlice";
 import {
   FacebookOutlined,
   LinkedIn,
@@ -20,9 +21,9 @@ const Navbar = () => {
   const navigate = useNavigate();
   const cartQuantity = useSelector((state) => state.cart.quantity);
   const favoritesQuantity = useSelector((state) => state.cart.favorites);
+  const activeTab = useSelector((state) => state.nav.activeTab);
   const user = useSelector((state) => state.user.currentUser);
   const [query, setQuery] = useState("");
-  const [activeTab, setActiveTab] = useState("home");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,7 +37,15 @@ const Navbar = () => {
   };
 
   const handleClickTab = (e) => {
-    setActiveTab(e.target.getAttribute("name"));
+    dispatch(setActiveTab(e.target.getAttribute("name")));
+    const tab = e.target.getAttribute("name"); 
+    if (tab === "home") navigate("/"); 
+    if (tab === "new") navigate("/products/13500"); 
+    if (tab === "sale") navigate("/products/28235"); 
+    if (tab === "mens") navigate("/products/27110"); 
+    if (tab === "womens") navigate("/products/27108"); 
+    if (tab === "blogs") navigate("/products/13500"); 
+    if (tab === "contact") navigate("/products/13500"); 
   };
 
   return (
