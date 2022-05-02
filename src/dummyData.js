@@ -67,7 +67,7 @@ export const SeparatorItems = [
   },
   {
     id: 2,
-    title: "Featured Products",
+    title: "Biggest Deals",
     desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
   {

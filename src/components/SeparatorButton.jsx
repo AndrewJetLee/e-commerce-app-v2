@@ -2,9 +2,15 @@ import React from "react";
 import styled from "styled-components";
 
 const SeparatorButton = ({ categoryId }) => {
+  const handleClick = () => {
+    console.log("clicked");
+  };
+
   return (
     <Container>
-      <Button>VIEW ALL</Button>
+      <Button onClick={() => {
+        handleClick()
+      }}>VIEW ALL</Button>
     </Container>
   );
 };
