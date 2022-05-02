@@ -35,7 +35,7 @@ const ProductList = () => {
 
   return (
     <Container>
-      <Navbar />
+      <Navbar type={ q && "search" } />
       <Content>
         <Top>
           <FilterContainer>

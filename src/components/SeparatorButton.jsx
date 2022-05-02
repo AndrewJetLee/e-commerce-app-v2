@@ -1,16 +1,18 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const SeparatorButton = ({ categoryId }) => {
+
+  const navigate = useNavigate();
+
   const handleClick = () => {
-    console.log("clicked");
+    navigate(`/products/${categoryId}`)
   };
 
   return (
     <Container>
-      <Button onClick={() => {
-        handleClick()
-      }}>VIEW ALL</Button>
+      <Button onClick={handleClick}>VIEW ALL</Button>
     </Container>
   );
 };

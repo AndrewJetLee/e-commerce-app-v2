@@ -8,6 +8,7 @@ import Features from "../components/Features";
 import Navbar from "../components/Navbar";
 import Separator from "../components/Separator";
 import SeparatorButton from "../components/SeparatorButton";
+import BlogSection from "../components/BlogSection";
 import { SeparatorItems } from "../dummyData";
 import { useSelector, useDispatch } from "react-redux";
 import { setActiveTab } from "../redux/navSlice";

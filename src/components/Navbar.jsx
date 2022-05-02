@@ -27,6 +27,7 @@ const Navbar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(setActiveTab("search"));
     navigate(`/products/search/?q=${query}`);
   };
 
@@ -38,14 +39,15 @@ const Navbar = () => {
 
   const handleClickTab = (e) => {
     dispatch(setActiveTab(e.target.getAttribute("name")));
-    const tab = e.target.getAttribute("name"); 
-    if (tab === "home") navigate("/"); 
-    if (tab === "new") navigate("/products/13500"); 
-    if (tab === "sale") navigate("/products/28235"); 
-    if (tab === "mens") navigate("/products/27110"); 
-    if (tab === "womens") navigate("/products/27108"); 
-    if (tab === "blogs") navigate("/products/13500"); 
-    if (tab === "contact") navigate("/products/13500"); 
+    const tab = e.target.getAttribute("name");
+    if (tab === "home") navigate("/");
+    if (tab === "new") navigate("/products/13500");
+    if (tab === "sale") navigate("/products/28235");
+    if (tab === "mens") navigate("/products/27110");
+    if (tab === "womens") navigate("/products/27108");
+    if (tab === "blogs") navigate("/products/13500");
+    if (tab === "search") navigate(`/products/search/?q=${query}`);
+    // if (tab === "contact") https://www.linkedin.com/in/andrewjetlee/;
   };
 
   return (
@@ -128,6 +130,9 @@ const Navbar = () => {
             </Tab>
             <Tab activeTab={activeTab} name="womens">
               WOMENSWEAR
+            </Tab>
+            <Tab activeTab={activeTab} name="search">
+              SEARCH
             </Tab>
             <Tab activeTab={activeTab} name="blogs">
               LATEST BLOGS

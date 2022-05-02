@@ -76,3 +76,30 @@ export const SeparatorItems = [
     desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
 ];
+
+export const BlogItems = [
+  {
+    id: 1,
+    title: "Gigity",
+    desc: "asdfassdf",
+    author: "asdfasdf",
+    image: "",
+    comments: 4,
+  },
+  {
+    id: 2,
+    title: "Gigity",
+    desc: "asdfassdf",
+    author: "asdfasdf",
+    image: "",
+    comments: 8,
+  },
+  {
+    id: 3,
+    title: "Gigity",
+    desc: "asdfassdf",
+    author: "asdfasdf",
+    image: "",
+    comments: 2,
+  }
+]
