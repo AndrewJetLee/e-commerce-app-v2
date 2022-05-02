@@ -16,7 +16,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PersonIcon from "@mui/icons-material/Person";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
-const Navbar = () => {
+const Navbar = ({ hidden }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cartQuantity = useSelector((state) => state.cart.quantity);
@@ -27,7 +27,6 @@ const Navbar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(setActiveTab("search"));
     navigate(`/products/search/?q=${query}`);
   };
 
@@ -46,7 +45,6 @@ const Navbar = () => {
     if (tab === "mens") navigate("/products/27110");
     if (tab === "womens") navigate("/products/27108");
     if (tab === "blogs") navigate("/products/13500");
-    if (tab === "search") navigate(`/products/search/?q=${query}`);
     // if (tab === "contact") https://www.linkedin.com/in/andrewjetlee/;
   };
 
@@ -111,36 +109,36 @@ const Navbar = () => {
             </Cart>
           </Right>
         </Middle>
+
         <Bottom>
-          <Tabs onClick={handleClickTab}>
-            <Tab activeTab={activeTab} name="home">
-              HOME
-            </Tab>
-            <Tab activeTab={activeTab} name="about">
-              ABOUT US
-            </Tab>
-            <Tab activeTab={activeTab} name="new">
-              NEW COLLECTION
-            </Tab>
-            <Tab activeTab={activeTab} name="sale">
-              SALE
-            </Tab>
-            <Tab activeTab={activeTab} name="mens">
-              MENSWEAR
-            </Tab>
-            <Tab activeTab={activeTab} name="womens">
-              WOMENSWEAR
-            </Tab>
-            <Tab activeTab={activeTab} name="search">
-              SEARCH
-            </Tab>
-            <Tab activeTab={activeTab} name="blogs">
-              LATEST BLOGS
-            </Tab>
-            <Tab activeTab={activeTab} name="contact">
-              CONTACT US
-            </Tab>
-          </Tabs>
+          {!hidden && (
+            <Tabs onClick={handleClickTab}>
+              <Tab activeTab={activeTab} name="home">
+                HOME
+              </Tab>
+              <Tab activeTab={activeTab} name="about">
+                ABOUT US
+              </Tab>
+              <Tab activeTab={activeTab} name="new">
+                NEW COLLECTION
+              </Tab>
+              <Tab activeTab={activeTab} name="sale">
+                SALE
+              </Tab>
+              <Tab activeTab={activeTab} name="mens">
+                MENSWEAR
+              </Tab>
+              <Tab activeTab={activeTab} name="womens">
+                WOMENSWEAR
+              </Tab>
+              <Tab activeTab={activeTab} name="blogs">
+                LATEST BLOGS
+              </Tab>
+              <Tab activeTab={activeTab} name="contact">
+                CONTACT US
+              </Tab>
+            </Tabs>
+          )}
         </Bottom>
       </Content>
     </Container>
