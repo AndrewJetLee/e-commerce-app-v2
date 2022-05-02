@@ -57,7 +57,7 @@ const ItemInfo = styled.div`
   align-items: center;
   flex-direction: column;
   .itemTitle {
-    font-size: 32px;
+    font-size: 36px;
     font-weight: 600;
     margin-bottom: 10px;
   }
@@ -67,9 +67,11 @@ const ItemInfo = styled.div`
   button {
     background-color: #bd9a58;
     color: white;
-    padding: 8px 12px;
+    padding: 9px 16px;
     width: 200px;
+    font-size: 15px;
     cursor: pointer;
+    font-weight: 500;
     transition: filter 0.167s ease-in-out;
     :hover {
     filter: brightness(90%);

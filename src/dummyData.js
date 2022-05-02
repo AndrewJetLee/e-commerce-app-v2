@@ -3,14 +3,14 @@ export const carouselItems = [
     id: 1,
     img: "/images/slide-image-1.png",
     title: "Biggest Deals!",
-    desc: "Get up to 80% off",
+    desc: "Get up to 80% off!",
     category: "28235"
   },
   {
     id: 2,
     img: "/images/slide-image-2.png",
     title: "Men's Collection",
-    desc: "Kings get 30% off",
+    desc: "Kings get 30% off!",
     category: "27110"
   },
 
@@ -18,7 +18,7 @@ export const carouselItems = [
     id: 3,
     img: "/images/slide-image-3.png",
     title: "Women's Collection",
-    desc: "Add more flair to your outfit",
+    desc: "Add more flair to your outfit!",
     category: "13500"
   },
 ];

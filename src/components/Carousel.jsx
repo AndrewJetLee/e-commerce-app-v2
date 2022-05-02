@@ -167,4 +167,8 @@ const SlideInfoButton = styled.button`
   font-weight: 500;
   text-transform: uppercase; 
   cursor: pointer; 
+  transition: transform 0.167s ease-in-out;
+  :hover {
+    transform: scale(1.1);
+  }
 `;
