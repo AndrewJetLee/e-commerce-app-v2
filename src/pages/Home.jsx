@@ -9,15 +9,15 @@ import Navbar from "../components/Navbar";
 import Separator from "../components/Separator";
 import SeparatorButton from "../components/SeparatorButton";
 import BlogSection from "../components/BlogSection";
+import Testimonials from "../components/Testimonials";
 import { SeparatorItems } from "../dummyData";
 import { useSelector, useDispatch } from "react-redux";
 import { setActiveTab } from "../redux/navSlice";
 
 const Home = () => {
-
   const dispatch = useDispatch();
   const { activeTab } = useSelector((state) => state.nav);
-  
+
   if (activeTab !== "home") dispatch(setActiveTab("home"));
 
   return (
@@ -29,8 +29,11 @@ const Home = () => {
 
       <Separator item={SeparatorItems[1]} />
       <Products type="home" />
-      <SeparatorButton categoryId="28235"/>
-      <BlogSection/>
+      <SeparatorButton categoryId="28235" />
+      <Separator item={SeparatorItems[2]} />
+      <BlogSection />
+      <SeparatorButton />
+      <Testimonials />
       <About />
       <Footer />
     </Container>

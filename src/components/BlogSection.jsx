@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { BlogItems } from "../dummyData";
 import { Navigation } from "swiper";
@@ -94,6 +93,8 @@ const Middle = styled.div`
   display: flex;
   border-bottom: 1px solid lightgray;
   font-size: 18px;
+  align-items: center;
+  height: 45px;
   .icon {
     color: ${primaryColor};
     margin-right: 5px;
@@ -126,4 +127,5 @@ const ReadMore = styled.a`
   display: flex;
   font-weight: 600;
   align-items: center;
+  cursor: pointer;
 `;

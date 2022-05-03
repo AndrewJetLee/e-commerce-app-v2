@@ -72,9 +72,15 @@ export const SeparatorItems = [
   },
   {
     id: 3,
+    title: "Latest Blogs",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  },
+  {
+    id: 4,
     title: "Newsletter",
     desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
+  
 ];
 
 export const BlogItems = [

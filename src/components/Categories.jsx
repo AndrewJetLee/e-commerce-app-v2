@@ -28,6 +28,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
+  margin-bottom: 40px;
 `;
 const Content = styled.div`
   width: 85%;
