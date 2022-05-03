@@ -30,6 +30,7 @@ const Home = () => {
       <Separator item={SeparatorItems[1]} />
       <Products type="home" />
       <SeparatorButton categoryId="28235"/>
+      <BlogSection/>
       <About />
       <Footer />
     </Container>
