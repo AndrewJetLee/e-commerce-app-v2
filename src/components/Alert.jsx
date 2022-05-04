@@ -21,13 +21,13 @@ export default Alert;
 const Container = styled.div`
   padding: 8px 14px; 
   position: fixed;
-  top: 80px;
-  right: 40px;
+  top: 160px;
+  right: 140px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   z-index: 1000;
-  background-color: ${(props) => (props.type === "success" ? "green" : "red")};
+  background-color: ${(props) => (props.type === "success" ? "#019267" : "#B20600")};
   font-size: 15px;
   color: white;
   border-radius: 1px;

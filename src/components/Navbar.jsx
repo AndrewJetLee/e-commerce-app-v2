@@ -15,6 +15,7 @@ import {
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PersonIcon from "@mui/icons-material/Person";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import Alert from "./Alert";
 
 const Navbar = ({ hidden }) => {
   const dispatch = useDispatch();
@@ -23,6 +24,8 @@ const Navbar = ({ hidden }) => {
   const favoritesQuantity = useSelector((state) => state.cart.favorites);
   const activeTab = useSelector((state) => state.nav.activeTab);
   const user = useSelector((state) => state.user.currentUser);
+  const [alertStatus, setAlertStatus] = useState(false);
+  const [accountDropDown, toggleAccountDropdown] = useState(false);
   const [query, setQuery] = useState("");
 
   const handleSubmit = (e) => {
@@ -46,11 +49,27 @@ const Navbar = ({ hidden }) => {
     if (tab === "womens") navigate("/products/27108");
     if (tab === "active") navigate("/products/26090");
     if (tab === "accessories") navigate("/products/50062");
-    // if (tab === "contact") https://www.linkedin.com/in/andrewjetlee/;
+  };
+
+  const handleAlert = () => {
+    setAlertStatus(true);
+    setTimeout(() => {
+      setAlertStatus(false);
+    }, 3000);
+  };
+
+  const handleClickAccount = () => {
+    !user ? handleAlert() : toggleAccountDropdown(true);
   };
 
   return (
     <Container>
+      <Alert
+        type="error"
+        status={alertStatus}
+        message="Please login to access account"
+      />
+
       <Content>
         <Top>
           <TopWrapper>
@@ -69,7 +88,7 @@ const Navbar = ({ hidden }) => {
               </SocialWrapper>
             </Socials>
 
-            <Account>
+            <Account onClick={handleClickAccount}>
               <PersonIcon className="account icon person" />
               My Account
               <KeyboardArrowDownIcon className="account icon down" />
@@ -203,8 +222,6 @@ const Socials = styled.div`
 `;
 
 const SocialWrapper = styled.a`
-  text-decoration: none;
-  color: inherit;
   display: flex;
   align-items: center;
 `;

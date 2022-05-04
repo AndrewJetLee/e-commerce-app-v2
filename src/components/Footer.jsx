@@ -30,10 +30,10 @@ const Footer = () => {
           <SocialWrapper>
             <Facebook className="socialIcon" />
           </SocialWrapper>
-          <SocialWrapper>
+          <SocialWrapper href="https://github.com/AndrewJetLee">
             <GitHub className="socialIcon" />
           </SocialWrapper>
-          <SocialWrapper>
+          <SocialWrapper href="https://www.linkedin.com/in/andrewjetlee/">
             <LinkedIn className="socialIcon" />
           </SocialWrapper>
           <SocialWrapper>
@@ -205,7 +205,7 @@ const Socials = styled.div`
   display: flex;
   align-items: center;
 `;
-const SocialWrapper = styled.div`
+const SocialWrapper = styled.a`
   .socialIcon {
     margin-right: 8px;
     transition: all 0.167s ease;
