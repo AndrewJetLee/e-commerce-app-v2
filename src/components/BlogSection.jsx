@@ -59,6 +59,7 @@ export default BlogSection;
 const Container = styled.section`
   display: flex;
   justify-content: center;
+  background-color: white;
   .mySwiper {
     display: flex;
     width: 85%;

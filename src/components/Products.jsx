@@ -148,7 +148,7 @@ const Products = ({ query, categoryId, setCategoryId, filter, sortRef, sort, typ
       {type !== "home" && (
         <Title> {categoryId ? title : `Showing results for: ${query}`}</Title>
       )}
-      <Container>
+      <Container type={type}>
         <Wrapper>
           {loading &&
             Array(20)
@@ -190,6 +190,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background-color: ${ props => props.type === "home" && "#F4F4F4"}
 `;
 
 const Wrapper = styled.div`

@@ -9,7 +9,7 @@ import Navbar from "../components/Navbar";
 import Separator from "../components/Separator";
 import SeparatorButton from "../components/SeparatorButton";
 import BlogSection from "../components/BlogSection";
-import Testimonials from "../components/Testimonials";
+import Testimonials, { Title } from "../components/Testimonials";
 import { SeparatorItems } from "../dummyData";
 import { useSelector, useDispatch } from "react-redux";
 import { setActiveTab } from "../redux/navSlice";
@@ -26,11 +26,10 @@ const Home = () => {
       <Carousel />
       <Features />
       <Categories />
-
-      <Separator item={SeparatorItems[1]} />
-      <Products type="home" />
+      <Title  bg="#F4F4F4">FEATURED PRODUCTS</Title>
+      <Products type="home"/>
       <SeparatorButton categoryId="28235" />
-      <Separator item={SeparatorItems[2]} />
+      <Title>LATEST BLOGS</Title>
       <BlogSection />
       <SeparatorButton />
       <Testimonials />
@@ -44,4 +43,5 @@ export default Home;
 
 const Container = styled.div`
   overflow-x: hidden;
+  background-color: #F4F4F4;
 `;

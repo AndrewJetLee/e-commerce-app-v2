@@ -72,9 +72,12 @@ const Container = styled.section`
 `;
 
 export const Title = styled.h1`
-  margin-bottom: 40px;
+  padding-top: 40px;
+  padding-bottom: 40px;
   font-size: 40px;
   font-weight: 500;
+  text-align: center;
+  background-color: ${props => props.bg && props.bg};
 `;
 
 const Testimonial = styled.div`
@@ -87,7 +90,7 @@ const Testimonial = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: 800px;
+  width:900px;
   height: 350px;
   border: 1px solid lightgray;
   background-color: white;

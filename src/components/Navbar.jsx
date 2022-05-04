@@ -151,6 +151,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   ${mobile({ height: "50px" })};
+  background-color: white;
 `;
 
 const Content = styled.main`
