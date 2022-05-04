@@ -3,7 +3,7 @@ import { ShoppingCartOutlined, Search } from "@mui/icons-material/";
 import { mobile } from "../responsive";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { logout } from "../redux/userSlice";
 import { setActiveTab } from "../redux/navSlice";
 import {
@@ -55,11 +55,20 @@ const Navbar = ({ hidden }) => {
         <Top>
           <TopWrapper>
             <Socials>
-              <FacebookOutlined className="social icon facebook"></FacebookOutlined>
-              <LinkedIn className="social icon linkedin"></LinkedIn>
-              <GitHub className="social icon github"></GitHub>
-              <Email className="social icon email"></Email>
+              <SocialWrapper href="">
+                <FacebookOutlined className="social icon facebook"></FacebookOutlined>
+              </SocialWrapper>
+              <SocialWrapper href="https://www.linkedin.com/in/andrewjetlee/">
+                <LinkedIn className="social icon linkedin"></LinkedIn>
+              </SocialWrapper>
+              <SocialWrapper href="https://github.com/AndrewJetLee">
+                <GitHub className="social icon github"></GitHub>
+              </SocialWrapper>
+              <SocialWrapper href="">
+                <Email className="social icon email"></Email>
+              </SocialWrapper>
             </Socials>
+
             <Account>
               <PersonIcon className="account icon person" />
               My Account
@@ -191,6 +200,13 @@ const Socials = styled.div`
     margin-right: 4px;
     cursor: pointer;
   }
+`;
+
+const SocialWrapper = styled.a`
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
 `;
 
 const Account = styled.div`

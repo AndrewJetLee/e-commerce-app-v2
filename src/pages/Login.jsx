@@ -89,7 +89,7 @@ const Title = styled.span`
 `;
 
 const Submit = styled.button`
-  background-color: ${primaryColor};
+  background-color: black;
   color: white;
   width: 80%;
   height: 50px;
@@ -115,7 +115,7 @@ const Links = styled.div`
 const LinkItem = styled.a`
   margin: 10px 0;
   cursor: pointer;
-  color: ${primaryColor};
+  color: black;
   :hover {
     text-decoration: underline;
   }
