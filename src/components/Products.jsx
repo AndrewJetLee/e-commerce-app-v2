@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Product from "./Product";
+import { SectionTitle } from "../components/Testimonials";
 import { mobile, tablet } from "../responsive";
 import { useState, useEffect } from "react";
 import { publicRequest, asosRequest } from "../requestMethods";
@@ -148,7 +149,8 @@ const Products = ({ query, categoryId, setCategoryId, filter, sortRef, sort, typ
       {type !== "home" && (
         <Title> {categoryId ? title : `Showing results for: ${query}`}</Title>
       )}
-      <Container>
+      <Container type={type}>
+        { type === "home" && <SectionTitle>FEATURED PRODUCTS</SectionTitle>}
         <Wrapper>
           {loading &&
             Array(20)
@@ -190,6 +192,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background-color: ${ props => props.type === "home" && "#F4F4F4"}
 `;
 
 const Wrapper = styled.div`

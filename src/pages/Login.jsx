@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../redux/apiCalls";
-import { tablet } from "../responsive";
+import { tablet, primaryColor } from "../responsive";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -24,8 +24,7 @@ const Login = () => {
 
   return (
     <Container>
-      <Navbar />
-      <Announcement />
+      <Navbar hidden="true"/>
       <Content>
         <Form>
           <Title>LOGIN</Title>
@@ -90,7 +89,7 @@ const Title = styled.span`
 `;
 
 const Submit = styled.button`
-  background-color: #0e185f;
+  background-color: ${primaryColor};
   color: white;
   width: 80%;
   height: 50px;
@@ -116,7 +115,7 @@ const Links = styled.div`
 const LinkItem = styled.a`
   margin: 10px 0;
   cursor: pointer;
-  color: #0e185f;
+  color: ${primaryColor};
   :hover {
     text-decoration: underline;
   }

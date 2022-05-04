@@ -40,6 +40,7 @@ const Container = styled.section`
   display: flex;
   justify-content: center;
   width: 100%;
+  background-color: #ffffff78;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   margin-bottom: 80px;
 `;

@@ -15,3 +15,7 @@ export const tablet = (props) => {
         }
     `
 }
+
+export const primaryColor = css`
+ ${props => props.theme.colors.primary};
+`

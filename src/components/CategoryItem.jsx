@@ -1,9 +1,17 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setActiveTab } from "../redux/navSlice";
 
 const CategoryItem = ({ item }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(setActiveTab(item.tab));
+    navigate(`/products/${item.category}`);
+  };
 
   return (
     <Container item={item}>
@@ -12,13 +20,7 @@ const CategoryItem = ({ item }) => {
         <span>2022 Collection</span>
         <h3 className="itemTitle">{item.title}</h3>
         <button
-          onClick={() =>
-            navigate(`/products/${item.category}`, {
-              state: {
-                categoryName: item.title,
-              },
-            })
-          }
+          onClick={handleClick}
         >
           SHOP NOW
         </button>
@@ -33,12 +35,12 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  background-color: white;
+  background-color: ${(props) => props.theme.colors.extra};
   position: relative;
   cursor: pointer;
   height: 500px;
   width: 300px;
-  margin: 3px;
+  margin: 5px;
   .itemImg {
     width: 100%;
     height: 100%;
@@ -57,7 +59,7 @@ const ItemInfo = styled.div`
   align-items: center;
   flex-direction: column;
   .itemTitle {
-    font-size: 32px;
+    font-size: 36px;
     font-weight: 600;
     margin-bottom: 10px;
   }
@@ -67,12 +69,14 @@ const ItemInfo = styled.div`
   button {
     background-color: #bd9a58;
     color: white;
-    padding: 8px 12px;
+    padding: 9px 16px;
     width: 200px;
+    font-size: 15px;
     cursor: pointer;
+    font-weight: 500;
     transition: filter 0.167s ease-in-out;
     :hover {
-    filter: brightness(90%);
-  }
+      filter: brightness(90%);
+    }
   }
 `;

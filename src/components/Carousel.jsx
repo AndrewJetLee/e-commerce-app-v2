@@ -2,17 +2,20 @@ import styled from "styled-components";
 import { ArrowRight, ArrowLeft } from "@mui/icons-material/";
 import { carouselItems } from "../dummyData.js";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setActiveTab } from "../redux/navSlice";
 
 const Carousel = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [slideIndex, setSlideIndex] = useState(0);
 
   const handleClick = (direction) => {
     if (direction === "left") {
       if (slideIndex > 0) {
-        setSlideIndex(slideIndex - 1)
-      } 
+        setSlideIndex(slideIndex - 1);
+      }
       if (slideIndex === 0) {
         setSlideIndex(2);
       }
@@ -25,21 +28,13 @@ const Carousel = () => {
       if (slideIndex < 2) {
         setSlideIndex(slideIndex + 1);
       }
-      
-    } 
+    }
   };
 
-  const handleClickShop = (id) => {
-    if (id === 1) {
-      navigate("/products/streetwear")
-    }
-    if (id === 2) {
-      navigate("/products/womens")
-    }
-    if (id === 3) {
-      navigate("/products/accessories")
-    }
-  }
+  const handleClickShop = (id, tab) => {
+    dispatch(setActiveTab(tab));
+    navigate(`/products/${id}`);
+  };
 
   return (
     <Container>
@@ -56,7 +51,11 @@ const Carousel = () => {
               <SlideInfoCollection>2022 NEW COLLECTION</SlideInfoCollection>
               <SlideInfoTitle>{item.title}</SlideInfoTitle>
               <SlideInfoDescription>{item.desc}</SlideInfoDescription>
-              <SlideInfoButton onClick={() => handleClickShop(item.id)}>Shop Now</SlideInfoButton>
+              <SlideInfoButton
+                onClick={() => handleClickShop(item.category, item.tab)}
+              >
+                Shop Now
+              </SlideInfoButton>
             </SlideInfoContainer>
           </Slide>
         ))}
@@ -74,7 +73,7 @@ const Container = styled.div`
   height: 81vh;
   position: relative;
   overflow: hidden;
-  background-color: #F4F4F4;
+  background-color: #f4f4f4;
 `;
 
 const Arrow = styled.div`
@@ -99,9 +98,9 @@ const Arrow = styled.div`
 const Slides = styled.div`
   height: 100%;
   display: flex;
-  transform: translateX(${({slideIndex}) => slideIndex * -100}vw);
+  transform: translateX(${({ slideIndex }) => slideIndex * -100}vw);
   transition-property: transform;
-  transition-duration: .5s; 
+  transition-duration: 0.5s;
   transition-timing-function: ease-in-out;
 `;
 
@@ -111,7 +110,7 @@ const Slide = styled.div`
   display: flex;
   flex: 1;
   position: relative;
-  background-color: #F4F4F4;
+  background-color: #f4f4f4;
 `;
 
 const SlideImageContainer = styled.div`
@@ -142,29 +141,33 @@ const SlideInfoTitle = styled.h1`
   font-weight: 600;
   width: 80%;
   line-height: 1.1;
-  color: ${props => props.theme.colors.fc};
+  color: ${(props) => props.theme.colors.fc};
 `;
 
 const SlideInfoDescription = styled.span`
   font-size: 16px;
   line-height: 1.5;
   margin-bottom: 30px;
-  color: ${props => props.theme.colors.fclight};
+  color: ${(props) => props.theme.colors.fclight};
 `;
 
 const SlideInfoCollection = styled.span`
   font-size: 16px;
-  color: ${props => props.theme.colors.fclight};
-`
+  color: ${(props) => props.theme.colors.fclight};
+`;
 
 const SlideInfoButton = styled.button`
   height: 40px;
   width: 200px;
-  background-color:  ${props => props.theme.colors.fc};
+  background-color: ${(props) => props.theme.colors.fc};
   color: white;
   border-radius: 20px;
   font-size: 18px;
   font-weight: 500;
-  text-transform: uppercase; 
-  cursor: pointer; 
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.167s ease-in-out;
+  :hover {
+    transform: scale(1.1);
+  }
 `;

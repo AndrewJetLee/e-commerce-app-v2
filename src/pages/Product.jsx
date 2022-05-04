@@ -85,8 +85,7 @@ const Product = () => {
 
   return (
     <>
-      <Navbar />
-      <Announcement />
+      <Navbar hidden="true"/>
       <Container>
         {!user.currentUser ? (
           <Alert

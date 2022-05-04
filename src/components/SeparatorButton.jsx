@@ -1,10 +1,18 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const SeparatorButton = ({ categoryId }) => {
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/products/${categoryId}`)
+  };
+
   return (
     <Container>
-      <Button>VIEW ALL</Button>
+      <Button onClick={handleClick}>VIEW ALL</Button>
     </Container>
   );
 };
@@ -21,7 +29,8 @@ const Button = styled.button`
   width: 200px;
   background-color: black;
   color: white;
-  margin: 100px 0;
+  margin-top: 30px;
+  margin-bottom: 50px;
   border-radius: 1px;
   cursor: pointer;
   transition: transform 0.167s ease-in-out;

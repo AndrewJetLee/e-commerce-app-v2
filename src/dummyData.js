@@ -3,23 +3,26 @@ export const carouselItems = [
     id: 1,
     img: "/images/slide-image-1.png",
     title: "Biggest Deals!",
-    desc: "Get up to 80% off",
-    category: "28235"
+    desc: "Get up to 80% off!",
+    category: "28254",
+    tab: "sale"
   },
   {
     id: 2,
     img: "/images/slide-image-2.png",
     title: "Men's Collection",
-    desc: "Kings get 30% off",
-    category: "27110"
+    desc: "Kings get 30% off!",
+    category: "27110",
+    tab: "mens"
   },
 
   {
     id: 3,
     img: "/images/slide-image-3.png",
     title: "Women's Collection",
-    desc: "Add more flair to your outfit",
-    category: "13500"
+    desc: "Add more flair to your outfit!",
+    category: "27108",
+    tab: "womens"
   },
 ];
 
@@ -29,18 +32,21 @@ export const CategoriesItemsRowOne = [
     img: "/images/categories-new.jpg",
     title: "TRENDING NOW",
     category: "13500",
+    tab: "trending"
   },
   {
     id: 2,
     img: "/images/categories-mens.jpg",
     title: "MEN'S COLLECTION",
     category: "27110",
+    tab: "mens"
   },
   {
     id: 3,
     img: "/images/categories-womens.jpg",
     title: "WOMEN'S COLLECTION",
     category: "27108",
+    tab: "womens"
   },
 ];
 
@@ -50,12 +56,14 @@ export const CategoriesItemsRowTwo = [
     img: "/images/categories-activewear.jpg",
     title: "ACTIVEWEAR",
     category: "26090",
+    tab: "active"
   },
   {
     id: 5,
     img: "/images/categories-accessories.jpg",
     title: "ACCESSORIES",
     category: "50062",
+    tab: "accessories"
   },
 ];
 
@@ -67,12 +75,68 @@ export const SeparatorItems = [
   },
   {
     id: 2,
-    title: "Featured Products",
+    title: "Biggest Deals",
     desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
   {
     id: 3,
+    title: "Latest Blogs",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  },
+  {
+    id: 4,
     title: "Newsletter",
     desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  },
+];
+
+export const BlogItems = [
+  {
+    id: 1,
+    title: "This product can be worn for any occasion!",
+    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+    author: "Admin",
+    image: "/images/blog-image-1.jpg",
+    comments: 4,
+  },
+  {
+    id: 2,
+    title: "This product can be worn for any occasion!",
+    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+    author: "Admin",
+    image: "/images/blog-image-3.jpg",
+    comments: 8,
+  },
+  {
+    id: 3,
+    title: "This product can be worn for any occasion!",
+    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+    author: "Admin",
+    image: "/images/blog-image-2.jpg",
+    comments: 2,
+  },
+  {
+    id: 4,
+    title: "This product can be worn for any occasion!",
+    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+    author: "Admin",
+    image: "/images/blog-image-1.jpg",
+    comments: 4,
+  },
+  {
+    id: 5,
+    title: "This product can be worn for any occasion!",
+    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+    author: "Admin",
+    image: "/images/blog-image-3.jpg",
+    comments: 8,
+  },
+  {
+    id: 6,
+    title: "This product can be worn for any occasion!",
+    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+    author: "Admin",
+    image: "/images/blog-image-2.jpg",
+    comments: 2,
   },
 ];

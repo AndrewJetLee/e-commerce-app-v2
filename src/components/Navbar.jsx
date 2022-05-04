@@ -16,7 +16,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PersonIcon from "@mui/icons-material/Person";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
-const Navbar = () => {
+const Navbar = ({ hidden }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cartQuantity = useSelector((state) => state.cart.quantity);
@@ -38,14 +38,15 @@ const Navbar = () => {
 
   const handleClickTab = (e) => {
     dispatch(setActiveTab(e.target.getAttribute("name")));
-    const tab = e.target.getAttribute("name"); 
-    if (tab === "home") navigate("/"); 
-    if (tab === "new") navigate("/products/13500"); 
-    if (tab === "sale") navigate("/products/28235"); 
-    if (tab === "mens") navigate("/products/27110"); 
-    if (tab === "womens") navigate("/products/27108"); 
-    if (tab === "blogs") navigate("/products/13500"); 
-    if (tab === "contact") navigate("/products/13500"); 
+    const tab = e.target.getAttribute("name");
+    if (tab === "home") navigate("/");
+    if (tab === "trending") navigate("/products/13500");
+    if (tab === "sale") navigate("/products/28254");
+    if (tab === "mens") navigate("/products/27110");
+    if (tab === "womens") navigate("/products/27108");
+    if (tab === "active") navigate("/products/26090");
+    if (tab === "accessories") navigate("/products/50062");
+    // if (tab === "contact") https://www.linkedin.com/in/andrewjetlee/;
   };
 
   return (
@@ -109,33 +110,39 @@ const Navbar = () => {
             </Cart>
           </Right>
         </Middle>
+
         <Bottom>
-          <Tabs onClick={handleClickTab}>
-            <Tab activeTab={activeTab} name="home">
-              HOME
-            </Tab>
-            <Tab activeTab={activeTab} name="about">
-              ABOUT US
-            </Tab>
-            <Tab activeTab={activeTab} name="new">
-              NEW COLLECTION
-            </Tab>
-            <Tab activeTab={activeTab} name="sale">
-              SALE
-            </Tab>
-            <Tab activeTab={activeTab} name="mens">
-              MENSWEAR
-            </Tab>
-            <Tab activeTab={activeTab} name="womens">
-              WOMENSWEAR
-            </Tab>
-            <Tab activeTab={activeTab} name="blogs">
-              LATEST BLOGS
-            </Tab>
-            <Tab activeTab={activeTab} name="contact">
-              CONTACT US
-            </Tab>
-          </Tabs>
+          {!hidden && (
+            <Tabs onClick={handleClickTab}>
+              <Tab activeTab={activeTab} name="home">
+                HOME
+              </Tab>
+              <Tab activeTab={activeTab} name="about">
+                ABOUT US
+              </Tab>
+              <Tab activeTab={activeTab} name="trending">
+                TRENDING NOW
+              </Tab>
+              <Tab activeTab={activeTab} name="sale">
+                SALE
+              </Tab>
+              <Tab activeTab={activeTab} name="mens">
+                MENSWEAR
+              </Tab>
+              <Tab activeTab={activeTab} name="womens">
+                WOMENSWEAR
+              </Tab>
+              <Tab activeTab={activeTab} name="active">
+                ACTIVEWEAR
+              </Tab>
+              <Tab activeTab={activeTab} name="accessories">
+                ACCESSORIES
+              </Tab>
+              <Tab activeTab={activeTab} name="contact">
+                CONTACT US
+              </Tab>
+            </Tabs>
+          )}
         </Bottom>
       </Content>
     </Container>
@@ -148,6 +155,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   ${mobile({ height: "50px" })};
+  background-color: white;
 `;
 
 const Content = styled.main`
