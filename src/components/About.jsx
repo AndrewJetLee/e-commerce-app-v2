@@ -47,8 +47,7 @@ const Content = styled.div`
 const Title = styled.h1`
   flex: 1;
   font-weight: 600;
-  margin-right: 30px;
-  font-size: 64px; 
+  font-size: 64px;  
   ${mobile({
     flex: "column",
     marginBottom: "20px",

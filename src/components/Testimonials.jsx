@@ -3,6 +3,7 @@ import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react/swiper-react";
 import { primaryColor } from "../responsive";
 import SeparatorButton from "./SeparatorButton";
+import { TestimonialItems } from "../dummyData";
 
 import "swiper/swiper.min.css";
 import "swiper/modules/navigation/navigation.min.css";
@@ -20,25 +21,20 @@ const Testimonials = () => {
         modules={[Navigation]}
         className="mySwiper"
       >
-        <SwiperSlide>
-          <Testimonial>
-            <Wrapper>
-              <CustomerImage src="/images/testimonial-image-3.jpg"/>
-              <CustomerName>JOHN DOE</CustomerName>
-              <CustomerTitle>Lorem ipsum</CustomerTitle>
-              <CustomerReview>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </CustomerReview>
-            </Wrapper>
-          </Testimonial>
-        </SwiperSlide>
-        
+        {TestimonialItems.map((item, i) => (
+          <SwiperSlide>
+            <Testimonial>
+              <Wrapper>
+                <CustomerImage src={item.image} />
+                <CustomerName>{item.name}</CustomerName>
+                <CustomerTitle>{item.title}</CustomerTitle>
+                <CustomerReview>
+                  {item.review}
+                </CustomerReview>
+              </Wrapper>
+            </Testimonial>
+          </SwiperSlide>
+        ))}
       </Swiper>
       <SeparatorButton></SeparatorButton>
     </Container>
@@ -77,7 +73,7 @@ export const SectionTitle = styled.h1`
   font-size: 40px;
   font-weight: 500;
   text-align: center;
-  background-color: ${props => props.bg && props.bg};
+  background-color: ${(props) => props.bg && props.bg};
 `;
 
 const Testimonial = styled.div`
@@ -90,7 +86,7 @@ const Testimonial = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width:900px;
+  width: 900px;
   height: 350px;
   border: 1px solid lightgray;
   background-color: white;

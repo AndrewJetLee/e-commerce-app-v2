@@ -156,7 +156,7 @@ const DiscountBadge = styled.span`
   top: 10px;
   left: 10px;
   font-size: 12px;
-  background-color: ${(props) => props.theme.colors.primary};
+  background-color: ${(props) => props.theme.colors.primaryO};
   padding: 2px 5px;
   color: white;
 `;

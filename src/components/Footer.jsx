@@ -43,7 +43,7 @@ const Footer = () => {
       </Top>
       <Bottom>
         <Left>
-          <Logo src="logo.png"/>
+          <Logo src="/logo.png"/>
           <Description>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry lorem Ipsum is simply dummy text of industry lorem ipsum is
@@ -54,11 +54,11 @@ const Footer = () => {
           <Column>
             <Title>CATEGORIES</Title>
             <Links>
-              <Link onClick={() => navigate("/products/new")}>New</Link>
-              <Link onClick={() => navigate("/products/mens")}>Mens</Link>
-              <Link onClick={() => navigate("/products/womens")}>Womens</Link>
-              <Link onClick={() => navigate("/products/streetwear")}>Streetwear</Link>
-              <Link onClick={() => navigate("/products/accessories")}>Accessories</Link>
+              <Link onClick={() => navigate("/products/13500")}>Trending</Link>
+              <Link onClick={() => navigate("/products/27110")}>Mens</Link>
+              <Link onClick={() => navigate("/products/27108")}>Womens</Link>
+              <Link onClick={() => navigate("/products/26090")}>Activewear</Link>
+              <Link onClick={() => navigate("/products/50062")}>Accessories</Link>
             </Links>
           </Column>
           <Column>

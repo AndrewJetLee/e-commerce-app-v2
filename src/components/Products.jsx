@@ -3,7 +3,7 @@ import Product from "./Product";
 import { SectionTitle } from "../components/Testimonials";
 import { mobile, tablet } from "../responsive";
 import { useState, useEffect } from "react";
-import { publicRequest, asosRequest } from "../requestMethods";
+import { asosRequest } from "../requestMethods";
 import { Skeleton } from "@mui/material";
 
 const Products = ({ query, categoryId, setCategoryId, filter, sortRef, sort, type }) => {
@@ -153,7 +153,7 @@ const Products = ({ query, categoryId, setCategoryId, filter, sortRef, sort, typ
         { type === "home" && <SectionTitle>FEATURED PRODUCTS</SectionTitle>}
         <Wrapper>
           {loading &&
-            Array(20)
+            Array(12)
               .fill("")
               .map((item, i) => (
                 <Skeleton
@@ -192,7 +192,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: ${ props => props.type === "home" && "#F4F4F4"}
+  background-color: ${ props => props.type === "home" && "#F4F4F4"};
 `;
 
 const Wrapper = styled.div`

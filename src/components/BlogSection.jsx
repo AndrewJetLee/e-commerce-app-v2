@@ -39,7 +39,7 @@ const BlogSection = () => {
                 </Author>
                 <Comments>
                   <ChatOutlinedIcon className="comment icon" />
-                  {item.comments}
+                  {item.comments} Comments
                 </Comments>
               </Middle>
               <Bottom>
@@ -100,7 +100,7 @@ const BlogImage = styled.img`
 const Middle = styled.div`
   display: flex;
   border-bottom: 1px solid lightgray;
-  font-size: 18px;
+  font-size: 16px;
   align-items: center;
   height: 45px;
   .icon {
@@ -114,6 +114,7 @@ const Author = styled.div`
   display: flex;
   margin-right: 20px;
   margin-left: 15px;
+  align-items: center;
 `;
 
 const Comments = styled(Author)``;
