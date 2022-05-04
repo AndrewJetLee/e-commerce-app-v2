@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import CartItem from "../components/CartItem";
@@ -75,8 +74,7 @@ const Cart = () => {
 
   return (
     <>
-      <Navbar />
-      <Announcement />
+      <Navbar hidden="true"/>
       <Container>
         <Alert type="success" message="Successfully updated cart!" status={alertStatus}></Alert>
         {!cart.products.length ? (
