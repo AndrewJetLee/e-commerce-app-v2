@@ -1,9 +1,17 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setActiveTab } from "../redux/navSlice";
 
 const CategoryItem = ({ item }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(setActiveTab(item.tab));
+    navigate(`/products/${item.category}`);
+  };
 
   return (
     <Container item={item}>
@@ -12,13 +20,7 @@ const CategoryItem = ({ item }) => {
         <span>2022 Collection</span>
         <h3 className="itemTitle">{item.title}</h3>
         <button
-          onClick={() =>
-            navigate(`/products/${item.category}`, {
-              state: {
-                categoryName: item.title,
-              },
-            })
-          }
+          onClick={handleClick}
         >
           SHOP NOW
         </button>
@@ -33,7 +35,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  background-color: ${props => props.theme.colors.extra};
+  background-color: ${(props) => props.theme.colors.extra};
   position: relative;
   cursor: pointer;
   height: 500px;
@@ -74,7 +76,7 @@ const ItemInfo = styled.div`
     font-weight: 500;
     transition: filter 0.167s ease-in-out;
     :hover {
-    filter: brightness(90%);
-  }
+      filter: brightness(90%);
+    }
   }
 `;

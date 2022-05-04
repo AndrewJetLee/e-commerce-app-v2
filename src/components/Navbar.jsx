@@ -40,11 +40,12 @@ const Navbar = ({ hidden }) => {
     dispatch(setActiveTab(e.target.getAttribute("name")));
     const tab = e.target.getAttribute("name");
     if (tab === "home") navigate("/");
-    if (tab === "new") navigate("/products/13500");
-    if (tab === "sale") navigate("/products/28235");
+    if (tab === "trending") navigate("/products/13500");
+    if (tab === "sale") navigate("/products/28254");
     if (tab === "mens") navigate("/products/27110");
     if (tab === "womens") navigate("/products/27108");
-    if (tab === "blogs") navigate("/products/13500");
+    if (tab === "active") navigate("/products/26090");
+    if (tab === "accessories") navigate("/products/50062");
     // if (tab === "contact") https://www.linkedin.com/in/andrewjetlee/;
   };
 
@@ -119,8 +120,8 @@ const Navbar = ({ hidden }) => {
               <Tab activeTab={activeTab} name="about">
                 ABOUT US
               </Tab>
-              <Tab activeTab={activeTab} name="new">
-                NEW COLLECTION
+              <Tab activeTab={activeTab} name="trending">
+                TRENDING NOW
               </Tab>
               <Tab activeTab={activeTab} name="sale">
                 SALE
@@ -131,8 +132,11 @@ const Navbar = ({ hidden }) => {
               <Tab activeTab={activeTab} name="womens">
                 WOMENSWEAR
               </Tab>
-              <Tab activeTab={activeTab} name="blogs">
-                LATEST BLOGS
+              <Tab activeTab={activeTab} name="active">
+                ACTIVEWEAR
+              </Tab>
+              <Tab activeTab={activeTab} name="accessories">
+                ACCESSORIES
               </Tab>
               <Tab activeTab={activeTab} name="contact">
                 CONTACT US
