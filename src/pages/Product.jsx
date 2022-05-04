@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { Remove, Add } from "@mui/icons-material/";
+import { getDiscountPercentage } from "../utility/helpers";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { Price, RrpPrice, SalePrice} from "../components/Product";
 import { useParams } from "react-router-dom";
 import { publicRequest, asosRequest } from "../requestMethods";
 import { addToCart } from "../redux/apiCalls";
@@ -72,19 +74,19 @@ const Product = () => {
       title: product.name,
     };
     addToCart(dispatch, payload, user.currentUser.accessToken);
-    handleAlert()
+    handleAlert();
   };
 
   const handleAlert = () => {
     setAlertStatus(true);
     setTimeout(() => {
       setAlertStatus(false);
-    }, 3000)
-  }
+    }, 3000);
+  };
 
   return (
     <>
-      <Navbar hidden="true"/>
+      <Navbar hidden="true" />
       <Container>
         {!user.currentUser ? (
           <Alert
@@ -119,7 +121,19 @@ const Product = () => {
             <Right>
               <Info>
                 <ProductName>{product.name}</ProductName>
-                <ProductPrice>{product.price?.current.text}</ProductPrice>
+                {product.price?.isMarkedDown && product.price.rrp.text ? (
+                  <ProductPrice>
+                    <RrpPrice>{product.price?.rrp.text}</RrpPrice>
+                    <SalePrice>{product.price?.current.text}</SalePrice>
+                  </ProductPrice>
+                ) : product.price?.isMarkedDown && product.price.previous.text ? (
+                  <ProductPrice>
+                    <RrpPrice>{product.price?.previous.text}</RrpPrice>
+                    <SalePrice>{product.price?.current.text}</SalePrice>
+                  </ProductPrice>
+                ) : (
+                  <ProductPrice>{product.price?.current.text}</ProductPrice>
+                )}
               </Info>
               <Description>
                 <p>
@@ -186,7 +200,7 @@ const Product = () => {
                   <FavoriteButton>
                     <FavoriteIcon
                       className="favorite icon"
-                      sx={{ "&:hover": { fill: "#757575" } }}
+                      sx={{ "&:hover": { fill: "black" } }}
                     />
                   </FavoriteButton>
                 </SelectionBottom>
@@ -331,7 +345,7 @@ const Info = styled.div`
 `;
 
 const ProductName = styled.span`
-  font-size: 16px;
+  font-size: 20px;
   padding: 4px 0;
   font-weight: 500;
 `;
@@ -340,6 +354,7 @@ const ProductPrice = styled.span`
   font-size: 18px;
   font-weight: 600;
   color: #636262;
+  display: flex; 
 `;
 
 const Description = styled.div`
@@ -441,7 +456,7 @@ const RemoveWrapper = styled(AddWrapper)`
 `;
 
 const AddToCart = styled.button`
-  background-color: #757575;
+  background-color: black;
   color: white;
   font-weight: 500;
   font-size: 16px;
@@ -450,9 +465,9 @@ const AddToCart = styled.button`
   width: 60%;
   text-align: center;
   cursor: pointer;
-  transition: filter 0.2s ease-in-out;
+  transition: opacity 0.167s ease-in-out;
   :hover {
-    filter: brightness(80%);
+    opacity: 0.8;
   }
 `;
 
@@ -466,7 +481,7 @@ const FavoriteButton = styled.button`
   cursor: pointer;
   .favorite {
     fill: #eee;
-    stroke: #757575;
+    stroke: black;
     font-weight: 600;
     stroke-width: 2;
   }

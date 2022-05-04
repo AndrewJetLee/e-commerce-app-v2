@@ -1,12 +1,9 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { getDiscountPercentage } from "../utility/helpers";
 
 const Product = ({ item }) => {
   const navigate = useNavigate();
-
-  const getDiscountPercentage = (previousPrice, currentPrice) => {
-    return Math.floor((100 * (previousPrice - currentPrice)) / previousPrice);
-  };
 
   return (
     <Container>
@@ -134,19 +131,19 @@ const Title = styled.span`
   height: 100%;
 `;
 
-const Price = styled.div`
+export const Price = styled.div`
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 10px;
 `;
 
-const RrpPrice = styled.span`
+export const RrpPrice = styled.span`
   text-decoration: line-through;
   margin-right: 5px;
   font-weight: 500;
 `;
 
-const SalePrice = styled.span`
+export const SalePrice = styled.span`
   color: ${(props) => props.theme.colors.primary};
   font-weight: 600;
 `;
