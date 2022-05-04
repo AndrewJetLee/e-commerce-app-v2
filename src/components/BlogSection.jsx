@@ -3,6 +3,8 @@ import { BlogItems } from "../dummyData";
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react/swiper-react";
 import { primaryColor } from "../responsive";
+import { SectionTitle } from "./Testimonials";
+import SeparatorButton from "./SeparatorButton";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
@@ -13,6 +15,7 @@ import "swiper/modules/navigation/navigation.min.css";
 const BlogSection = () => {
   return (
     <Container>
+      <SectionTitle>LATEST BLOGS</SectionTitle>
       <Swiper
         slidesPerView={3}
         slidesPerGroup={3}
@@ -50,6 +53,7 @@ const BlogSection = () => {
           </SwiperSlide>
         ))}
       </Swiper>
+      <SeparatorButton />
     </Container>
   );
 };
@@ -60,6 +64,8 @@ const Container = styled.section`
   display: flex;
   justify-content: center;
   background-color: white;
+  flex-direction: column;
+  align-items: center;
   .mySwiper {
     display: flex;
     width: 85%;
@@ -74,6 +80,7 @@ const Container = styled.section`
     }
   }
 `;
+
 
 const BlogItem = styled.div`
   flex: 1;

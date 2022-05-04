@@ -33,12 +33,12 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  background-color: white;
+  background-color: ${props => props.theme.colors.extra};
   position: relative;
   cursor: pointer;
   height: 500px;
   width: 300px;
-  margin: 3px;
+  margin: 5px;
   .itemImg {
     width: 100%;
     height: 100%;

@@ -29,6 +29,7 @@ const Container = styled.div`
   justify-content: center;
   width: 100%;
   margin-bottom: 40px;
+  background-color: ${(props) => props.theme.colors.extra};
 `;
 const Content = styled.div`
   width: 85%;
@@ -37,11 +38,9 @@ const Content = styled.div`
 const Items = styled.div`
   width: 100%;
   display: flex;
-  background-color: white;
   flex-wrap: wrap;
   justify-content: center;
   margin-left: 20px;
   margin-right: 20px;
   ${mobile({ flexDirection: "column", marginTop: 0 })};
 `;
-

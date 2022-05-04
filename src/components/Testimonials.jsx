@@ -10,7 +10,7 @@ import "swiper/modules/navigation/navigation.min.css";
 const Testimonials = () => {
   return (
     <Container>
-      <Title>CUSTOMER TESTIMONIALS</Title>
+      <SectionTitle>CUSTOMER TESTIMONIALS</SectionTitle>
       <Swiper
         slidesPerView={1}
         slidesPerGroup={1}
@@ -71,7 +71,7 @@ const Container = styled.section`
   }
 `;
 
-export const Title = styled.h1`
+export const SectionTitle = styled.h1`
   padding-top: 40px;
   padding-bottom: 40px;
   font-size: 40px;

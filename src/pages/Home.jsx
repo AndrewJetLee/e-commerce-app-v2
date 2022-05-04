@@ -6,11 +6,9 @@ import About from "../components/About";
 import Footer from "../components/Footer";
 import Features from "../components/Features";
 import Navbar from "../components/Navbar";
-import Separator from "../components/Separator";
 import SeparatorButton from "../components/SeparatorButton";
 import BlogSection from "../components/BlogSection";
-import Testimonials, { Title } from "../components/Testimonials";
-import { SeparatorItems } from "../dummyData";
+import Testimonials from "../components/Testimonials";
 import { useSelector, useDispatch } from "react-redux";
 import { setActiveTab } from "../redux/navSlice";
 
@@ -26,12 +24,9 @@ const Home = () => {
       <Carousel />
       <Features />
       <Categories />
-      <Title  bg="#F4F4F4">FEATURED PRODUCTS</Title>
       <Products type="home"/>
       <SeparatorButton categoryId="28235" />
-      <Title>LATEST BLOGS</Title>
       <BlogSection />
-      <SeparatorButton />
       <Testimonials />
       <About />
       <Footer />
