@@ -11,7 +11,7 @@ export const carouselItems = [
     id: 2,
     img: "/images/slide-image-2.png",
     title: "Men's Collection",
-    desc: "Kings get 30% off!",
+    desc: "From sharp office shirts and suits to tees and tanks!",
     category: "27110",
     tab: "mens"
   },

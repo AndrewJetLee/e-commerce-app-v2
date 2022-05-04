@@ -400,6 +400,7 @@ const SizeSelect = styled.select`
   font-size: 14px;
   padding: 4px;
   margin-top: 5px;
+  border: 1px solid #636262;
 `;
 
 const SizeGuide = styled.a`
@@ -416,7 +417,7 @@ const SelectionBottom = styled.div`
 const Quantity = styled.div`
   display: flex;
   align-items: center;
-  border: 1px solid lightgrey;
+  border: 1px solid #636262;
   margin-right: 20px;
 `;
 
@@ -440,7 +441,7 @@ const AddRemoveWrapper = styled.div`
 `;
 
 const AddWrapper = styled.div`
-  border: 1px solid lightgrey;
+  border: 1px solid #636262;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -451,7 +452,7 @@ const AddWrapper = styled.div`
 `;
 
 const RemoveWrapper = styled(AddWrapper)`
-  border-left: 1px solid lightgrey;
+  border-left: 1px solid #636262;
   border-bottom: none;
 `;
 
