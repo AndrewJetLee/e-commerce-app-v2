@@ -29,7 +29,8 @@ const Button = styled.button`
   width: 200px;
   background-color: black;
   color: white;
-  margin: 50px 0;
+  margin-top: 30px;
+  margin-bottom: 50px;
   border-radius: 1px;
   cursor: pointer;
   transition: transform 0.167s ease-in-out;

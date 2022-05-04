@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react/swiper-react";
 import { primaryColor } from "../responsive";
+import SeparatorButton from "./SeparatorButton";
 
 import "swiper/swiper.min.css";
 import "swiper/modules/navigation/navigation.min.css";
@@ -22,7 +23,7 @@ const Testimonials = () => {
         <SwiperSlide>
           <Testimonial>
             <Wrapper>
-              <CustomerImage />
+              <CustomerImage src="/images/testimonial-image-3.jpg"/>
               <CustomerName>JOHN DOE</CustomerName>
               <CustomerTitle>Lorem ipsum</CustomerTitle>
               <CustomerReview>
@@ -37,7 +38,9 @@ const Testimonials = () => {
             </Wrapper>
           </Testimonial>
         </SwiperSlide>
+        
       </Swiper>
+      <SeparatorButton></SeparatorButton>
     </Container>
   );
 };
@@ -45,7 +48,7 @@ const Testimonials = () => {
 export default Testimonials;
 
 const Container = styled.section`
-  height: 80vh;
+  padding-top: 40px;
   width: 100%;
   background-color: #f4f4f4;
   display: flex;
@@ -56,11 +59,22 @@ const Container = styled.section`
     display: flex;
     width: 85%;
     justify-content: center;
+    .swiper-button-prev {
+      color: ${primaryColor};
+      opacity: 0.8;
+    }
+
+    .swiper-button-next {
+      color: ${primaryColor};
+      opacity: 0.8;
+    }
   }
 `;
 
-const Title = styled.h1`
-  margin-bottom: 80px;
+export const Title = styled.h1`
+  margin-bottom: 40px;
+  font-size: 40px;
+  font-weight: 500;
 `;
 
 const Testimonial = styled.div`
@@ -87,6 +101,7 @@ const CustomerImage = styled.img`
   width: 130px;
   height: 130px;
   position: absolute;
+  border: 1px solid #f4f4f4;
   top: 10px;
   border-radius: 50%;
 `;
