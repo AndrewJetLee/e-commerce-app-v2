@@ -2,9 +2,11 @@ import styled from "styled-components";
 import Product from "./Product";
 import { SectionTitle } from "../components/Testimonials";
 import { mobile, tablet } from "../responsive";
+import { primaryColor } from "../responsive";
 import { useState, useEffect } from "react";
 import { asosRequest } from "../requestMethods";
 import { Skeleton } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Products = ({
   query,
@@ -18,6 +20,7 @@ const Products = ({
   const [products, setProducts] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [loading, toggleLoading] = useState(false);
+  const [loadMore, toggleLoadMore] = useState(false);
   const [title, setTitle] = useState("");
   const [offset, setOffset] = useState(0);
   const [hasNextPage, setHasNextPage] = useState(false);
@@ -141,13 +144,19 @@ const Products = ({
 
   useEffect(() => {
     const handleLoadMore = async () => {
-      const res = await asosRequest.get(
-        `${baseUrl}&categoryId=${categoryId}${query ? `&q=${query}` : ""}${
-          sort ? `&sort=${sort}` : ""
-        }`
-      );
-      setFiltered([...filtered, ...res.data.products]);
-      setProducts([...products, res.data.products]);
+      try {
+        toggleLoadMore(true);
+        const res = await asosRequest.get(
+          `${baseUrl}&categoryId=${categoryId}${query ? `&q=${query}` : ""}${
+            sort ? `&sort=${sort}` : ""
+          }`
+        );
+        setFiltered([...filtered, ...res.data.products]);
+        setProducts([...products, res.data.products]);
+        toggleLoadMore(false);
+      } catch (err) {
+        console.log(err);
+      }
     };
     type !== "home" && handleLoadMore();
   }, [offset]);
@@ -189,7 +198,7 @@ const Products = ({
         </Wrapper>
         {type !== "home" && hasNextPage && (
           <LoadWrapper onClick={() => setOffset(offset + 45)}>
-            <LoadMore>LOAD MORE</LoadMore>
+            {loadMore ? <CircularProgress color="inherit"/> : <LoadMore>LOAD MORE</LoadMore>}
           </LoadWrapper>
         )}
       </Container>
@@ -237,6 +246,7 @@ const LoadWrapper = styled.div`
   width: 100%;
   justify-content: center;
   margin-top: 30px;
+  color: ${primaryColor};
 `;
 
 const LoadMore = styled.button`
@@ -247,8 +257,9 @@ const LoadMore = styled.button`
   font-size: 16px;
   margin-bottom: 32px;
   cursor: pointer;
-  transition: filter 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   :hover {
-    filter: brightness(80%);
+    color: white;
+    background-color: black;
   }
 `;
