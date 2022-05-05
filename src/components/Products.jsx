@@ -6,7 +6,15 @@ import { useState, useEffect } from "react";
 import { asosRequest } from "../requestMethods";
 import { Skeleton } from "@mui/material";
 
-const Products = ({ query, categoryId, setCategoryId, filter, sortRef, sort, type }) => {
+const Products = ({
+  query,
+  categoryId,
+  setCategoryId,
+  filter,
+  sortRef,
+  sort,
+  type,
+}) => {
   const [products, setProducts] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [loading, toggleLoading] = useState(false);
@@ -146,11 +154,16 @@ const Products = ({ query, categoryId, setCategoryId, filter, sortRef, sort, typ
 
   return (
     <>
-      {type !== "home" && (
+      {loading && (
+        <Title>
+          <Skeleton variant="rectangular" width={250} height={40} />
+        </Title>
+      )}
+      {type !== "home" && !loading && (
         <Title> {categoryId ? title : `Showing results for: ${query}`}</Title>
       )}
       <Container type={type}>
-        { type === "home" && <SectionTitle>FEATURED PRODUCTS</SectionTitle>}
+        {type === "home" && <SectionTitle>FEATURED PRODUCTS</SectionTitle>}
         <Wrapper>
           {loading &&
             Array(12)
@@ -192,7 +205,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: ${ props => props.type === "home" && "#F4F4F4"};
+  background-color: ${(props) => props.type === "home" && "#F4F4F4"};
 `;
 
 const Wrapper = styled.div`
@@ -209,6 +222,8 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.h1`
+  display: flex;
+  justify-content: center;
   position: relative;
   top: -150px;
   padding-bottom: 15px;

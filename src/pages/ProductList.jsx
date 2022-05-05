@@ -6,8 +6,11 @@ import { mobile } from "../responsive";
 import { asosRequest } from "../requestMethods";
 import { useParams, useSearchParams, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { setActiveTab } from "../redux/navSlice";
 
 const ProductList = () => {
+  const dispatch = useDispatch();
   const { category } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const q = searchParams.get("q");
@@ -26,6 +29,11 @@ const ProductList = () => {
       ...filter,
       [e.target.name]: value,
     });
+    value === "28254" && dispatch(setActiveTab("sale"));
+    value === "26090" && dispatch(setActiveTab("active"));
+    value === "50062" && dispatch(setActiveTab("accessories"));
+    value === "27110" && dispatch(setActiveTab("mens"));
+    value === "27108" && dispatch(setActiveTab("womens"));
   };
 
   const handleSort = (e) => {
@@ -55,7 +63,7 @@ const ProductList = () => {
                 <option hidden defaultValue>
                   Category
                 </option>
-                <option value="50060">Best Sellers</option>
+                <option value="28254">Sale</option>
                 <option value="26090">Activewear</option>
                 <option value="50062">Accessories</option>
                 <option value="27110">Men's Collection</option>
