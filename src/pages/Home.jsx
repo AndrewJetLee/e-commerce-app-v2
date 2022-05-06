@@ -11,6 +11,7 @@ import BlogSection from "../components/BlogSection";
 import Testimonials from "../components/Testimonials";
 import { useSelector, useDispatch } from "react-redux";
 import { setActiveTab } from "../redux/navSlice";
+import Fade from "react-reveal/Fade";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -24,11 +25,20 @@ const Home = () => {
       <Carousel />
       <Features />
       <Categories />
-      <Products type="home"/>
+      <Fade>
+        <Products type="home" />
+      </Fade>
       <SeparatorButton categoryId="28235" />
+
       <BlogSection />
-      <Testimonials />
-      <About />
+
+      <Fade>
+        <Testimonials />
+      </Fade>
+      <Fade>
+        <About />
+      </Fade>
+
       <Footer />
     </Container>
   );
@@ -38,5 +48,5 @@ export default Home;
 
 const Container = styled.div`
   overflow-x: hidden;
-  background-color: #F4F4F4;
+  background-color: #f4f4f4;
 `;

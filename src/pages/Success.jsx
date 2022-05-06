@@ -76,9 +76,14 @@ const OrderNumber = styled.span``;
 const OrderText = styled.p``;
 const ContinueShoppingButton = styled.button`
     margin-top: 20px;
-    background-color: gray;
+    background-color: black;
     color: white;
     padding: 8px 16px;
     border-radius: 2px;
+    font-weight: 500;
     cursor: pointer;
+    transition: transform 0.167s ease-in-out;
+    :hover {
+      transform: scale(1.1);
+    }
 `;

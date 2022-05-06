@@ -115,30 +115,6 @@ export const BlogItems = [
     image: "/images/blog-image-2.jpg",
     comments: 2,
   },
-  {
-    id: 4,
-    title: "This product can be worn for any occasion!",
-    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    author: "Admin",
-    image: "/images/blog-image-1.jpg",
-    comments: 4,
-  },
-  {
-    id: 5,
-    title: "This product can be worn for any occasion!",
-    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    author: "Admin",
-    image: "/images/blog-image-3.jpg",
-    comments: 8,
-  },
-  {
-    id: 6,
-    title: "This product can be worn for any occasion!",
-    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    author: "Admin",
-    image: "/images/blog-image-2.jpg",
-    comments: 2,
-  },
 ];
 
 export const TestimonialItems = [

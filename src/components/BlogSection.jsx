@@ -8,53 +8,56 @@ import SeparatorButton from "./SeparatorButton";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
+import Fade from "react-reveal/Fade";
 
 import "swiper/swiper.min.css";
 import "swiper/modules/navigation/navigation.min.css";
 
 const BlogSection = () => {
   return (
-    <Container>
-      <SectionTitle>LATEST BLOGS</SectionTitle>
-      <Swiper
-        slidesPerView={3}
-        slidesPerGroup={3}
-        loop={true}
-        loopFillGroupWithBlank={true}
-        spaceBetween={30}
-        navigation={true}
-        modules={[Navigation]}
-        className="mySwiper"
-      >
-        {BlogItems.map((item, i) => (
-          <SwiperSlide>
-            <BlogItem>
-              <Top>
-                <BlogImage src={item.image} alt="" />
-              </Top>
-              <Middle>
-                <Author>
-                  <PersonOutlinedIcon className="user icon" />
-                  {item.author}
-                </Author>
-                <Comments>
-                  <ChatOutlinedIcon className="comment icon" />
-                  {item.comments} Comments
-                </Comments>
-              </Middle>
-              <Bottom>
-                <Title>{item.title}</Title>
-                <Description>{item.desc}</Description>
-                <ReadMore>
-                  READ MORE <ChevronRightOutlinedIcon />
-                </ReadMore>
-              </Bottom>
-            </BlogItem>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-      <SeparatorButton />
-    </Container>
+    <Fade>
+      <Container>
+        <SectionTitle>LATEST BLOGS</SectionTitle>
+        <Swiper
+          slidesPerView={3}
+          slidesPerGroup={3}
+          loop={true}
+          loopFillGroupWithBlank={true}
+          spaceBetween={30}
+          navigation={true}
+          modules={[Navigation]}
+          className="mySwiper"
+        >
+          {BlogItems.map((item, i) => (
+            <SwiperSlide>
+              <BlogItem>
+                <Top>
+                  <BlogImage src={item.image} alt="" />
+                </Top>
+                <Middle>
+                  <Author>
+                    <PersonOutlinedIcon className="user icon" />
+                    {item.author}
+                  </Author>
+                  <Comments>
+                    <ChatOutlinedIcon className="comment icon" />
+                    {item.comments} Comments
+                  </Comments>
+                </Middle>
+                <Bottom>
+                  <Title>{item.title}</Title>
+                  <Description>{item.desc}</Description>
+                  <ReadMore>
+                    READ MORE <ChevronRightOutlinedIcon />
+                  </ReadMore>
+                </Bottom>
+              </BlogItem>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <SeparatorButton />
+      </Container>
+    </Fade>
   );
 };
 
@@ -80,7 +83,6 @@ const Container = styled.section`
     }
   }
 `;
-
 
 const BlogItem = styled.div`
   flex: 1;

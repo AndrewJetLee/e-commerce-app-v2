@@ -175,7 +175,7 @@ const Products = ({
         {type === "home" && <SectionTitle>FEATURED PRODUCTS</SectionTitle>}
         <Wrapper>
           {loading &&
-            Array(12)
+            Array(8)
               .fill("")
               .map((item, i) => (
                 <Skeleton
