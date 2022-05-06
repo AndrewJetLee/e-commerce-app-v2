@@ -2,13 +2,13 @@
 <br />
 <p align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="https://github.com/AndrewJetLee/e-commerce-app-v2-client/blob/main/public/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://github.com/AndrewJetLee/e-commerce-app-v2-client/blob/master/public/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Anime Archive</h3>
+  <h3 align="center">Bussin Threads</h3>
 
   <p align="center">
-    Totally not just MAL
+    E-commerce web application
     <br />
     <a href="https://github.com/AndrewJetLee/anime-archive-client/"><strong>Explore the docs »</strong></a>
     <br />
@@ -79,13 +79,16 @@ This section should list any major frameworks that you built your project using.
 * [Styled Components](https://styled-components.com/)
 * [Material UI](https://mui.com/)
 * [Mongodb](https://www.mongodb.com/)
-* [Passport](http://www.passportjs.org/)
+* [JWT](https://jwt.io/)
+* [Stripe](https://stripe.com/)
+* [Redux](https://redux.js.org/)
 
 
 ## Getting Started
 
 
 First, install the dependencies:
+
 
 ```bash
 npm install
@@ -122,7 +125,7 @@ An application that provides its users with the ability to find information abou
 * Homepage uses react states and refs to implement lazy skeleton loading upon scroll to a particular element on the page in order to circumvent the rate-limitation of the Jikan API.
 * The Swiper library was also used to create the carousels that are "swipable" on touch-screen devices. 
 
-![aa-home-page](https://user-images.githubusercontent.com/73206753/162072871-f7d62e42-525c-40e6-872d-d8504da2d969.gif)
+![bt-homepage](https://user-images.githubusercontent.com/73206753/167056406-a29700ce-7bd0-47de-80fb-04a7ee18eedc.gif)
 
 
 
