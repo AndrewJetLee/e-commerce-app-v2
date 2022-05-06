@@ -25,7 +25,7 @@ const Features = () => {
           <CreditScoreOutlinedIcon className="credit icon"/>
           <FeatureText>
             <h3>100% Payment Secure</h3>
-            <p>Lorem Ipsum something something</p>
+            <p>Guaranteed safe & secure checkout</p>
           </FeatureText>
         </Right>
       </Wrapper>
