@@ -54,7 +54,8 @@
 ## About The Project
 
 
-![aa-homepage-image](https://user-images.githubusercontent.com/73206753/162338698-f42dab4d-c0a8-4792-9f73-eff9536b8191.png)
+![bt-homepage-image](https://user-images.githubusercontent.com/73206753/167056817-c5f933be-7e65-4245-8ff7-8c9f68f0d879.png)
+
 
 An application that provides its users with the ability to find information about their favorite anime and manga and organize them in a user personalized list. 
 
