@@ -11,7 +11,7 @@ export const carouselItems = [
     id: 2,
     img: "/images/slide-image-2.png",
     title: "Men's Collection",
-    desc: "Kings get 30% off!",
+    desc: "From sharp office shirts and suits to tees and tanks!",
     category: "27110",
     tab: "mens"
   },
@@ -115,28 +115,46 @@ export const BlogItems = [
     image: "/images/blog-image-2.jpg",
     comments: 2,
   },
-  {
-    id: 4,
-    title: "This product can be worn for any occasion!",
-    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    author: "Admin",
-    image: "/images/blog-image-1.jpg",
-    comments: 4,
-  },
-  {
-    id: 5,
-    title: "This product can be worn for any occasion!",
-    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    author: "Admin",
-    image: "/images/blog-image-3.jpg",
-    comments: 8,
-  },
-  {
-    id: 6,
-    title: "This product can be worn for any occasion!",
-    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    author: "Admin",
-    image: "/images/blog-image-2.jpg",
-    comments: 2,
-  },
 ];
+
+export const TestimonialItems = [
+  {
+    id: 1, 
+    image: "/images/testimonial-image-1.jpg",
+    name: "JOHN DOE",
+    title: "Verified Buyer",
+    review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+    enim ad minim veniam, quis nostrud exercitation ullamco laboris
+    nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+    in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+    nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+    sunt in culpa qui officia deserunt mollit anim id est laborum.`,
+  },
+  {
+    id: 2, 
+    image: "/images/testimonial-image-2.jpg",
+    name: "DOHN JOE",
+    title: "Verified Buyer",
+    review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+    enim ad minim veniam, quis nostrud exercitation ullamco laboris
+    nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+    in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+    nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+    sunt in culpa qui officia deserunt mollit anim id est laborum.`,
+  },
+  {
+    id: 1, 
+    image: "/images/testimonial-image-3.jpg",
+    name: "JANE DOE",
+    title: "Verified Buyer",
+    review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+    enim ad minim veniam, quis nostrud exercitation ullamco laboris
+    nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+    in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+    nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+    sunt in culpa qui officia deserunt mollit anim id est laborum.`,
+  }
+]

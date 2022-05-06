@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
-import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
@@ -15,8 +14,7 @@ const Success = () => {
   console.log(location);
   return (
     <>
-      <Navbar />
-      <Announcement />
+      <Navbar hidden="true"/>
       <Container>
         <Content>
           <CheckCircleOutlineIcon className="checkIcon" />
@@ -78,9 +76,14 @@ const OrderNumber = styled.span``;
 const OrderText = styled.p``;
 const ContinueShoppingButton = styled.button`
     margin-top: 20px;
-    background-color: gray;
+    background-color: black;
     color: white;
     padding: 8px 16px;
     border-radius: 2px;
+    font-weight: 500;
     cursor: pointer;
+    transition: transform 0.167s ease-in-out;
+    :hover {
+      transform: scale(1.1);
+    }
 `;

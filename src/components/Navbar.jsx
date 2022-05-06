@@ -3,7 +3,7 @@ import { ShoppingCartOutlined, Search } from "@mui/icons-material/";
 import { mobile } from "../responsive";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { logout } from "../redux/userSlice";
 import { setActiveTab } from "../redux/navSlice";
 import {
@@ -15,6 +15,7 @@ import {
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PersonIcon from "@mui/icons-material/Person";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import Alert from "./Alert";
 
 const Navbar = ({ hidden }) => {
   const dispatch = useDispatch();
@@ -23,6 +24,8 @@ const Navbar = ({ hidden }) => {
   const favoritesQuantity = useSelector((state) => state.cart.favorites);
   const activeTab = useSelector((state) => state.nav.activeTab);
   const user = useSelector((state) => state.user.currentUser);
+  const [alertStatus, setAlertStatus] = useState(false);
+  const [accountDropDown, toggleAccountDropdown] = useState(false);
   const [query, setQuery] = useState("");
 
   const handleSubmit = (e) => {
@@ -46,21 +49,46 @@ const Navbar = ({ hidden }) => {
     if (tab === "womens") navigate("/products/27108");
     if (tab === "active") navigate("/products/26090");
     if (tab === "accessories") navigate("/products/50062");
-    // if (tab === "contact") https://www.linkedin.com/in/andrewjetlee/;
+  };
+
+  const handleAlert = () => {
+    setAlertStatus(true);
+    setTimeout(() => {
+      setAlertStatus(false);
+    }, 3000);
+  };
+
+  const handleClickAccount = () => {
+    !user ? handleAlert() : toggleAccountDropdown(true);
   };
 
   return (
     <Container>
+      <Alert
+        type="error"
+        status={alertStatus}
+        message="Please login to access account"
+      />
+
       <Content>
         <Top>
           <TopWrapper>
             <Socials>
-              <FacebookOutlined className="social icon facebook"></FacebookOutlined>
-              <LinkedIn className="social icon linkedin"></LinkedIn>
-              <GitHub className="social icon github"></GitHub>
-              <Email className="social icon email"></Email>
+              <SocialWrapper href="">
+                <FacebookOutlined className="social icon facebook"></FacebookOutlined>
+              </SocialWrapper>
+              <SocialWrapper href="https://www.linkedin.com/in/andrewjetlee/">
+                <LinkedIn className="social icon linkedin"></LinkedIn>
+              </SocialWrapper>
+              <SocialWrapper href="https://github.com/AndrewJetLee">
+                <GitHub className="social icon github"></GitHub>
+              </SocialWrapper>
+              <SocialWrapper href="">
+                <Email className="social icon email"></Email>
+              </SocialWrapper>
             </Socials>
-            <Account>
+
+            <Account onClick={handleClickAccount}>
               <PersonIcon className="account icon person" />
               My Account
               <KeyboardArrowDownIcon className="account icon down" />
@@ -191,6 +219,11 @@ const Socials = styled.div`
     margin-right: 4px;
     cursor: pointer;
   }
+`;
+
+const SocialWrapper = styled.a`
+  display: flex;
+  align-items: center;
 `;
 
 const Account = styled.div`

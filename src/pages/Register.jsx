@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import Announcement from "../components/Announcement";
 import { useState } from "react";
 import { tablet } from "../responsive";
 import { register } from "../redux/apiCalls";
@@ -140,8 +139,7 @@ const Register = () => {
           </Message>
         </SuccessModal>
       )}
-      <Navbar />
-      <Announcement />
+      <Navbar hidden="true"/>
       <Content>
         <Form onChange={handleChange}>
           <Title>CREATE ACCOUNT</Title>
@@ -260,7 +258,7 @@ const Title = styled.span`
 `;
 
 const Submit = styled.button`
-  background-color: #0E185F;
+  background-color: black;
   color: white;
   width: 80%;
   height: 50px;

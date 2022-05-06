@@ -22,12 +22,13 @@ const Home = () => {
     <Container>
       <Navbar />
       <Carousel />
+
       <Features />
       <Categories />
-      <Products type="home"/>
-      <SeparatorButton categoryId="28235" />
+      <Products type="home" />
       <BlogSection />
       <Testimonials />
+
       <About />
       <Footer />
     </Container>
@@ -38,5 +39,5 @@ export default Home;
 
 const Container = styled.div`
   overflow-x: hidden;
-  background-color: #F4F4F4;
+  background-color: #f4f4f4;
 `;

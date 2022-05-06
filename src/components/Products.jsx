@@ -2,14 +2,27 @@ import styled from "styled-components";
 import Product from "./Product";
 import { SectionTitle } from "../components/Testimonials";
 import { mobile, tablet } from "../responsive";
+import { primaryColor } from "../responsive";
 import { useState, useEffect } from "react";
-import { publicRequest, asosRequest } from "../requestMethods";
+import { asosRequest } from "../requestMethods";
 import { Skeleton } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
+import SeparatorButton from "../components/SeparatorButton";
+import Fade from "react-reveal/Fade";
 
-const Products = ({ query, categoryId, setCategoryId, filter, sortRef, sort, type }) => {
+const Products = ({
+  query,
+  categoryId,
+  setCategoryId,
+  filter,
+  sortRef,
+  sort,
+  type,
+}) => {
   const [products, setProducts] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [loading, toggleLoading] = useState(false);
+  const [loadMore, toggleLoadMore] = useState(false);
   const [title, setTitle] = useState("");
   const [offset, setOffset] = useState(0);
   const [hasNextPage, setHasNextPage] = useState(false);
@@ -133,53 +146,71 @@ const Products = ({ query, categoryId, setCategoryId, filter, sortRef, sort, typ
 
   useEffect(() => {
     const handleLoadMore = async () => {
-      const res = await asosRequest.get(
-        `${baseUrl}&categoryId=${categoryId}${query ? `&q=${query}` : ""}${
-          sort ? `&sort=${sort}` : ""
-        }`
-      );
-      setFiltered([...filtered, ...res.data.products]);
-      setProducts([...products, res.data.products]);
+      try {
+        toggleLoadMore(true);
+        const res = await asosRequest.get(
+          `${baseUrl}&categoryId=${categoryId}${query ? `&q=${query}` : ""}${
+            sort ? `&sort=${sort}` : ""
+          }`
+        );
+        setFiltered([...filtered, ...res.data.products]);
+        setProducts([...products, res.data.products]);
+        toggleLoadMore(false);
+      } catch (err) {
+        console.log(err);
+      }
     };
     type !== "home" && handleLoadMore();
   }, [offset]);
 
   return (
     <>
-      {type !== "home" && (
+      {loading && (
+        <Title>
+          <Skeleton variant="rectangular" width={250} height={40} />
+        </Title>
+      )}
+      {type !== "home" && !loading && (
         <Title> {categoryId ? title : `Showing results for: ${query}`}</Title>
       )}
-      <Container type={type}>
-        { type === "home" && <SectionTitle>FEATURED PRODUCTS</SectionTitle>}
-        <Wrapper>
-          {loading &&
-            Array(20)
-              .fill("")
-              .map((item, i) => (
-                <Skeleton
-                  variant="rectangular"
-                  width={300}
-                  height={380}
-                  sx={{
-                    marginBottom: "30px",
-                  }}
-                  key={i}
-                />
-              ))}
-          {type === "home" && !loading
-            ? products
-                .slice(0, 8)
-                .map((item, key) => <Product item={item} key={key} />)
-            : (categoryId || query) &&
-              !loading &&
-              filtered?.map((item, key) => <Product item={item} key={key} />)}
-        </Wrapper>
-        {type !== "home" && hasNextPage && (
-          <LoadWrapper onClick={() => setOffset(offset + 45)}>
-            <LoadMore>LOAD MORE</LoadMore>
-          </LoadWrapper>
-        )}
-      </Container>
+      <Fade>
+        <Container type={type}>
+          {type === "home" && <SectionTitle>FEATURED PRODUCTS</SectionTitle>}
+          <Wrapper>
+            {loading &&
+              Array(8)
+                .fill("")
+                .map((item, i) => (
+                  <Skeleton
+                    variant="rectangular"
+                    width={300}
+                    height={380}
+                    sx={{
+                      marginBottom: "30px",
+                    }}
+                    key={i}
+                  />
+                ))}
+            {type === "home" && !loading
+              ? products
+                  .slice(0, 8)
+                  .map((item, key) => <Product item={item} key={key} />)
+              : (categoryId || query) &&
+                !loading &&
+                filtered?.map((item, key) => <Product item={item} key={key} />)}
+          </Wrapper>
+          {type === "home" && <SeparatorButton categoryId="28235" />}
+          {type !== "home" && hasNextPage && (
+            <LoadWrapper onClick={() => setOffset(offset + 45)}>
+              {loadMore ? (
+                <CircularProgress color="inherit" />
+              ) : (
+                <LoadMore>LOAD MORE</LoadMore>
+              )}
+            </LoadWrapper>
+          )}
+        </Container>
+      </Fade>
     </>
   );
 };
@@ -192,7 +223,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: ${ props => props.type === "home" && "#F4F4F4"}
+  background-color: ${(props) => props.type === "home" && "#F4F4F4"};
 `;
 
 const Wrapper = styled.div`
@@ -209,6 +240,8 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.h1`
+  display: flex;
+  justify-content: center;
   position: relative;
   top: -150px;
   padding-bottom: 15px;
@@ -222,6 +255,7 @@ const LoadWrapper = styled.div`
   width: 100%;
   justify-content: center;
   margin-top: 30px;
+  color: ${primaryColor};
 `;
 
 const LoadMore = styled.button`
@@ -232,8 +266,9 @@ const LoadMore = styled.button`
   font-size: 16px;
   margin-bottom: 32px;
   cursor: pointer;
-  transition: filter 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   :hover {
-    filter: brightness(80%);
+    color: white;
+    background-color: black;
   }
 `;

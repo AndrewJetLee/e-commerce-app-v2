@@ -2,21 +2,26 @@ import styled from "styled-components";
 import CategoryItem from "./CategoryItem";
 import { CategoriesItemsRowOne, CategoriesItemsRowTwo } from "../dummyData";
 import { mobile } from "../responsive";
+import Fade from "react-reveal/Fade";
 
 const Categories = () => {
   return (
     <Container>
       <Content>
-        <Items>
-          {CategoriesItemsRowOne.map((item, key) => (
-            <CategoryItem item={item} key={key} />
-          ))}
-        </Items>
-        <Items>
-          {CategoriesItemsRowTwo.map((item, key) => (
-            <CategoryItem item={item} key={key} />
-          ))}
-        </Items>
+        <Fade>
+          <Items>
+            {CategoriesItemsRowOne.map((item, key) => (
+              <CategoryItem item={item} key={key} />
+            ))}
+          </Items>
+        </Fade>
+        <Fade>
+          <Items>
+            {CategoriesItemsRowTwo.map((item, key) => (
+              <CategoryItem item={item} key={key} />
+            ))}
+          </Items>
+        </Fade>
       </Content>
     </Container>
   );
