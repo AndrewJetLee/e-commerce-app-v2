@@ -21,25 +21,17 @@ const Home = () => {
 
   return (
     <Container>
-      <Navbar />
-      <Carousel />
-      <Features />
-      <Categories />
       <Fade>
+        <Navbar />
+        <Carousel />
+        <Features />
+        <Categories />
         <Products type="home" />
-      </Fade>
-      <SeparatorButton categoryId="28235" />
-
-      <BlogSection />
-
-      <Fade>
+        <BlogSection />
         <Testimonials />
-      </Fade>
-      <Fade>
         <About />
+        <Footer />
       </Fade>
-
-      <Footer />
     </Container>
   );
 };

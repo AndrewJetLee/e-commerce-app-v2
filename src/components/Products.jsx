@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { asosRequest } from "../requestMethods";
 import { Skeleton } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
+import SeparatorButton from "../components/SeparatorButton";
 
 const Products = ({
   query,
@@ -196,6 +197,7 @@ const Products = ({
               !loading &&
               filtered?.map((item, key) => <Product item={item} key={key} />)}
         </Wrapper>
+        { type === "home" &&  <SeparatorButton categoryId="28235" />}
         {type !== "home" && hasNextPage && (
           <LoadWrapper onClick={() => setOffset(offset + 45)}>
             {loadMore ? <CircularProgress color="inherit"/> : <LoadMore>LOAD MORE</LoadMore>}
