@@ -84,7 +84,7 @@ const Cart = () => {
               <EmptyCartText>Your cart is currently empty.</EmptyCartText>
               <ReturnButton
                 onClick={() => {
-                  navigate("/products/new");
+                  navigate("/");
                 }}
               >
                 RETURN TO SHOP
@@ -234,7 +234,8 @@ const LeftButton = styled.button`
   ${mobile({
     padding: "4px",
     fontSize: "12px",
-  })}
+  })};
+  
 `;
 const CenterLinks = styled.div`
   display: flex;
@@ -250,14 +251,14 @@ const CenterLink = styled.a`
 `;
 
 const RightButton = styled.button`
-  padding: 8px;
+  padding: 8px 16px;
   background-color: black;
   color: white;
   cursor: pointer;
   ${mobile({
     padding: "4px",
     fontSize: "12px",
-  })}
+  })};
 `;
 
 const Bottom = styled.div`
@@ -390,5 +391,10 @@ const ReturnButton = styled.button`
   color: white;
   padding: 8px 24px;
   font-size: 12px;
+  font-weight: 500;
   cursor: pointer;
+  transition: transform 0.167s ease-in-out;
+  :hover {
+    transform: scale(1.1);
+  }
 `;
