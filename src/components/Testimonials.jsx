@@ -4,40 +4,41 @@ import { Swiper, SwiperSlide } from "swiper/react/swiper-react";
 import { primaryColor } from "../responsive";
 import SeparatorButton from "./SeparatorButton";
 import { TestimonialItems } from "../dummyData";
+import Fade from "react-reveal/Fade";
 
 import "swiper/swiper.min.css";
 import "swiper/modules/navigation/navigation.min.css";
 
 const Testimonials = () => {
   return (
-    <Container>
-      <SectionTitle>CUSTOMER TESTIMONIALS</SectionTitle>
-      <Swiper
-        slidesPerView={1}
-        slidesPerGroup={1}
-        loop={true}
-        loopFillGroupWithBlank={true}
-        navigation={true}
-        modules={[Navigation]}
-        className="mySwiper"
-      >
-        {TestimonialItems.map((item, i) => (
-          <SwiperSlide>
-            <Testimonial>
-              <Wrapper>
-                <CustomerImage src={item.image} />
-                <CustomerName>{item.name}</CustomerName>
-                <CustomerTitle>{item.title}</CustomerTitle>
-                <CustomerReview>
-                  {item.review}
-                </CustomerReview>
-              </Wrapper>
-            </Testimonial>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-      <SeparatorButton></SeparatorButton>
-    </Container>
+    <Fade>
+      <Container>
+        <SectionTitle>CUSTOMER TESTIMONIALS</SectionTitle>
+        <Swiper
+          slidesPerView={1}
+          slidesPerGroup={1}
+          loop={true}
+          loopFillGroupWithBlank={true}
+          navigation={true}
+          modules={[Navigation]}
+          className="mySwiper"
+        >
+          {TestimonialItems.map((item, i) => (
+            <SwiperSlide>
+              <Testimonial>
+                <Wrapper>
+                  <CustomerImage src={item.image} />
+                  <CustomerName>{item.name}</CustomerName>
+                  <CustomerTitle>{item.title}</CustomerTitle>
+                  <CustomerReview>{item.review}</CustomerReview>
+                </Wrapper>
+              </Testimonial>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <SeparatorButton></SeparatorButton>
+      </Container>
+    </Fade>
   );
 };
 

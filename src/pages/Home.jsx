@@ -11,7 +11,6 @@ import BlogSection from "../components/BlogSection";
 import Testimonials from "../components/Testimonials";
 import { useSelector, useDispatch } from "react-redux";
 import { setActiveTab } from "../redux/navSlice";
-import Fade from "react-reveal/Fade";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -21,17 +20,17 @@ const Home = () => {
 
   return (
     <Container>
-      <Fade>
-        <Navbar />
-        <Carousel />
-        <Features />
-        <Categories />
-        <Products type="home" />
-        <BlogSection />
-        <Testimonials />
-        <About />
-        <Footer />
-      </Fade>
+      <Navbar />
+      <Carousel />
+
+      <Features />
+      <Categories />
+      <Products type="home" />
+      <BlogSection />
+      <Testimonials />
+
+      <About />
+      <Footer />
     </Container>
   );
 };

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setActiveTab } from "../redux/navSlice";
+import Fade from "react-reveal/Fade";
 
 const Carousel = () => {
   const navigate = useNavigate();
@@ -37,33 +38,35 @@ const Carousel = () => {
   };
 
   return (
-    <Container>
-      <Arrow direction="left" onClick={() => handleClick("left")}>
-        <ArrowLeft />
-      </Arrow>
-      <Slides slideIndex={slideIndex}>
-        {carouselItems.map((item, key) => (
-          <Slide key={key}>
-            <SlideImageContainer>
-              <SlideImage src={item.img} alt=""></SlideImage>
-            </SlideImageContainer>
-            <SlideInfoContainer>
-              <SlideInfoCollection>2022 NEW COLLECTION</SlideInfoCollection>
-              <SlideInfoTitle>{item.title}</SlideInfoTitle>
-              <SlideInfoDescription>{item.desc}</SlideInfoDescription>
-              <SlideInfoButton
-                onClick={() => handleClickShop(item.category, item.tab)}
-              >
-                Shop Now
-              </SlideInfoButton>
-            </SlideInfoContainer>
-          </Slide>
-        ))}
-      </Slides>
-      <Arrow direction="right" onClick={() => handleClick("right")}>
-        <ArrowRight />
-      </Arrow>
-    </Container>
+    <Fade>
+      <Container>
+        <Arrow direction="left" onClick={() => handleClick("left")}>
+          <ArrowLeft />
+        </Arrow>
+        <Slides slideIndex={slideIndex}>
+          {carouselItems.map((item, key) => (
+            <Slide key={key}>
+              <SlideImageContainer>
+                <SlideImage src={item.img} alt=""></SlideImage>
+              </SlideImageContainer>
+              <SlideInfoContainer>
+                <SlideInfoCollection>2022 NEW COLLECTION</SlideInfoCollection>
+                <SlideInfoTitle>{item.title}</SlideInfoTitle>
+                <SlideInfoDescription>{item.desc}</SlideInfoDescription>
+                <SlideInfoButton
+                  onClick={() => handleClickShop(item.category, item.tab)}
+                >
+                  Shop Now
+                </SlideInfoButton>
+              </SlideInfoContainer>
+            </Slide>
+          ))}
+        </Slides>
+        <Arrow direction="right" onClick={() => handleClick("right")}>
+          <ArrowRight />
+        </Arrow>
+      </Container>
+    </Fade>
   );
 };
 

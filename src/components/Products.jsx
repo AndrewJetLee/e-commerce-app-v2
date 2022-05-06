@@ -8,6 +8,7 @@ import { asosRequest } from "../requestMethods";
 import { Skeleton } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import SeparatorButton from "../components/SeparatorButton";
+import Fade from "react-reveal/Fade";
 
 const Products = ({
   query,
@@ -172,38 +173,44 @@ const Products = ({
       {type !== "home" && !loading && (
         <Title> {categoryId ? title : `Showing results for: ${query}`}</Title>
       )}
-      <Container type={type}>
-        {type === "home" && <SectionTitle>FEATURED PRODUCTS</SectionTitle>}
-        <Wrapper>
-          {loading &&
-            Array(8)
-              .fill("")
-              .map((item, i) => (
-                <Skeleton
-                  variant="rectangular"
-                  width={300}
-                  height={380}
-                  sx={{
-                    marginBottom: "30px",
-                  }}
-                  key={i}
-                />
-              ))}
-          {type === "home" && !loading
-            ? products
-                .slice(0, 8)
-                .map((item, key) => <Product item={item} key={key} />)
-            : (categoryId || query) &&
-              !loading &&
-              filtered?.map((item, key) => <Product item={item} key={key} />)}
-        </Wrapper>
-        { type === "home" &&  <SeparatorButton categoryId="28235" />}
-        {type !== "home" && hasNextPage && (
-          <LoadWrapper onClick={() => setOffset(offset + 45)}>
-            {loadMore ? <CircularProgress color="inherit"/> : <LoadMore>LOAD MORE</LoadMore>}
-          </LoadWrapper>
-        )}
-      </Container>
+      <Fade>
+        <Container type={type}>
+          {type === "home" && <SectionTitle>FEATURED PRODUCTS</SectionTitle>}
+          <Wrapper>
+            {loading &&
+              Array(8)
+                .fill("")
+                .map((item, i) => (
+                  <Skeleton
+                    variant="rectangular"
+                    width={300}
+                    height={380}
+                    sx={{
+                      marginBottom: "30px",
+                    }}
+                    key={i}
+                  />
+                ))}
+            {type === "home" && !loading
+              ? products
+                  .slice(0, 8)
+                  .map((item, key) => <Product item={item} key={key} />)
+              : (categoryId || query) &&
+                !loading &&
+                filtered?.map((item, key) => <Product item={item} key={key} />)}
+          </Wrapper>
+          {type === "home" && <SeparatorButton categoryId="28235" />}
+          {type !== "home" && hasNextPage && (
+            <LoadWrapper onClick={() => setOffset(offset + 45)}>
+              {loadMore ? (
+                <CircularProgress color="inherit" />
+              ) : (
+                <LoadMore>LOAD MORE</LoadMore>
+              )}
+            </LoadWrapper>
+          )}
+        </Container>
+      </Fade>
     </>
   );
 };
