@@ -5,7 +5,7 @@
     <img src="https://github.com/AndrewJetLee/e-commerce-app-v2-client/blob/master/public/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Bussin Threads (WIP)</h3>
+  <h3 align="center">Thread Bank (WIP)</h3>
 
   <p align="center">
     E-commerce web application
@@ -57,7 +57,7 @@
 ![bt-homepage-image](https://user-images.githubusercontent.com/73206753/167056817-c5f933be-7e65-4245-8ff7-8c9f68f0d879.png)
 
 
-An e-commerce web application that provides its users to browse for products, add products onto a cart, and checkout securely and easily. 
+An e-commerce web application that provides its users to browse for products, edit user personalized cart, and checkout securely. 
 
 
 **Objectives:** 
