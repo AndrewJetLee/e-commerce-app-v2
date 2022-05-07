@@ -21,7 +21,7 @@ export default Alert;
 const Container = styled.div`
   padding: 8px 14px; 
   position: fixed;
-  top: 160px;
+  top: 100px;
   right: 140px;
   display: flex;
   justify-content: space-around;
