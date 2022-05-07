@@ -61,7 +61,7 @@ An e-commerce web application that provides its users to browse for products, ad
 
 
 **Objectives:** 
-* Create MERN application from scratch that utilizes an external public API
+* Create MERN application from scratch that utilizes a REST API
 * Gain experience in user-authentication using JSON Web Token without the use of Passport strategies
 * Solidify MVC architectural principles to better organize and structure code
 * Employ global state management and data persistence using Redux
@@ -125,18 +125,17 @@ An e-commerce web application that provides its users to browse for products, ad
 
 
 * Homepage contains multiple components that use Redux for global state storage and management while dynamically rendering depending on the state (e.g. Top navigation component account dropdown, favorite badge, cart badge, active tabs) 
-  * Carousel made from stratch without the use of a library. 
-  * Transitions and fade effects that animates between each section 
+* Carousel made from stratch without the use of a library. 
+* Transitions and fade effects that animates between each section 
+
 
 ![bt-homepage](https://user-images.githubusercontent.com/73206753/167056406-a29700ce-7bd0-47de-80fb-04a7ee18eedc.gif)
 
 
+* Reusable components were recycled in various pages (e.g. Products component as shown below renders a grid layout of product elements)
+* Navbar search uses ASOS API to find queried results and renders results onto the product component
 
-
-* Reusable components were recycled in various pages. 
-* E.g. List component as shown below renders a grid layout of media elements with infinite scroll functionality on the browse page. 
-
-![aa-browse-page](https://user-images.githubusercontent.com/73206753/162075224-4cd63406-021b-4b56-bb76-f4e8c085e1da.gif)
+![bt-navsearch](https://user-images.githubusercontent.com/73206753/167232598-b42f899b-3c17-499b-9cdd-e0b295767f39.gif)
 
 
 
