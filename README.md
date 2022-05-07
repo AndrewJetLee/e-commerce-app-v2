@@ -5,19 +5,19 @@
     <img src="https://github.com/AndrewJetLee/e-commerce-app-v2-client/blob/master/public/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Bussin Threads</h3>
+  <h3 align="center">Bussin Threads (WIP)</h3>
 
   <p align="center">
     E-commerce web application
     <br />
-    <a href="https://github.com/AndrewJetLee/anime-archive-client/"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/AndrewJetLee/e-commerce-app-v2-client/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://anime-archive.netlify.app/">View Demo</a>
+    <a href="">View Demo</a>
     ·
-    <a href="https://github.com/AndrewJetLee/anime-archive-client/issues">Report Bug</a>
+    <a href="https://github.com/AndrewJetLee/e-commerce-app-v2-client/issues">Report Bug</a>
     ·
-    <a href="https://github.com/AndrewJetLee/anime-archive-client/issues">Request Feature</a>
+    <a href="https://github.com/AndrewJetLee/e-commerce-app-v2-client/issues">Request Feature</a>
   </p>
 </p>
 
@@ -57,17 +57,18 @@
 ![bt-homepage-image](https://user-images.githubusercontent.com/73206753/167056817-c5f933be-7e65-4245-8ff7-8c9f68f0d879.png)
 
 
-An application that provides its users with the ability to find information about their favorite anime and manga and organize them in a user personalized list. 
+An e-commerce web application that provides its users to browse for products, add products onto a cart, and checkout securely and easily. 
 
 
 **Objectives:** 
 * Create MERN application from scratch that utilizes an external public API
-* Gain experience in session-cookie based user-authentication
+* Gain experience in user-authentication using JSON Web Token without the use of Passport strategies
 * Solidify MVC architectural principles to better organize and structure code
-* Experiment with different methods of deployment
+* Employ global state management and data persistence using Redux
+* Implement payment processing using Stripe
 
 
-**Link to project:** https://anime-archive.netlify.app/
+**Link to project:** https://github.com/AndrewJetLee/e-commerce-app-v2-client
 
 
 ### Built With
@@ -110,21 +111,22 @@ npm run build
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 
-**Note:** The client can run independently from the server. The only features you will not be able to manage are anything related to user creation and authentication (registration, login, user anime list, etc...). The server will only function if the DB_STRING and SESSION_SECRET variables are set in your .env file. It is recommended to peruse the deployed application (https://anime-archive.netlify.app/) instead of trying to get the application running on your local machine.  
+**Note:** The client can run independently from the server. The only features you will not be able to manage are anything related to user creation and authentication (registration, login, edit cart, etc...).
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
 
 ### Summary
-An application that provides its users with the ability to find information about their favorite anime and manga and organize them in a user personalized list.    
+An e-commerce web application that provides its users to browse for products, add products onto a cart, and checkout securely and easily.  
 
 
 ### Walkthrough
 
 
-* Homepage uses react states and refs to implement lazy skeleton loading upon scroll to a particular element on the page in order to circumvent the rate-limitation of the Jikan API.
-* The Swiper library was also used to create the carousels that are "swipable" on touch-screen devices. 
+* Homepage contains multiple components that use Redux for global state storage and management while dynamically rendering depending on the state (e.g. Top navigation component account dropdown, favorite badge, cart badge, active tabs) 
+  * Carousel made from stratch without the use of a library. 
+  * Transitions and fade effects that animates between each section 
 
 ![bt-homepage](https://user-images.githubusercontent.com/73206753/167056406-a29700ce-7bd0-47de-80fb-04a7ee18eedc.gif)
 
