@@ -147,9 +147,12 @@ An e-commerce web application that provides its users to browse for products, ad
 
 
 
-* The search page can filter results by multiple parameters including genre, type, status, rating and also sort these results by score, popularity, title, and rank. 
+* The register page incorporates clientside information validation using REGEX
+* Clicking register with valid credentials toggles custom modal
 
-![aa-anime-search](https://user-images.githubusercontent.com/73206753/162096544-609a7208-ecaa-4a71-96cf-bc33e64308f0.gif)
+
+![bt-register-page-error-create](https://user-images.githubusercontent.com/73206753/167275785-3a71564b-afc6-47c5-b235-077076041375.gif)
+
 
 
 * A more general search bar also exists on the top-nav that searches for anime, manga, and/or characters associated with the inputed query. 
