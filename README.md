@@ -139,11 +139,12 @@ An e-commerce web application that provides its users to browse for products, ad
 
 
 
-* The various hooks that the React API provides allows condtional API calls upon state changes. 
-* An example of this is on the seasonal page where upon selection of a different season, the page dynamically renders using a different set of data received from the Jikan API. 
-* Functional programming constructs were used clientside to filter the data in the response to sort them according to certain parameters.
+* The tabs on the navbar can be clicked to go to different pages. The active tab has unique transitions and styling to indicate which tab the user is currently in. 
+* Pages displaying products can be sorted using multiple parameters.
 
-![aa-seasonal-page](https://user-images.githubusercontent.com/73206753/162076015-d9471083-b616-4285-a51a-0a678bff14d3.gif)
+
+![bt-navbar-setactivetab-sort](https://user-images.githubusercontent.com/73206753/167274955-c0f2f9a1-cd52-41df-b518-4ad85f1c9651.gif)
+
 
 
 * The search page can filter results by multiple parameters including genre, type, status, rating and also sort these results by score, popularity, title, and rank. 
