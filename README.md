@@ -156,15 +156,15 @@ An e-commerce web application that provides its users to browse for products, ad
 ![aa-nav-search](https://user-images.githubusercontent.com/73206753/162097298-1075dd1a-b039-41f6-a5e1-66215b0e2d58.gif)
 
 
-* A MVC structured REST API was created using Node, MongoDB and Mongoose to accomodate for Jikan API's lack of CRUD functionality in regards to user information and data.
-* Information validation for registration uses REGEX clientside and passport's local strategy serverside. 
-* Encryption of sensitive information performed using Node's Crypto library
-* User authentication to access protected routes utilizes session-cookie based authentication. 
+* A MVC structured REST API was created using Node, MongoDB and Mongoose to store and edit product, cart, user, and order data.
+* Information validation for registration uses REGEX clientside and JWT serverside. 
+* Encryption of sensitive information performed using Node's Crypto library.
+* User authentication to access protected routes utilizes token-based authentication. 
 
 ![aa-register](https://user-images.githubusercontent.com/73206753/162097477-7821dd48-d7ee-4ff9-8409-54eca45f9e0f.gif)
 
 
-* User anime list has full CRUD functionality. 
+* Cart page has full CRUD functionality. 
 
 ![aa-userlist-crud](https://user-images.githubusercontent.com/73206753/162099678-912fe839-2274-42db-b4bd-328c07b2895e.gif)
 
