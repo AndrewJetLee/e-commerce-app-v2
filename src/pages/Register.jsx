@@ -40,7 +40,7 @@ const Register = () => {
   };
 
   const validateLastName = (name) => {
-    if (name.length > 1) {
+    if (name.length > 0) {
       toggleLastNameError(false);
       return true;
     }
@@ -97,10 +97,9 @@ const Register = () => {
     const validEmail = validateEmail(values.email);
     const validPassword = validatePassword(values.password);
     const validUsername = validateUsername(values.username);
-    const validNames =
-      validateFirstName(values.firstName) && validateLastName(values.lastName);
-    console.log(validNames);
-    if (validEmail && validPassword && validUsername && validNames) {
+    const validFirstName = validateFirstName(values.firstName);
+    const validLastName = validateLastName(values.lastName);
+    if (validEmail && validPassword && validUsername && validFirstName && validLastName) {
       try {
         await register(dispatch, values);
         toggleSuccess(true);
@@ -309,7 +308,7 @@ const SuccessModal = styled.div`
 `;
 
 const Message = styled.div`
-  width: 50%;
+  width: 40%;
   height: 50%;
   background-color: white;
   opacity: 1;
@@ -323,7 +322,7 @@ const Top = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 60%;
+  margin-top: 60px;
   .checkIconOutline {
     color: green;
     font-size: 70px;
@@ -344,7 +343,7 @@ const Bottom = styled.div`
     color: green;
     width: 80%;
     background-color: #cde7cd;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     padding: 15px;
     border-radius: 3px;
     .checkIcon {
@@ -352,12 +351,17 @@ const Bottom = styled.div`
     }
   }
   .continue {
-    border: solid 1px gray;
-    padding: 12px 30px;
-    border-radius: 20px;
-    color: gray;
+    background-color: white;
+    border: solid 1px black;
+    padding: 12px 50px;
+    color: black;
     font-weight: 500;
     cursor: pointer;
+    transition: all 0.167s ease-in-out;
+    :hover {
+      color: white;
+      background-color: black;
+    }
   }
 `;
 
