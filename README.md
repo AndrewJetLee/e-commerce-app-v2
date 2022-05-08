@@ -168,17 +168,17 @@ An e-commerce web application that provides its users to browse for products, ad
 * Encryption of sensitive information performed using Node's Crypto library.
 * User authentication to access protected routes utilizes token-based authentication. 
 
-![aa-register](https://user-images.githubusercontent.com/73206753/162097477-7821dd48-d7ee-4ff9-8409-54eca45f9e0f.gif)
+<!-- ![aa-register](https://user-images.githubusercontent.com/73206753/162097477-7821dd48-d7ee-4ff9-8409-54eca45f9e0f.gif) -->
 
 
 * Cart page has full CRUD functionality. 
 
-![aa-userlist-crud](https://user-images.githubusercontent.com/73206753/162099678-912fe839-2274-42db-b4bd-328c07b2895e.gif)
+<!-- ![aa-userlist-crud](https://user-images.githubusercontent.com/73206753/162099678-912fe839-2274-42db-b4bd-328c07b2895e.gif) -->
 
 
 * User list can also be filtered
 
-![aa-userlist-filter](https://user-images.githubusercontent.com/73206753/162099745-d3f1500f-dcdc-4460-85eb-1be7e0e643c6.gif)
+<!-- ![aa-userlist-filter](https://user-images.githubusercontent.com/73206753/162099745-d3f1500f-dcdc-4460-85eb-1be7e0e643c6.gif) -->
 
 
 <!-- ROADMAP -->
@@ -224,6 +224,6 @@ See the [open issues](https://github.com/othneildrew/Best-README-Template/issues
 
 Andrew Lee - [linkedin](https://www.linkedin.com/in/andrewjetlee/) - andrewjetlee777@gmail.com
 
-Project Link: [https://github.com/AndrewJetLee/anime-archive-client/](https://github.com/AndrewJetLee/anime-archive-client/)
+Project Link: [https://github.com/AndrewJetLee/e-commerce-app-v2-client/](https://github.com/AndrewJetLee/e-commerce-app-v2-client/)
 
 
