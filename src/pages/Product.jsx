@@ -1,16 +1,14 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { Remove, Add } from "@mui/icons-material/";
-import { getDiscountPercentage } from "../utility/helpers";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Price, RrpPrice, SalePrice} from "../components/Product";
+import { RrpPrice, SalePrice} from "../components/Product";
 import { useParams } from "react-router-dom";
-import { publicRequest, asosRequest } from "../requestMethods";
+import { asosRequest } from "../requestMethods";
 import { addToCart } from "../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
 import { mobile, tablet } from "../responsive";
-import { editCart } from "../redux/apiCalls";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import AssignmentReturnOutlinedIcon from "@mui/icons-material/AssignmentReturnOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -39,6 +37,7 @@ const Product = () => {
       }
     };
     getProduct();
+    window.scrollTo(0,0);
   }, []);
 
   useEffect(() => {
