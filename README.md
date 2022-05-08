@@ -5,7 +5,7 @@
     <img src="https://github.com/AndrewJetLee/e-commerce-app-v2-client/blob/master/public/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Thread Bank (WIP)</h3>
+  <h3 align="center">The Thread Bank (WIP)</h3>
 
   <p align="center">
     E-commerce web application
@@ -123,7 +123,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 
 ### Summary
-An e-commerce web application that provides its users to browse for products, add products onto a cart, and checkout securely and easily.  
+An e-commerce web application for customers to browse for products, edit a user specific cart, and checkout securely. 
 
 
 ### Walkthrough
@@ -151,34 +151,35 @@ An e-commerce web application that provides its users to browse for products, ad
 ![bt-navbar-setactivetab-sort](https://user-images.githubusercontent.com/73206753/167274955-c0f2f9a1-cd52-41df-b518-4ad85f1c9651.gif)
 
 
-
 * The register page incorporates clientside information validation using REGEX
 * Clicking register with valid credentials toggles custom modal
-* Registration uses CryptoJS for password encryption and
+* Encryption of sensitive information performed using Node's Crypto library.
 
 
 ![bt-register-page-error-create](https://user-images.githubusercontent.com/73206753/167275785-3a71564b-afc6-47c5-b235-077076041375.gif)
 
 
-* Login page uses redux error state in the user slice for clientside error handling
-* Serverside authentication uses JWT to generate access tokens that are verified in order to access protected user routes
+* Login page uses redux global error state in the user slice for clientside error handling
+* Serverside authentication uses JWT to generate access tokens upon login that are verified with each subsequent request in order to access protected user routes
 
 
 ![bt-login-page](https://user-images.githubusercontent.com/73206753/167276177-d6167c40-4b9d-4e2e-8405-d59617623251.gif)
 
 
 
-* A MVC structured REST API was created using Node, MongoDB and Mongoose to store and edit product, cart, user, and order data.
-* Information validation for registration uses REGEX clientside and JWT serverside. 
-* Encryption of sensitive information performed using Node's Crypto library.
-* User authentication to access protected routes utilizes token-based authentication. 
 
-<!-- ![aa-register](https://user-images.githubusercontent.com/73206753/162097477-7821dd48-d7ee-4ff9-8409-54eca45f9e0f.gif) -->
+* A MVC structured REST API was created using Node, MongoDB, and Mongoose to store and edit product, cart, user, and order data
+* Clicking a product routes to the product page where the user can add the item onto a cart which is stored onto the database
+
+
+![bt-product-page-add-cart](https://user-images.githubusercontent.com/73206753/167319100-a9846b8a-35ba-42d5-8e40-082bdb78255f.gif)
 
 
 * Cart page has full CRUD functionality. 
 
-<!-- ![aa-userlist-crud](https://user-images.githubusercontent.com/73206753/162099678-912fe839-2274-42db-b4bd-328c07b2895e.gif) -->
+
+![bt-cart-page-crud](https://user-images.githubusercontent.com/73206753/167319556-8430fe1a-0fbe-4f35-babf-5a1f150685ab.gif)
+
 
 
 * User list can also be filtered
