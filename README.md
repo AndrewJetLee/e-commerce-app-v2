@@ -149,15 +149,18 @@ An e-commerce web application that provides its users to browse for products, ad
 
 * The register page incorporates clientside information validation using REGEX
 * Clicking register with valid credentials toggles custom modal
+* Registration uses CryptoJS for password encryption and
 
 
 ![bt-register-page-error-create](https://user-images.githubusercontent.com/73206753/167275785-3a71564b-afc6-47c5-b235-077076041375.gif)
 
 
+* Login page uses redux error state in the user slice for clientside error handling
+* Serverside authentication uses JWT to generate access tokens that are verified in order to access protected user routes
 
-* A more general search bar also exists on the top-nav that searches for anime, manga, and/or characters associated with the inputed query. 
 
-![aa-nav-search](https://user-images.githubusercontent.com/73206753/162097298-1075dd1a-b039-41f6-a5e1-66215b0e2d58.gif)
+![bt-login-page](https://user-images.githubusercontent.com/73206753/167276177-d6167c40-4b9d-4e2e-8405-d59617623251.gif)
+
 
 
 * A MVC structured REST API was created using Node, MongoDB and Mongoose to store and edit product, cart, user, and order data.
