@@ -88,6 +88,10 @@ This section should list any major frameworks that you built your project using.
 
 ## Getting Started
 
+**Note**: This application is currently not deployed as the API it consumes charges per request after a specific threshold. To safeguard against potential request spamming, this application must currently be set up locally. Refer to the .env_sample file to set up proper environmental variables and generate API keys from the links below for full functionality. 
+* ASOS (https://rapidapi.com/apidojo/api/asos2) 
+* Stripe (https://stripe.com/docs/keys) 
+
 
 First, install the dependencies:
 
@@ -111,7 +115,8 @@ npm run build
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 
-**Note:** The client can run independently from the server. The only features you will not be able to manage are anything related to user creation and authentication (registration, login, edit cart, etc...).
+**Note:** The client can run independently from the REST API server. The only features you will not be able to manage are anything related to user creation and authentication (registration, login, edit cart, etc...). To enable these features, start up the REST API server in https://github.com/AndrewJetLee/e-commerce-app-v2-api. 
+
 
 <!-- USAGE EXAMPLES -->
 ## Usage
