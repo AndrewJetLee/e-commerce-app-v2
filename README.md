@@ -153,7 +153,7 @@ An e-commerce web application for customers to browse for products, edit a user 
 
 * The register page incorporates clientside information validation using REGEX
 * Clicking register with valid credentials toggles custom modal
-* Encryption of sensitive information performed using Node's Crypto library.
+* Encryption of sensitive information performed using Node's Crypto library
 
 
 ![bt-register-page-error-create](https://user-images.githubusercontent.com/73206753/167275785-3a71564b-afc6-47c5-b235-077076041375.gif)
@@ -175,16 +175,22 @@ An e-commerce web application for customers to browse for products, edit a user 
 ![bt-product-page-add-cart](https://user-images.githubusercontent.com/73206753/167319100-a9846b8a-35ba-42d5-8e40-082bdb78255f.gif)
 
 
-* Cart page has full CRUD functionality. 
+* Cart page has full CRUD functionality
 
 
 ![bt-cart-page-crud](https://user-images.githubusercontent.com/73206753/167319556-8430fe1a-0fbe-4f35-babf-5a1f150685ab.gif)
 
 
 
-* User list can also be filtered
+* Cart checkout uses Stripe for secure payment processing
 
-<!-- ![aa-userlist-filter](https://user-images.githubusercontent.com/73206753/162099745-d3f1500f-dcdc-4460-85eb-1be7e0e643c6.gif) -->
+
+![bt-cart-checkout](https://user-images.githubusercontent.com/73206753/167322502-71267997-ed71-4eab-823e-34118c01d3ce.gif)
+
+
+![Stripe Checkout](https://user-images.githubusercontent.com/73206753/167322634-08ccb77c-145d-4a1c-8710-a1d100323d2f.png)
+
+
 
 
 <!-- ROADMAP -->
