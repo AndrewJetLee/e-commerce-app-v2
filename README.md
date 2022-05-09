@@ -140,7 +140,8 @@ An e-commerce web application for customers to browse for products, edit a user 
 * Reusable components were recycled in various pages (e.g. Products component as shown below renders a grid layout of product elements)
 * Navbar search uses ASOS API to find queried results and renders results onto the product component
 
-![bt-navsearch](https://user-images.githubusercontent.com/73206753/167232598-b42f899b-3c17-499b-9cdd-e0b295767f39.gif)
+
+![bt-search-sort](https://user-images.githubusercontent.com/73206753/167323646-4b6b0ec5-0965-474e-8a36-21ed804bcf5a.gif)
 
 
 
@@ -148,7 +149,8 @@ An e-commerce web application for customers to browse for products, edit a user 
 * Pages displaying products can be sorted using multiple parameters.
 
 
-![bt-navbar-setactivetab-sort](https://user-images.githubusercontent.com/73206753/167274955-c0f2f9a1-cd52-41df-b518-4ad85f1c9651.gif)
+![bt-tab-load](https://user-images.githubusercontent.com/73206753/167324009-120aa0c5-1f47-47cf-b93f-7108cd16831c.gif)
+
 
 
 * The register page incorporates clientside information validation using REGEX
