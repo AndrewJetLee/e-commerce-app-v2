@@ -96,7 +96,7 @@ const CartItem = ({ item }) => {
             </RemoveWrapper>
           </AddRemoveWrapper>
         </Quantity>
-        <Total>{`$${item.price * count}`}</Total>
+        <Total>{`$${(item.price * count).toFixed(2)}`}</Total>
       </Right>
     </Wrapper>
   );
