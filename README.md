@@ -229,10 +229,10 @@ See the [open issues](https://github.com/AndrewJetLee/e-commerce-app-v2-client/i
 
 <!-- No matter what your experience level, being an engineer means continuously learning. Every time you build something you always have those *whoa this is awesome* or *fuck yeah I did it!* moments. This is where you should share those moments! Recruiters and interviewers love to see that you're self-aware and passionate about growing. -->
 
-* First time working with Redux using Redux toolkit. Creating slices 
-* Gained a much better understanding of how session-cookie based user authentication worked and how to debug cookie related issues. 
+* First time working with Redux using Redux toolkit. Creating slices made working with Redux stores and reducers much easier and is now my preferred way of using Redux.
+* Learned how to use JWT token based authentication. 
 * Worked with more complex conditional logic, especially in relation to state dependent conditional CSS rendering of styled components. 
-
+* Improved in modularizing repetitive code to reduce memory footprint.
 
 <!-- CONTACT -->
 ## Contact
