@@ -1,11 +1,11 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://github.com/AndrewJetLee/e-commerce-app-v2-client/">
     <img src="https://github.com/AndrewJetLee/e-commerce-app-v2-client/blob/master/public/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">The Thread Bank (WIP)</h3>
+  <h3 align="center">Bussin Threads (WIP)</h3>
 
   <p align="center">
     E-commerce web application
@@ -140,7 +140,8 @@ An e-commerce web application for customers to browse for products, edit a user 
 * Reusable components were recycled in various pages (e.g. Products component as shown below renders a grid layout of product elements)
 * Navbar search uses ASOS API to find queried results and renders results onto the product component
 
-![bt-navsearch](https://user-images.githubusercontent.com/73206753/167232598-b42f899b-3c17-499b-9cdd-e0b295767f39.gif)
+
+![bt-search-sort](https://user-images.githubusercontent.com/73206753/167323646-4b6b0ec5-0965-474e-8a36-21ed804bcf5a.gif)
 
 
 
@@ -148,7 +149,8 @@ An e-commerce web application for customers to browse for products, edit a user 
 * Pages displaying products can be sorted using multiple parameters.
 
 
-![bt-navbar-setactivetab-sort](https://user-images.githubusercontent.com/73206753/167274955-c0f2f9a1-cd52-41df-b518-4ad85f1c9651.gif)
+![bt-tab-load](https://user-images.githubusercontent.com/73206753/167324009-120aa0c5-1f47-47cf-b93f-7108cd16831c.gif)
+
 
 
 * The register page incorporates clientside information validation using REGEX
@@ -197,13 +199,13 @@ An e-commerce web application for customers to browse for products, edit a user 
 ## Roadmap
 
 - [ ] Make Mobile Responsive
-- [ ] Implement cloud storage for images for profile custimization
+- [ ] Create user page for user customization
 - [ ] Allow lists to be created for Manga and Characters
 - [ ] Horizontal Load balancing 
 
 
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/AndrewJetLee/e-commerce-app-v2-client/issues) for a list of proposed features (and known issues).
 
 
 ## Optimizations
@@ -211,25 +213,26 @@ See the [open issues](https://github.com/othneildrew/Best-README-Template/issues
 <!-- You don't have to include this section but interviewers *love* that you can not only deliver a final product that looks great but also functions efficiently. Did you write something then refactor it later and the result was 5x faster than the original implementation? Did you cache your assets? Things that you write in this section are **GREAT** to bring up in interviews and you can use this section as reference when studying for technical interviews! -->
 
 **Implemented:**
-* Lazy loading of components allowed for a lower perceived loading time and reduced the number of API requests per second to accomodate for the rate-limitation of the Jikan API. 
+* Global state management reduced redundant code.
 * Divided code in certain pages to separate react components to prevent the entire page from reloading on state changes on that specific component. Many of these components were also reused in various pages on the application.   
 
 
 **Potential:**
+* Considered implementing responsive images but higher resolution assets of the same images used requires a subscription fee.
 * This project serves only as a showcase. If the application was intended to go live and expect higher web loads, horizontal scaling through multiple deployments of the server should be implemented. 
 * NGINX can also be used as a load-balancer if performance needs to be further improved.
 * Database indexing and caching may also be used if data capacity grows too large.
-* Global state management (e.g. React Context or Redux) has the potential to significantly reduce redundant code 
+
 
 
 ## Lessons Learned:
 
 <!-- No matter what your experience level, being an engineer means continuously learning. Every time you build something you always have those *whoa this is awesome* or *fuck yeah I did it!* moments. This is where you should share those moments! Recruiters and interviewers love to see that you're self-aware and passionate about growing. -->
 
-* First time working with a rate-limiting API. Ultimately decided to employ lazy loading of components to reduce the number of immediate API requests. 
-* Gained a much better understanding of how session-cookie based user authentication worked and how to debug cookie related issues. 
+* First time working with Redux using Redux toolkit. Creating slices made working with Redux stores and reducers much easier and is now my preferred way of using Redux.
+* Learned how to use JWT token based authentication. 
 * Worked with more complex conditional logic, especially in relation to state dependent conditional CSS rendering of styled components. 
-
+* Improved in modularizing repetitive code to reduce memory footprint.
 
 <!-- CONTACT -->
 ## Contact
