@@ -25,7 +25,6 @@ function App() {
     if (user) {
       await getUserCart(dispatch, user._id, user.accessToken);
     } else {
-      console.log("Not logged in");
       dispatch(resetCart());
     }
   };
