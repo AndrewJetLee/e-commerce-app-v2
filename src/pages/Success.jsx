@@ -10,8 +10,6 @@ const Success = () => {
   const navigate = useNavigate();
   const data = location.state?.stripeData;
   const cart = location.state?.cart;
-  console.log(data, cart);
-  console.log(location);
   return (
     <>
       <Navbar hidden="true"/>
