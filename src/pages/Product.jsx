@@ -45,7 +45,6 @@ const Product = () => {
   }, [product]);
 
   const handleClickImage = (e) => {
-    console.log(e.target.src);
     setActiveImage(e.target.src);
   };
 
